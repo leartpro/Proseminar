@@ -1,0 +1,250 @@
+% This file provides an example Beamer presentation using the RWTH theme
+% showcasing some of the more common options, similar to the Powerpoint version
+% 12.11.2014: Revision 1 (Harold Bruintjes, Tim Lange)
+
+% For RWTH, beamer should be loaded with class option t (top)
+\documentclass[t]{beamer}
+
+% Use fontspec to get Arial font
+% Requires use of XeLaTeX
+\usepackage{fontspec}
+\setmainfont{Arial}
+\setsansfont{Arial}
+% Also force Arial for math for a more consistent look
+\usepackage{unicode-math}
+
+% German style date formatting (footer)
+\usepackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
+
+\usepackage{MnSymbol,wasysym}
+
+% Format the captions used for figures etc.
+\usepackage[compatibility=false]{caption}
+\captionsetup{singlelinecheck=off,justification=raggedleft,labelformat=empty,labelsep=none}
+
+% PGFPlots is used for drawing some of the charts
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\input{plot_commands.tex}
+
+%custom
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{automata, positioning}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\usepackage{tcolorbox}
+\usepackage{framed}
+\usepackage{forest}
+\usepackage{xcolor}
+\newcommand*{\mybox}[1]{\framebox{#1}}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+
+
+% Load the actual RWTH theme. Suggested is to load the full theme,
+% as it requires some specific dimensions
+\usetheme{rwth}
+
+\begin{document}
+
+\logo{\includegraphics{logo.png}}
+
+% Setup presentation information
+\title{Syntaktische Mehrdeutigkeiten}
+\date{20.04.2024}
+\author{Lennart Protte}
+\frame{\titlepage}
+
+\section{Grammatiken}
+\begin{frame}[fragile]
+\begin{align*}
+    & G(N,T,P,S) \\
+    & N= \{zuweisung, var, op, ausdr, num\} \\
+    & T= \{=, +, *, \bold{bez}, \bold{num}\} \\
+    & S= \{zuweisung\}  \\
+    & P = \{ \\
+    & zuweisung \rightarrow var = ausdr \\
+    & var \rightarrow \bold{bez} \\
+    & num \rightarrow \bold{num} \\
+    & ausdr \rightarrow var \mid num \mid ausdr + ausdr \mid ausdr * ausdr \\
+    & \}
+\end{align*}
+\begin{center}
+\vspace{\fill}
+\begin{lstlisting}[frame=single,escapechar=|]
+    |\mybox{in} \mybox{=} \mybox{3}|
+    |\mybox{res} \mybox{=} \mybox{2} \mybox{*} \mybox{in} \mybox{+} \mybox{7}|
+\end{lstlisting}
+\end{center}
+\end{frame}
+
+\section{Parse Baum}
+\begin{frame}
+\begin{center}
+\begin{forest}
+  [program
+    [zuweisung
+      [var
+        [\mybox{in}]
+      ]
+      [op
+        [{\mybox{=}}, content format={\forestoption{content}}]
+      ]
+      [ausdr
+        [num
+            [\mybox{3}]
+        ]
+      ]
+    ]
+    [zuweisung
+      [var
+        [\mybox{res}]
+      ]
+      [op
+        [{\mybox{=}}, content format={\forestoption{content}}]
+      ]
+      [\textcolor{blue}{ausdr}
+        [\textcolor{blue}{ausdr}
+            [\textcolor{blue}{num}
+                [\textcolor{blue}{\mybox{2}}]
+            ]
+            [\textcolor{blue}{op}
+                [\textcolor{blue}{\mybox{*}}]
+            ]
+            [\textcolor{blue}{var}
+                [\textcolor{blue}{\mybox{in}}]
+            ]
+        ]
+        [\textcolor{blue}{op}
+            [\textcolor{blue}{\mybox{+}}]
+        ]
+        [\textcolor{blue}{num}
+            [\textcolor{blue}{\mybox{7}}]
+        ]
+      ]
+    ]
+  ]
+\end{forest}
+\end{center}
+\end{frame}
+
+\section{Uneindeutigkeiten}
+\begin{frame}[fragile]
+\begin{center}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\begin{forest}
+      [ausdr
+        [ausdr
+            [num
+                [\mybox{2}]
+            ]
+            [op
+                [\mybox{*}]
+            ]
+            [var
+                [\mybox{in}]
+            ]
+        ]
+        [op
+            [\mybox{+}]
+        ]
+        [num
+            [\mybox{7}]
+        ]
+      ]
+\end{forest}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\begin{forest}
+      [ausdr
+      [num
+            [\mybox{2}]
+        ]
+        [op
+            [\mybox{*}]
+        ]
+        [ausdr
+            [var
+                [\mybox{in}]
+            ]
+            [op
+                [\mybox{+}]
+            ]
+            [num
+                [\mybox{7}]
+            ]
+        ]
+      ]
+\end{forest}
+\end{center}
+\end{column}
+\end{center}
+\end{frame}
+
+\section{Motivation}
+\begin{frame}
+\begin{center}
+        \vspace{20pt}
+        \begin{itemize}
+        \item \textbf{Bedeutung}: \par
+        Warum ist es wichtig, Doppeldeutigkeiten in Grammatiken zu vermeiden?\cite{watrous}  \par
+        
+        \vspace{10pt}
+
+        \item \textbf{Erkennung}: \par
+        Wie kann man uneindeutige Grammatiken erkennen?\cite{springer2013} 
+        
+        \vspace{10pt}
+        
+        \item \textbf{Problemstellung}: \par
+        Wie kann man Uneindeutigkeiten in Grammatiken lösen?\cite{wharton1976} 
+        
+        \vspace{10pt}
+        
+        \item \textbf{Herausforderung}: \par
+        Es gibt keine generelle Lösung für dieses Problem!\cite{thorup1994} 
+    \end{itemize}
+\end{center}
+\end{frame}
+
+% Frame with items
+\section{Aktueller Forschungsstand}
+\begin{frame}
+\centering
+\vspace{20pt}
+    \begin{itemize}
+        \setlength\itemsep{1em} % Abstand zwischen den Hauptelementen
+        \item \textbf{praktische Ansätze}:
+        \begin{itemize}
+            \setlength\itemsep{0.8em} % Abstand zwischen den Subelementen
+            \item Vorrangsregeln \cite{thorup1994}
+            \item Assotiativität
+            \item Gruppierung
+            \item Korrektur der Grammatik \cite{watrous2020}
+        \end{itemize}
+        
+        \vspace{10pt}
+        
+        \item \textbf{Probleme}:
+        \begin{itemize}
+            \setlength\itemsep{0.8em} % Abstand zwischen den Subelementen
+            \item Syntaktische Mehrdeutigkeiten \par
+            "Dangling Else"-Problem
+            \item Lexikalische Mehrdeutigkeiten \par
+            "+"-Operator
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\section{Quellen}
+\begin{frame}[allowframebreaks]
+\bibliographystyle{apalike}
+\bibliography{refs}
+\end{frame}
+\end{document}

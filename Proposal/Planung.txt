@@ -1,0 +1,9 @@
+Proseminar:
+1. Allgemeine Einführung in: Token -> AST (kein “Teach”?!)
+2. Bezug herstellen: Wieso es sinnvoll ist Grammatiken in dem Kontext zu betrachten/kurz Grammatik erklären (kein “Teach”?!)
+3. Problemstlellung: Wie man eine Grammatik auf das Parsen Vorbereitet
+    3.1. Daher elimination ambiguity, left-recursion elimination, left factoring als drei Beispiele
+    3.2. Quellen angeben
+    3.3. Abwägung zwischen Effizienz und Komplexität/praxistauglichkeit untersuchen (Überleitung: dazu dann folgende quellen)
+4. Problematik herausstellen an einfachem Beispiel, dass es zu Zweideutigkeiten kommen kann und welche Probleme das Verursachen kann/wieso das ein Problem ist und wieso das Problem wichtig für das Thema Parser ist
+5. Vorstellen was ich dann später in Teach machen will und womit ich mich dann im weiteren beschäftigen werde
