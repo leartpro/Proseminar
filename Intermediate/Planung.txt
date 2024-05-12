@@ -1,0 +1,15 @@
+1. Recap(ganz kurz) der Problematik von Mehrdeutiger Grammatik
+2. Die Sprache zu 'verschärfen' (vom Regelwerk her) ist eventuell nicht gewollt
+3. Versuch Grammatik zu Erkennen (Wortgenerierung) => ineffizient (Naveneetha Vasudevan & Laurence Tratt )
+und hat keine Lösung was mann dann macht, wenn die Grammatik uneindeutig ist.
+4. Grammatik generell eindeutig machen: (watrous) comsky normal form
+4.1. definition der chomsky normal form
+4.2. beschreibung wie die parse trees aussehen (binär, gleich groß
+4.3. keine garantie das die grammatik nicht uneindeutig ist
+5. Lösung: Die uneindeutige Grammatik in eine eindeutige Grammatik umwandeln (Naveneetha Vasudevan & Laurence Tratt)
+(spezifisch für operatoren mit gegebener precedence regel)
+=> erstmal algorithmus und da auch nur praktisches beispiel, da sonst zu umfangreich
+5.1. Definition operator-style uneindeutigkeit
+5.2. Beispielhafte überführung der Grammatik anhand des Algorithmus
+E ::= E * E (rechts assoziativ) > ident | num
+5.3. Algorithmus als Backup Folie

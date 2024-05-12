@@ -1,0 +1,1 @@
+Wieso schauen wir uns grammatiken an, wenn es doch eigentlich ums Parsen geht?

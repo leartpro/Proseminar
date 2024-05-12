@@ -28,28 +28,122 @@
 \pgfplotsset{compat=newest}
 \input{plot_commands.tex}
 
+%custom
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{automata, positioning}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\usepackage{tcolorbox}
+\usepackage{framed}
+\usepackage{forest}
+\usepackage{xcolor}
+\newcommand*{\mybox}[1]{\framebox{#1}}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
 % Load the actual RWTH theme. Suggested is to load the full theme,
 % as it requires some specific dimensions
 \usetheme{rwth}
 
 \begin{document}
 
-\logo{\includegraphics{logo.png}}
+    \logo{\includegraphics{logo.png}}
 
 % Setup presentation information
-\title{Seminar Topic}
-\date{Date}
-\author{Authors}
+    \title{Auflösen von Mehrdeutigkeiten in kontextfreien Grammatiken}
+    \date{17.05.2024}
+    \author{Lennart Protte}
 
-\frame{\titlepage}
+    \frame{\titlepage}
 
-\section{Title of Slide}
 
-% Frame with items
-\begin{frame}
-\begin{itemize}
-\item Contents
-\end{itemize}
-\end{frame}
+    \section{Mehrdeutige Grammatik}
+    \begin{frame}
+        \begin{minipage}[c]{0.5\textwidth}
+            \centering
+            \begin{align*}
+                & G(N,T,P,S) \\
+                & N= \{E\} \\
+                & T= \{+, *, \bold{num}\} \\
+                & S= \{E\}  \\
+                & P = \{ \\
+                & E \rightarrow E + E | E * E | \bold{num} \\
+                & \}
+            \end{align*}
+        \end{minipage}\begin{minipage}[c]{0.5\textwidth}
+                          \begin{align*}
+                              & E \rightarrow E + E \\
+                              & \phantom{E} \rightarrow \bold{num} + E \\
+                              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+                          \end{align*}
+                          \begin{align*}
+                              & E \rightarrow E + E \\
+                              & \phantom{E} \rightarrow E + \bold{num} \\
+                              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+                          \end{align*}
+        \end{minipage}
+    \end{frame}
+
+
+    %\section{Operatorrangfolge}
+    %\begin{frame}
+    %    Die Sprache zu 'verschärfen' (vom Regelwerk her) ist eventuell nicht gewollt
+    %\end{frame}
+
+
+    \section{Comsky Normal Form Definition}
+    \begin{frame}
+        Eine kontextfreie Grammatik ist in Chomsky-Normalform, wenn jede Regel eine der folgenden Formen hat:
+        \begin{align*}
+            & A \rightarrow BC \\
+            & A \rightarrow a \\
+            & S \rightarrow \varepsilon
+        \end{align*}
+        wobei $A,B,C \in N$ und $a \in T$
+    \end{frame}
+
+
+    \section{Chonsky Normal Form Beispiel}
+    %hier dann beispielhaften baum anzeichnen
+    \begin{frame}
+        \begin{minipage}[c]{0.5\textwidth}
+            \begin{align*}
+                & G(N,T,P,S) \\
+                & N= \{E\} \\
+                & T= \{+, *, \bold{num}\} \\
+                & S= \{E\}  \\
+                & P = \{ \\
+                & E \rightarrow E + E | E * E | \bold{num} \\
+                & \}
+            \end{align*}
+        \end{minipage}\begin{minipage}[c]{0.5\textwidth}
+                          \begin{align*}
+                              & G(N,T,P,S) \\
+                              & N= \{E\} \\
+                              & T= \{+, *, \bold{num}\} \\
+                              & S= \{E\}  \\
+                              & P = \{ \\
+                              & E \rightarrow H_0 E | H_1 E | \bold{num} \\
+                              & H_0 \rightarrow E H_2 \\
+                              & H_1 \rightarrow E H_3 \\
+                              & H_2 \rightarrow + \\
+                              & H_3 \rightarrow * \\
+                              & \}
+                          \end{align*}
+        \end{minipage}
+    \end{frame}
+
+
+    \section{Operatoren mit Vorrangsregeln}
+    \begin{frame}
+
+    \end{frame}
+
+
+    \section{Quellen}
+    \begin{frame}[allowframebreaks]
+        \bibliographystyle{apalike}
+        \bibliography{refs}
+    \end{frame}
 
 \end{document}
