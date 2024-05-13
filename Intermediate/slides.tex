@@ -43,155 +43,227 @@
 \newcommand*{\mybox}[1]{\framebox{#1}}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
+%\setbeamertemplate{caption}[numbered]
+
 % Load the actual RWTH theme. Suggested is to load the full theme,
 % as it requires some specific dimensions
 \usetheme{rwth}
 
 \begin{document}
 
-    \logo{\includegraphics{logo.png}}
+	\logo{\includegraphics{logo.png}}
 
 % Setup presentation information
-    \title{Auflösen von Mehrdeutigkeiten in kontextfreien Grammatiken}
-    \date{17.05.2024}
-    \author{Lennart Protte}
+	\title{Auflösen von Mehrdeutigkeiten in kontextfreien Grammatiken}
+	\date{17.05.2024}
+	\author{Lennart Protte}
 
-    \frame{\titlepage}
-
-
-    \section{Mehrdeutige Grammatik}
-    \begin{frame}
-        \begin{minipage}[c]{0.5\textwidth}
-            \centering
-            \begin{align*}
-                & G(N,T,P,S) \\
-                & N= \{E\} \\
-                & T= \{+, *, \bold{num}\} \\
-                & S= \{E\}  \\
-                & P = \{ \\
-                & E \rightarrow E + E | E * E | \bold{num} \\
-                & \}
-            \end{align*}
-        \end{minipage}\begin{minipage}[c]{0.5\textwidth}
-                          \begin{align*}
-                              & E \rightarrow E + E \\
-                              & \phantom{E} \rightarrow \bold{num} + E \\
-                              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
-                          \end{align*}
-                          \begin{align*}
-                              & E \rightarrow E + E \\
-                              & \phantom{E} \rightarrow E + \bold{num} \\
-                              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
-                          \end{align*}
-        \end{minipage}
-        Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
-    \end{frame}
+	\frame{\titlepage}
 
 
-    %\section{Operatorrangfolge}
-    %\begin{frame}
-    %    Die Sprache zu 'verschärfen' (vom Regelwerk her) ist eventuell nicht gewollt
-    %\end{frame}
+	\section{Mehrdeutige Grammatik}\label{sec:mehrdeutige-grammatik}
+	\begin{frame}
+		\begin{minipage}[c]{0.5\textwidth}
+			\centering
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N= \{E\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\}  \\
+				& P = \{ \\
+				& E \rightarrow E + E | E * E | \bold{num} \\
+				& \}
+			\end{align*}
+		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
+			              \begin{align*}
+				              & E \rightarrow E + E \\
+				              & \phantom{E} \rightarrow \bold{num} + E \\
+				              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+			              \end{align*}
+			              \begin{align*}
+				              & E \rightarrow E + E \\
+				              & \phantom{E} \rightarrow E + \bold{num} \\
+				              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+			              \end{align*}
+		\end{minipage}
+		Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
+	\end{frame}
 
 
-    \section{Comsky Normal Form Definition}
-    \begin{frame}
-        Eine kontextfreie Grammatik ist in Chomsky-Normalform, wenn jede Regel eine der folgenden Formen hat:
-        \begin{align*}
-            & A \rightarrow BC \\
-            & A \rightarrow a \\
-            & S \rightarrow \varepsilon
-        \end{align*}
-        wobei $A,B,C \in N$ und $a \in T$
-    \end{frame}
+	%\section{Operatorrangfolge}
+	%\begin{frame}
+	%    Die Sprache zu 'verschärfen' (vom Regelwerk her) ist eventuell nicht gewollt
+	%\end{frame}
 
 
-    \section{Chonsky Normal Form Beispiel}
-    %hier dann beispielhaften baum anzeichnen in präsentation
-    \begin{frame}
-        \begin{minipage}[c]{0.5\textwidth}
-            \begin{align*}
-                & G(N,T,P,S) \\
-                & N= \{E\} \\
-                & T= \{+, *, \bold{num}\} \\
-                & S= \{E\}  \\
-                & P = \{ \\
-                & E \rightarrow E + E | E * E | \bold{num} \\
-                & \}
-            \end{align*}
-        \end{minipage}\begin{minipage}[c]{0.5\textwidth}
-                          \begin{align*}
-                              & G(N,T,P,S) \\
-                              & N= \{E\} \\
-                              & T= \{+, *, \bold{num}\} \\
-                              & S= \{E\}  \\
-                              & P = \{ \\
-                              & E \rightarrow H_0 E | H_1 E | \bold{num} \\
-                              & H_0 \rightarrow E H_2 \\
-                              & H_1 \rightarrow E H_3 \\
-                              & H_2 \rightarrow + \\
-                              & H_3 \rightarrow * \\
-                              & \}
-                          \end{align*}
-        \end{minipage}
-    \end{frame}
+	\section{Comsky Normal Form Definition}\label{sec:comsky-normal-form-definition}
+	\begin{frame}
+		Eine kontextfreie Grammatik ist in Chomsky-Normalform, wenn jede Regel eine der folgenden Formen hat:
+		\begin{align*}
+			& A \rightarrow BC \\
+			& A \rightarrow a \\
+			& S \rightarrow \varepsilon
+		\end{align*}
+		wobei $A,B,C \in N$ und $a \in T$
+	\end{frame}
 
 
-    \section{Operatoren mit Vorrangsregeln}
-    \begin{frame}
-
-    \end{frame}
-
-
-    \section{Definition Pattern}
-    \begin{frame}
-        E => E + E => num + E => num + num
-        ($E, \alpha, \beta, \gamma$)
-    \end{frame}
-
-
-    \section{Tabellen für + und *}
-    \begin{frame}
-        \begin{table}[h]
-            \centering
-            \caption{Die Semantik des > Operators in Bezug auf Muster}
-            \begin{tabular}{|c|c|}
-                \hline
-                >                          & $E \Coloneqq E\alpha_{2}E$                   \\
-                \hline
-                $E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
-                                           & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
-                \hline
-            \end{tabular}\label{tab:table}
-        \end{table}
-
-        \begin{table}[h]
-            \centering
-            \caption{Die Semantik der Linksassoziativität}
-            \begin{tabular}{|c|c|c|}
-                \hline
-                left & $E \Coloneqq E\alpha_{1}E$ & $E \Coloneqq E\alpha_{2}E$ \\
-                \hline
-                $E \Coloneqq E\alpha_{1}E$ & (F,F'.a.i.'F,F.a.z.E) & \\
-                \hline
-                $E \Coloneqq E\alpha_{2}E$ & (F,F'.a.z.'F,F.a.z.E) & \\
-                \hline
-            \end{tabular}\label{tab:table2}
-        \end{table}
-
-    \end{frame}
+	\section{Chonsky Normal Form Beispiel}\label{sec:chonsky-normal-form-beispiel}
+	%hier dann beispielhaften baum anzeichnen in präsentation
+	\begin{frame}
+		\begin{minipage}[c]{0.5\textwidth}
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N= \{E\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\}  \\
+				& P = \{ \\
+				& E \rightarrow E + E | E * E | \bold{num} \\
+				& \}
+			\end{align*}
+		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
+			              \begin{align*}
+				              & G(N,T,P,S) \\
+				              & N= \{E\} \\
+				              & T= \{+, *, \bold{num}\} \\
+				              & S= \{E\}  \\
+				              & P = \{ \\
+				              & E \rightarrow H_0 E | H_1 E | \bold{num} \\
+				              & H_0 \rightarrow E H_2 \\
+				              & H_1 \rightarrow E H_3 \\
+				              & H_2 \rightarrow + \\
+				              & H_3 \rightarrow * \\
+				              & \}
+			              \end{align*}
+		\end{minipage}
+	\end{frame}
 
 
-    \section{Anwenden von Algorithmus}
-    \begin{frame}
-        Hier tikz-animation package verwenden
-    \end{frame}
+	\section{Operatoren mit Vorrangsregeln}\label{sec:operatoren-mit-vorrangsregeln}
+	\begin{frame}
+
+	\end{frame}
 
 
-    \section{Quellen}
-    \begin{frame}[allowframebreaks]
-        \bibliographystyle{apalike}
-        \bibliography{refs}
-    \end{frame}
+	\section{Definition von Mustern}\label{sec:muster-zur-beseitigung-der-mehrdeutigkeit-von-operatoren}
+	\begin{frame}
+	($S, \alpha \circ \beta, \gamma$)
+		\\
+		S = Das Startsymbol der Produktion \\
+		$\alpha \circ \beta$ zwei Nichtterminale aus $G$ mit $\circ$ als Operator \\
+		$\gamma$ als Ableitung. \\
+		Ob $\alpha$ oder $\beta$ abgeleitet wird, wird durch $\bullet$ vor dem jeweiligen Nichtterminal gekennzeichnet.
+		\\\\
+		So kann $E => E + E => num + E => num + num$ durch
+		$(E, \bullet{E}+E, num)$ und $(E, E+\bullet{E}, num)$ beschrieben werden.
+	\end{frame}
+
+
+	\section{Tabellen für Ordnung und Assotiativität von '+' und '*'}\label{sec:tabellen-fur-ordnung-und-assotiativitat-von-'+'-und-'*'}
+	\begin{frame}
+		Aus der Ordnung $ \alpha_{1} > \alpha_{2}$ und aus $\alpha_{1}, \alpha_{2}$ sind links assotiativ ergeben sich die folgenden Tabellen:
+		\begin{table}[h]
+			\centering
+			\caption{Die Semantik der > Ordnung von Operatoren}
+			\begin{tabular}{|c|c|}
+				\hline
+				>                          & $E \Coloneqq E\alpha_{2}E$                   \\
+				\hline
+				$E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
+				& $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$   \\
+				\hline
+			\end{tabular}\label{tab:table}
+		\end{table}
+
+		\begin{table}[h]
+			\centering
+			\caption{Die Semantik der Linksassoziativität}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				links                      & $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
+				\hline
+				$E \Coloneqq E\alpha_{1}E$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
+				\hline
+				$E \Coloneqq E\alpha_{2}E$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{2}E)$ \\
+				\hline
+			\end{tabular}\label{tab:table2}
+		\end{table}
+	\end{frame}
+
+
+	\section{Beispiel Algorithmus}\label{sec:beispiel-algorithmus}
+	\begin{frame}
+		$E \Coloneqq E * E (links) > E + E | num $
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Operator & Vorrang & Assoziativität   \\
+			\hline
+			*        & 2       & links assoziativ \\
+			\hline
+			+        & 1       & links assoziativ \\
+			\hline
+		\end{tabular}\label{tab:table3}
+		Ergeben die Muster zur Beseitigung von Mehrdeutigkeiten:
+		\begin{align*}
+		(E, E*\bullet{E}, E*E)
+		(E, \bullet{E}*E, E+E)
+		(E, E+\bullet{E}, E*E)
+		(E, \bullet{E}+E, E+E)
+		\end{align*}
+		Grammatik erhält vier neue Nichtterminale
+		% kopieren der Ursprungsgrammatik mit nachfolgendem anwenden der Pattern
+		\begin{align*}
+			& G(N,T,P,S) N= \{E, E_1, E_2, E_3, E_4\} T= \{+, *, \bold{num}\} S= \{E\} \\
+			& P = \{ \\
+			& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+			& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
+			& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+			& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
+			& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+			& \}
+		\end{align*}
+	\end{frame}
+
+
+	\section{Beispiel Algorithmus}\label{sec:beispiel-algorithmus2}
+	\begin{frame}
+		\begin{minipage}[c]{0.5\textwidth}
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N= \{E, E_1, E_2, E_3, E_4\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\} \\
+				& P = \{ \\
+				& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+				& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
+				& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+				& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
+				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+				& \}
+			\end{align*}
+		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
+			              \begin{align*}
+				              & G(N,T,P,S) \\
+				              & N= \{E, E_1, E_2, E_3, E_4\} \\
+				              & T= \{+, *, \bold{num}\} \\
+				              & S= \{E\} \\
+				              & P = \{ \\
+				              & E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+				              & E_1   \rightarrow E_1 * E_5 | \bold{num} \\
+				              & E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+				              & E_3   \rightarrow E_5 * E_2 | \bold{num} \\
+				              & E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+				              & E_5   \bold{num} \\
+				              & \}
+			              \end{align*}
+		\end{minipage}
+	\end{frame}
+
+
+	\section{Quellen}\label{sec:quellen}
+	\begin{frame}[allowframebreaks]
+		\bibliographystyle{apalike}
+		\bibliography{refs}
+	\end{frame}
 
 \end{document}
