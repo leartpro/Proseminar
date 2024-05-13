@@ -38,6 +38,7 @@
 \usepackage{framed}
 \usepackage{forest}
 \usepackage{xcolor}
+\usepackage{mathtools}
 \newcommand*{\mybox}[1]{\framebox{#1}}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
@@ -140,15 +141,44 @@
 
     \end{frame}
 
+
     \section{Definition Pattern}
     \begin{frame}
-
+        E => E + E => num + E => num + num
+        ($E, \alpha, \beta, \gamma$)
     \end{frame}
+
 
     \section{Tabellen für + und *}
     \begin{frame}
+        \begin{table}[h]
+            \centering
+            \caption{Die Semantik des > Operators in Bezug auf Muster}
+            \begin{tabular}{|c|c|c|}
+                \hline
+                > & $E \Coloneqq E\alpha_{2}E$         \\
+                \hline
+                $E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\& $(E, E\alpha_{1}\bullet{E}, {E}\alpha_{2}E)$ \\
+                \hline
+            \end{tabular}\label{tab:table}
+        \end{table}
+
+        \begin{table}[h]
+            \centering
+            \caption{Die Semantik der Linksassoziativität}
+            \begin{tabular}{|c|c|c|}
+                \hline
+                F ::= F.a.i.E                       & F ::= F.a.z.E         & \\
+                \hline
+                F ::= F.a.i.(e(F,e'.a.i.'F,F.a.i.E) & (F,F'.a.i.'F,F.a.z.E) & \\
+                \hline
+                F ::= F.a.z.(e(F,e'.a.z.'F,F.a.i.E) & (F,F'.a.z.'F,F.a.z.E) & \\
+                \hline
+            \end{tabular}\label{tab:table2}
+        \end{table}
 
     \end{frame}
+
 
     \section{Anwenden von Algorithmus}
     \begin{frame}
