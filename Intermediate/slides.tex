@@ -38,10 +38,22 @@
 \usepackage{framed}
 \usepackage{forest}
 \usepackage{xcolor}
+\usepackage{blkarray}
+\usepackage{comment}
 %\usepackage{mathtools}
 \renewcommand{\Coloneqq}{\mathrel{\mathop{::}}=}
 \newcommand*{\mybox}[1]{\framebox{#1}}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
+\begin{comment}
+	\definecolor{lightred}{RGB}{255,179,179}
+	\definecolor{darkred}{RGB}{153,38,0}
+	\definecolor{textred}{RGB}{255,77,77}
+
+	\newenvironment{definitionblock}[1]{%
+		\setbeamercolor{block body}{bg=lightred,fg=black}
+		\setbeamercolor{block title}{bg=textred,fg=darkred}
+		\begin{block}{#1}}{\end{block}}
+\end{comment}
 
 %\setbeamertemplate{caption}[numbered]
 
@@ -61,50 +73,62 @@
 	\frame{\titlepage}
 
 
-	\section{Mehrdeutige Grammatik}\label{sec:mehrdeutige-grammatik}
+	\section{Mehrdeutige Grammatik}\label{sec:mehrdeutige-grammatik2}
 	\begin{frame}
-		\begin{minipage}[c]{0.5\textwidth}
-			\centering
-			\begin{align*}
-				& G(N,T,P,S) \\
-				& N= \{E\} \\
-				& T= \{+, *, \bold{num}\} \\
-				& S= \{E\}  \\
-				& P = \{ \\
-				& E \rightarrow E + E | E * E | \bold{num} \\
-				& \}
-			\end{align*}
-		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
-			              \begin{align*}
-				              & E \rightarrow E + E \\
-				              & \phantom{E} \rightarrow \bold{num} + E \\
-				              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
-			              \end{align*}
-			              \begin{align*}
-				              & E \rightarrow E + E \\
-				              & \phantom{E} \rightarrow E + \bold{num} \\
-				              & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
-			              \end{align*}
-		\end{minipage}
-		Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
+		\vspace{-1em}
+		\begin{columns}[T]
+			\begin{column}{0.33\textwidth}
+				\centering
+				\begin{block}{Grammatik}
+					\vspace{-1em}
+					\begin{minipage}[t][7.5cm]{\linewidth}
+						\begin{align*}
+							& G(N,T,P,S) \\
+							& N= \{E\} \\
+							& T= \{+, *, \bold{num}\} \\
+							& S= \{E\}  \\
+							& P = \{ \\
+							& E \rightarrow E + E | E * E | \bold{num} \\
+							& \}
+						\end{align*}
+					\end{minipage}
+				\end{block}
+			\end{column}
+			\begin{column}{0.33\textwidth}
+				\centering
+				\begin{block}{Ableitungen}
+					\vspace{-1em}
+					\begin{minipage}[t][7.5cm]{\linewidth}
+						\begin{align*}
+							& E \rightarrow E + E \\
+							& \phantom{E} \rightarrow \bold{num} + E \\
+							& \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+						\end{align*}
+						\vspace{-2em}
+						\begin{align*}
+							& E \rightarrow E + E \\
+							& \phantom{E} \rightarrow E + \bold{num} \\
+							& \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+						\end{align*}
+					\end{minipage}
+				\end{block}
+			\end{column}
+		\end{columns}
+		\begin{block}{Definition}
+			Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
+		\end{block}
 	\end{frame}
 
 
-	%\section{Operatorrangfolge}
-	%\begin{frame}
-	%    Die Sprache zu 'verschärfen' (vom Regelwerk her) ist eventuell nicht gewollt
-	%\end{frame}
-
-
-	\section{Comsky Normal Form Definition}\label{sec:comsky-normal-form-definition}
+	\section{Definition der Chomsky-Normalform}\label{sec:chomsky-normal-form-definition}
 	\begin{frame}
-		Eine kontextfreie Grammatik ist in Chomsky-Normalform, wenn jede Regel eine der folgenden Formen hat:
+		Eine kontextfreie Grammatik ist in der Chomsky-Normalform, wenn jede Produktionsregel eine der folgenden Formen hat:
 		\begin{align*}
 			& A \rightarrow BC \\
 			& A \rightarrow a \\
 			& S \rightarrow \varepsilon
 		\end{align*}
-		wobei $A,B,C \in N$ und $a \in T$
+		Hierbei sind $A,B,C \in N$) und $a \in T$.
 	\end{frame}
 
 
@@ -121,66 +145,72 @@
 				& E \rightarrow E + E | E * E | \bold{num} \\
 				& \}
 			\end{align*}
-		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
-			              \begin{align*}
-				              & G(N,T,P,S) \\
-				              & N= \{E\} \\
-				              & T= \{+, *, \bold{num}\} \\
-				              & S= \{E\}  \\
-				              & P = \{ \\
-				              & E \rightarrow H_0 E | H_1 E | \bold{num} \\
-				              & H_0 \rightarrow E H_2 \\
-				              & H_1 \rightarrow E H_3 \\
-				              & H_2 \rightarrow + \\
-				              & H_3 \rightarrow * \\
-				              & \}
-			              \end{align*}
+		\end{minipage}%
+		\begin{tikzpicture}
+			\draw[->, line width=1mm](0,0) -- (1,0);
+		\end{tikzpicture}%
+		\begin{minipage}[c]{0.5\textwidth}%
+			\begin{align*}
+				& G'(N,T,P,S) \\
+				& N= \{E\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\}  \\
+				& P = \{ \\
+				& E \rightarrow H_0 E | H_1 E | \bold{num} \\
+				& H_0 \rightarrow E H_2 \\
+				& H_1 \rightarrow E H_3 \\
+				& H_2 \rightarrow + \\
+				& H_3 \rightarrow * \\
+				& \}
+			\end{align*}
 		\end{minipage}
 	\end{frame}
 
 
-	\section{Operatoren mit Vorrangsregeln}\label{sec:operatoren-mit-vorrangsregeln}
+	\section{Baum von $G'$}\label{sec:baum-von-$g'$}
 	\begin{frame}
 
 	\end{frame}
 
 
-	\section{Definition von Mustern}\label{sec:muster-zur-beseitigung-der-mehrdeutigkeit-von-operatoren}
+	\section{Definition von Mustern}\label{sec:muster}
 	\begin{frame}
-	($S, \alpha \circ \beta, \gamma$)
-		\\
-		S = Das Startsymbol der Produktion \\
-		$\alpha \circ \beta$ zwei Nichtterminale aus $G$ mit $\circ$ als Operator \\
-		$\gamma$ als Ableitung. \\
-		Ob $\alpha$ oder $\beta$ abgeleitet wird, wird durch $\bullet$ vor dem jeweiligen Nichtterminal gekennzeichnet.
-		\\\\
-		So kann $E => E + E => num + E => num + num$ durch
-		$(E, \bullet{E}+E, num)$ und $(E, E+\bullet{E}, num)$ beschrieben werden.
+		\begin{align*}
+			&\text{Gegeben ist das Tupel } (S, \alpha \circ \beta, \gamma) \text{ mit:} \\
+			&S \text{ = Das Startsymbol der Produktion} \\
+			&\alpha \circ \beta \text{ = zwei Nichtterminale aus } G \text{ mit } \circ \text{ als Operator} \\
+			&\gamma \text{ = Die Ableitung} \\
+			&\text{Ob } \alpha \text{ oder } \beta \text{ abgeleitet wird,} \\
+			&\text{wird durch } \bullet \text{ vor dem jeweiligen Nichtterminal gekennzeichnet.}
+		\end{align*}
+		\begin{exampleblock}{Beispiel}
+			So kann $E \Rightarrow E + E \Rightarrow \mathbf{num} + E \Rightarrow \mathbf{num} + \mathbf{num}$ \\ durch
+			$(E, \bullet{E}+E, \mathbf{num})$ und $(E, E+\bullet{E}, \mathbf{num})$ beschrieben werden.
+		\end{exampleblock}
 	\end{frame}
 
 
-	\section{Tabellen für Ordnung und Assotiativität von '+' und '*'}\label{sec:tabellen-fur-ordnung-und-assotiativitat-von-'+'-und-'*'}
+	\section{Tabellen für Ordnung und Assoziativität}\label{sec:tabellen-fur-ordnung-und-assotiativitat}
 	\begin{frame}
-		Aus der Ordnung $ \alpha_{1} > \alpha_{2}$ und aus $\alpha_{1}, \alpha_{2}$ sind links assotiativ ergeben sich die folgenden Tabellen:
+		Aus der Ordnung $ \alpha_{1} > \alpha_{2}$ ergibt sich:
 		\begin{table}[h]
 			\centering
-			\caption{Die Semantik der > Ordnung von Operatoren}
 			\begin{tabular}{|c|c|}
 				\hline
-				>                          & $E \Coloneqq E\alpha_{2}E$                   \\
+				>                      & $E \Coloneqq E\alpha_{2}E$                   \\
 				\hline
 				$E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
 				& $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$   \\
 				\hline
 			\end{tabular}\label{tab:table}
 		\end{table}
-
+		\smallskip
+		Und aus $\alpha_{1}, \alpha_{2}$ sind links assotiativ folgt:
 		\begin{table}[h]
 			\centering
-			\caption{Die Semantik der Linksassoziativität}
 			\begin{tabular}{|c|c|c|}
 				\hline
-				links                      & $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
+				links                  & $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
 				\hline
 				$E \Coloneqq E\alpha_{1}E$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
 				\hline
@@ -190,42 +220,79 @@
 		\end{table}
 	\end{frame}
 
-
 	\section{Beispiel Algorithmus}\label{sec:beispiel-algorithmus}
 	\begin{frame}
-		$E \Coloneqq E * E (links) > E + E | num $
-		\begin{tabular}{|c|c|c|}
-			\hline
-			Operator & Vorrang & Assoziativität   \\
-			\hline
-			*        & 2       & links assoziativ \\
-			\hline
-			+        & 1       & links assoziativ \\
-			\hline
-		\end{tabular}\label{tab:table3}
-		Ergeben die Muster zur Beseitigung von Mehrdeutigkeiten:
-		\begin{align*}
-		(E, E*\bullet{E}, E*E)
-		(E, \bullet{E}*E, E+E)
-		(E, E+\bullet{E}, E*E)
-		(E, \bullet{E}+E, E+E)
-		\end{align*}
-		Grammatik erhält vier neue Nichtterminale
-		% kopieren der Ursprungsgrammatik mit nachfolgendem anwenden der Pattern
-		\begin{align*}
-			& G(N,T,P,S) N= \{E, E_1, E_2, E_3, E_4\} T= \{+, *, \bold{num}\} S= \{E\} \\
-			& P = \{ \\
-			& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
-			& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
-			& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
-			& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
-			& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
-			& \}
-		\end{align*}
+		\centering
+		\begin{block}{Definition der Grammatik:}
+			\vspace{1em}
+			\begin{minipage}[c]{0.5\textwidth}
+				\centering
+				\[E \Coloneqq E * E \phantom{|} (links) > E + E | num \]
+			\end{minipage}%
+			\begin{minipage}[c]{0.5\textwidth}
+				\begin{tabular}{|c|c|c|}
+					\hline
+					Operator & Vorrang & Assoziativität   \\
+					\hline
+					*             & 2       & links assoziativ \\
+					\hline
+					+             & 1       & links assoziativ \\
+					\hline
+				\end{tabular}\label{tab:table4}
+			\end{minipage}
+		\end{block}
+		\bigskip
+		\begin{exampleblock}{Beispiel}
+			So wird $2 + 3 * 4$ gemäß der Definierten Assotiativität und der Vorrangsregeln eindeutig als
+			$2 + (3 * 4)$ ausgewertet, was korrekt ist.
+		\end{exampleblock}
+	\end{frame}
+
+	\begin{frame}
+		\vspace{-1em}
+		\begin{columns}[T]
+			\begin{column}{0.33\textwidth}
+				\centering
+				\begin{block}{Muster zur Beseitigung der Mehrdeutigkeit}
+					\begin{minipage}[t][7.5cm]{\linewidth}
+						\vspace{-1em}
+						\begin{align*}
+						(E, E*\bullet{E}, E*E)
+							\\
+							(E, \bullet{E}*E, E+E) \\
+							(E, E+\bullet{E}, E*E) \\
+							(E, \bullet{E}+E, E+E)
+						\end{align*}
+					\end{minipage}
+				\end{block}
+			\end{column}
+			\begin{column}{0.45\textwidth}
+				\centering
+				\begin{block}{Nach Erstellung von neuen Nichtterminalen}
+					\begin{minipage}[t]{\linewidth}
+						\vspace{-1em}
+						\begin{align*}
+							& G(N,T,P,S) \\
+							& N = \{E, E_1, E_2, E_3, E_4\} \\
+							& T = \{+, *, \bold{num}\} \\
+							& S = \{E\} \\
+							& P = \{ \begin{aligned}[t] \\
+							E &\rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+							E_1 &\rightarrow E_1 * E_2 | \bold{num} \\
+							E_2 &\rightarrow E_3 + E_4 | \bold{num} \\
+							E_3 &\rightarrow E_1 * E_2 | \bold{num} \\
+							E_4 &\rightarrow E_3 + E_4 | \bold{num}
+							\end{aligned} \\
+							& \}
+						\end{align*}
+					\end{minipage}
+				\end{block}
+			\end{column}
+		\end{columns}
 	\end{frame}
 
 
-	\section{Beispiel Algorithmus}\label{sec:beispiel-algorithmus2}
+
 	\begin{frame}
 		\begin{minipage}[c]{0.5\textwidth}
 			\begin{align*}
@@ -241,21 +308,25 @@
 				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
 				& \}
 			\end{align*}
-		\end{minipage}\begin{minipage}[c]{0.5\textwidth}
-			              \begin{align*}
-				              & G(N,T,P,S) \\
-				              & N= \{E, E_1, E_2, E_3, E_4\} \\
-				              & T= \{+, *, \bold{num}\} \\
-				              & S= \{E\} \\
-				              & P = \{ \\
-				              & E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
-				              & E_1   \rightarrow E_1 * E_5 | \bold{num} \\
-				              & E_2   \rightarrow E_3 + E_4 | \bold{num} \\
-				              & E_3   \rightarrow E_5 * E_2 | \bold{num} \\
-				              & E_4   \rightarrow E_3 + E_4 | \bold{num} \\
-				              & E_5   \bold{num} \\
-				              & \}
-			              \end{align*}
+		\end{minipage}%
+		\begin{tikzpicture}
+			\draw[->, line width=1mm](0,0) -- (1,0);
+		\end{tikzpicture}%
+		\begin{minipage}[c]{0.5\textwidth}
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N= \{E, E_1, E_2, E_3, E_4\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\} \\
+				& P = \{ \\
+				& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+				& E_1   \rightarrow E_1 * E_5 | \bold{num} \\
+				& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+				& E_3   \rightarrow E_5 * E_2 | \bold{num} \\
+				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+				& E_5   \bold{num} \\
+				& \}
+			\end{align*}
 		\end{minipage}
 	\end{frame}
 
