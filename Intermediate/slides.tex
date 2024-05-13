@@ -155,11 +155,12 @@
         \begin{table}[h]
             \centering
             \caption{Die Semantik des > Operators in Bezug auf Muster}
-            \begin{tabular}{|c|c|c|}
+            \begin{tabular}{|c|c|}
                 \hline
-                > & $E \Coloneqq E\alpha_{2}E$         \\
+                >                          & $E \Coloneqq E\alpha_{2}E$                   \\
                 \hline
-                $E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\& $(E, E\alpha_{1}\bullet{E}, {E}\alpha_{2}E)$ \\
+                $E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
+                                           & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
                 \hline
             \end{tabular}\label{tab:table}
         \end{table}
@@ -169,11 +170,11 @@
             \caption{Die Semantik der Linksassoziativität}
             \begin{tabular}{|c|c|c|}
                 \hline
-                F ::= F.a.i.E                       & F ::= F.a.z.E         & \\
+                left & $E \Coloneqq E\alpha_{1}E$ & $E \Coloneqq E\alpha_{2}E$ \\
                 \hline
-                F ::= F.a.i.(e(F,e'.a.i.'F,F.a.i.E) & (F,F'.a.i.'F,F.a.z.E) & \\
+                $E \Coloneqq E\alpha_{1}E$ & (F,F'.a.i.'F,F.a.z.E) & \\
                 \hline
-                F ::= F.a.z.(e(F,e'.a.z.'F,F.a.i.E) & (F,F'.a.z.'F,F.a.z.E) & \\
+                $E \Coloneqq E\alpha_{2}E$ & (F,F'.a.z.'F,F.a.z.E) & \\
                 \hline
             \end{tabular}\label{tab:table2}
         \end{table}
