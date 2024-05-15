@@ -40,20 +40,24 @@
 \usepackage{xcolor}
 \usepackage{blkarray}
 \usepackage{comment}
+
 %\usepackage{mathtools}
 \renewcommand{\Coloneqq}{\mathrel{\mathop{::}}=}
 \newcommand*{\mybox}[1]{\framebox{#1}}
-\setbeamertemplate{bibliography item}{\insertbiblabel}
-\begin{comment}
-	\definecolor{lightred}{RGB}{255,179,179}
-	\definecolor{darkred}{RGB}{153,38,0}
-	\definecolor{textred}{RGB}{255,77,77}
+	\begin{comment}
+		\definecolor{lightred}{RGB}{255,179,179}
+		\definecolor{darkred}{RGB}{153,38,0}
+		\definecolor{textred}{RGB}{255,77,77}
 
-	\newenvironment{definitionblock}[1]{%
-		\setbeamercolor{block body}{bg=lightred,fg=black}
-		\setbeamercolor{block title}{bg=textred,fg=darkred}
-		\begin{block}{#1}}{\end{block}}
-\end{comment}
+		\newenvironment{definitionblock}[1]{%
+			\setbeamercolor{block body}{bg=lightred,fg=black}
+			\setbeamercolor{block title}{bg=textred,fg=darkred}
+			\begin{block}{#1}}{\end{block}}
+	\end{comment}
+
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
 
 %\setbeamertemplate{caption}[numbered]
 
@@ -114,7 +118,7 @@
 				\end{block}
 			\end{column}
 		\end{columns}
-		\begin{block}{Definition}
+		\begin{block}{Definition\cite{watrous2020}}
 			Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
 		\end{block}
 	\end{frame}
@@ -352,7 +356,7 @@
 	\end{frame}
 
 
-	\section{Quellen}\label{sec:quellen}
+	\section{Quellen}
 	\begin{frame}[allowframebreaks]
 		\bibliographystyle{apalike}
 		\bibliography{refs}
