@@ -122,47 +122,58 @@
 
 	\section{Definition der Chomsky-Normalform}\label{sec:chomsky-normal-form-definition}
 	\begin{frame}
-		Eine kontextfreie Grammatik ist in der Chomsky-Normalform, wenn jede Produktionsregel eine der folgenden Formen hat:
-		\begin{align*}
-			& A \rightarrow BC \\
-			& A \rightarrow a \\
-			& S \rightarrow \varepsilon
-		\end{align*}
-		Hierbei sind $A,B,C \in N$) und $a \in T$.
+		\begin{block}{Definition}
+			Eine kontextfreie Grammatik ist in der Chomsky-Normalform, wenn jede Produktionsregel eine der folgenden Formen hat:
+			\begin{align*}
+				& A \rightarrow BC \\
+				& A \rightarrow a \\
+				& S \rightarrow \varepsilon
+			\end{align*}
+			Hierbei sind $A,B,C \in N$, $S \in \text{Startsymbol}$ und $a \in T$.
+		\end{block}
 	\end{frame}
 
 
 	\section{Chonsky Normal Form Beispiel}\label{sec:chonsky-normal-form-beispiel}
 	%hier dann beispielhaften baum anzeichnen in präsentation
 	\begin{frame}
-		\begin{minipage}[c]{0.5\textwidth}
-			\begin{align*}
-				& G(N,T,P,S) \\
-				& N= \{E\} \\
-				& T= \{+, *, \bold{num}\} \\
-				& S= \{E\}  \\
-				& P = \{ \\
-				& E \rightarrow E + E | E * E | \bold{num} \\
-				& \}
-			\end{align*}
+		\centering
+		\begin{minipage}[c]{0.4\textwidth}
+			\begin{block}{CFG}
+				\vspace{-1em}
+				\begin{align*}
+					& G(N,T,P,S) \\
+					& N= \{E\} \\
+					& T= \{+, *, \bold{num}\} \\
+					& S= \{E\}  \\
+					& P = \{ \\
+					& E \rightarrow E + E | E * E | \bold{num} \\
+					& \}
+				\end{align*}
+			\end{block}
 		\end{minipage}%
+		\quad%
 		\begin{tikzpicture}
 			\draw[->, line width=1mm](0,0) -- (1,0);
 		\end{tikzpicture}%
-		\begin{minipage}[c]{0.5\textwidth}%
-			\begin{align*}
-				& G'(N,T,P,S) \\
-				& N= \{E\} \\
-				& T= \{+, *, \bold{num}\} \\
-				& S= \{E\}  \\
-				& P = \{ \\
-				& E \rightarrow H_0 E | H_1 E | \bold{num} \\
-				& H_0 \rightarrow E H_2 \\
-				& H_1 \rightarrow E H_3 \\
-				& H_2 \rightarrow + \\
-				& H_3 \rightarrow * \\
-				& \}
-			\end{align*}
+		\quad%
+		\begin{minipage}[c]{0.4\textwidth}%
+			\begin{block}{CNF}
+				\vspace{-1em}
+				\begin{align*}
+					& G'(N,T,P,S) \\
+					& N= \{E\} \\
+					& T= \{+, *, \bold{num}\} \\
+					& S= \{E\}  \\
+					& P = \{ \\
+					& E \rightarrow H_0 E | H_1 E | \bold{num} \\
+					& H_0 \rightarrow E H_2 \\
+					& H_1 \rightarrow E H_3 \\
+					& H_2 \rightarrow + \\
+					& H_3 \rightarrow * \\
+					& \}
+				\end{align*}
+			\end{block}
 		\end{minipage}
 	\end{frame}
 
@@ -175,14 +186,18 @@
 
 	\section{Definition von Mustern}\label{sec:muster}
 	\begin{frame}
-		\begin{align*}
-			&\text{Gegeben ist das Tupel } (S, \alpha \circ \beta, \gamma) \text{ mit:} \\
-			&S \text{ = Das Startsymbol der Produktion} \\
-			&\alpha \circ \beta \text{ = zwei Nichtterminale aus } G \text{ mit } \circ \text{ als Operator} \\
-			&\gamma \text{ = Die Ableitung} \\
-			&\text{Ob } \alpha \text{ oder } \beta \text{ abgeleitet wird,} \\
-			&\text{wird durch } \bullet \text{ vor dem jeweiligen Nichtterminal gekennzeichnet.}
-		\end{align*}
+		\begin{block}{Definition}
+			\vspace{-1em}
+			\begin{align*}
+				&\text{Gegeben ist das Tupel } (S, \alpha \circ \beta, \gamma) \text{ mit:} \\
+				&S \text{ = Das Startsymbol der Produktion} \\
+				&\alpha \circ \beta \text{ = zwei Nichtterminale aus } G \text{ mit } \circ \text{ als Operator} \\
+				&\gamma \text{ = Die Ableitung} \\
+				&\text{Ob } \alpha \text{ oder } \beta \text{ abgeleitet wird,} \\
+				&\text{wird durch } \bullet \text{ vor dem jeweiligen Nichtterminal gekennzeichnet.}
+			\end{align*}
+		\end{block}
+		\bigskip
 		\begin{exampleblock}{Beispiel}
 			So kann $E \Rightarrow E + E \Rightarrow \mathbf{num} + E \Rightarrow \mathbf{num} + \mathbf{num}$ \\ durch
 			$(E, \bullet{E}+E, \mathbf{num})$ und $(E, E+\bullet{E}, \mathbf{num})$ beschrieben werden.
@@ -192,56 +207,55 @@
 
 	\section{Tabellen für Ordnung und Assoziativität}\label{sec:tabellen-fur-ordnung-und-assotiativitat}
 	\begin{frame}
-		Aus der Ordnung $ \alpha_{1} > \alpha_{2}$ ergibt sich:
-		\begin{table}[h]
-			\centering
-			\begin{tabular}{|c|c|}
-				\hline
-				>                      & $E \Coloneqq E\alpha_{2}E$                   \\
-				\hline
-				$E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
-				& $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$   \\
-				\hline
-			\end{tabular}\label{tab:table}
-		\end{table}
-		\smallskip
-		Und aus $\alpha_{1}, \alpha_{2}$ sind links assotiativ folgt:
-		\begin{table}[h]
-			\centering
-			\begin{tabular}{|c|c|c|}
-				\hline
-				links                  & $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
-				\hline
-				$E \Coloneqq E\alpha_{1}E$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
-				\hline
-				$E \Coloneqq E\alpha_{2}E$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{2}E)$ \\
-				\hline
-			\end{tabular}\label{tab:table2}
-		\end{table}
+		\begin{block}{Aus der Ordnung $ \alpha_{1} > \alpha_{2}$ ergibt sich:}
+			\begin{table}[h]
+				\centering
+				\begin{tabular}{|c|c|}
+					\hline
+					>                     & $E \Coloneqq E\alpha_{2}E$                   \\
+					\hline
+					$E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
+					& $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$   \\
+					\hline
+				\end{tabular}\label{tab:table}
+			\end{table}
+		\end{block}
+		\bigskip\bigskip
+		\begin{block}{Aus $\alpha_{1}, \alpha_{2}$ sind links assotiativ folgt:}
+			\begin{table}[h]
+				\centering
+				\begin{tabular}{|c|c|c|}
+					\hline
+					links                 & $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
+					\hline
+					$E \Coloneqq E\alpha_{1}E$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
+					\hline
+					$E \Coloneqq E\alpha_{2}E$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{2}E)$ \\
+					\hline
+				\end{tabular}\label{tab:table2}
+			\end{table}
+		\end{block}
 	\end{frame}
+
 
 	\section{Beispiel Algorithmus}\label{sec:beispiel-algorithmus}
 	\begin{frame}
 		\centering
 		\begin{block}{Definition der Grammatik:}
-			\vspace{1em}
-			\begin{minipage}[c]{0.5\textwidth}
-				\centering
-				\[E \Coloneqq E * E \phantom{|} (links) > E + E | num \]
-			\end{minipage}%
-			\begin{minipage}[c]{0.5\textwidth}
-				\begin{tabular}{|c|c|c|}
-					\hline
-					Operator & Vorrang & Assoziativität   \\
-					\hline
-					*             & 2       & links assoziativ \\
-					\hline
-					+             & 1       & links assoziativ \\
-					\hline
-				\end{tabular}\label{tab:table4}
-			\end{minipage}
+			\centering
+			\[E \Coloneqq E * E \phantom{|} (links) > E + E (links) | \bold{num} \]
+			\bigskip
+			\begin{tabular}{|c|c|c|}
+				\hline
+				Operator & Vorrang & Assoziativität   \\
+				\hline
+				*            & 2       & links assoziativ \\
+				\hline
+				+            & 1       & links assoziativ \\
+				\hline
+			\end{tabular}\label{tab:table4}
 		\end{block}
-		\bigskip
+		\bigskip\bigskip
 		\begin{exampleblock}{Beispiel}
 			So wird $2 + 3 * 4$ gemäß der Definierten Assotiativität und der Vorrangsregeln eindeutig als
 			$2 + (3 * 4)$ ausgewertet, was korrekt ist.
@@ -268,7 +282,7 @@
 			\end{column}
 			\begin{column}{0.45\textwidth}
 				\centering
-				\begin{block}{Nach Erstellung von neuen Nichtterminalen}
+				\begin{block}{Nach der Erstellung von neuen Nichtterminalen}
 					\begin{minipage}[t]{\linewidth}
 						\vspace{-1em}
 						\begin{align*}
@@ -276,12 +290,9 @@
 							& N = \{E, E_1, E_2, E_3, E_4\} \\
 							& T = \{+, *, \bold{num}\} \\
 							& S = \{E\} \\
-							& P = \{ \begin{aligned}[t] \\
-							E &\rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
-							E_1 &\rightarrow E_1 * E_2 | \bold{num} \\
-							E_2 &\rightarrow E_3 + E_4 | \bold{num} \\
-							E_3 &\rightarrow E_1 * E_2 | \bold{num} \\
-							E_4 &\rightarrow E_3 + E_4 | \bold{num}
+							& P = \{ \begin{aligned}[t]
+								         \\
+								         E &\rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
 							\end{aligned} \\
 							& \}
 						\end{align*}
@@ -292,41 +303,51 @@
 	\end{frame}
 
 
-
 	\begin{frame}
-		\begin{minipage}[c]{0.5\textwidth}
-			\begin{align*}
-				& G(N,T,P,S) \\
-				& N= \{E, E_1, E_2, E_3, E_4\} \\
-				& T= \{+, *, \bold{num}\} \\
-				& S= \{E\} \\
-				& P = \{ \\
-				& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
-				& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
-				& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
-				& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
-				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
-				& \}
-			\end{align*}
+		\centering
+		\begin{minipage}[c]{0.4\textwidth}
+			\vspace{-2em}
+			\begin{block}{Nach der Erstellung von neuen Produktionsregeln}
+				\vspace{-2em}
+				\begin{align*}
+					& G(N,T,P,S) \\
+					& N= \{E, E_1, E_2, E_3, E_4\} \\
+					& T= \{+, *, \bold{num}\} \\
+					& S= \{E\} \\
+					& P = \{ \\
+					& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+					& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
+					& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+					& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
+					& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+					& \}
+				\end{align*}
+			\end{block}
 		\end{minipage}%
+		\quad%
 		\begin{tikzpicture}
 			\draw[->, line width=1mm](0,0) -- (1,0);
 		\end{tikzpicture}%
-		\begin{minipage}[c]{0.5\textwidth}
-			\begin{align*}
-				& G(N,T,P,S) \\
-				& N= \{E, E_1, E_2, E_3, E_4\} \\
-				& T= \{+, *, \bold{num}\} \\
-				& S= \{E\} \\
-				& P = \{ \\
-				& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
-				& E_1   \rightarrow E_1 * E_5 | \bold{num} \\
-				& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
-				& E_3   \rightarrow E_5 * E_2 | \bold{num} \\
-				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
-				& E_5   \bold{num} \\
-				& \}
-			\end{align*}
+		\quad%
+		\begin{minipage}[c]{0.4\textwidth}
+			\vspace{-1em}
+			\begin{block}{Nach dem Prüfen von verschachtelten Fällen}
+				\vspace{-2em}
+				\begin{align*}
+					& G(N,T,P,S) \\
+					& N= \{E, E_1, E_2, E_3, E_4\} \\
+					& T= \{+, *, \bold{num}\} \\
+					& S= \{E\} \\
+					& P = \{ \\
+					& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+					& E_1   \rightarrow E_1 * E_5 | \bold{num} \\
+					& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+					& E_3   \rightarrow E_5 * E_2 | \bold{num} \\
+					& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+					& E_5   \rightarrow \bold{num} \\
+					& \}
+				\end{align*}
+			\end{block}
 		\end{minipage}
 	\end{frame}
 

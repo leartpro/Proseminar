@@ -4,10 +4,11 @@
       <compiler>XELATEX</compiler>
       <compiler-path />
       <sumatra-path />
-      <pdf-viewer>NONE</pdf-viewer>
+      <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
       <viewer-command />
       <compiler-arguments />
       <envs />
+      <before-run-command />
       <main-file>$PROJECT_DIR$/Intermediate/slides.tex</main-file>
       <output-path>$PROJECT_DIR$/out</output-path>
       <auxil-path>{projectDir}/auxil</auxil-path>
