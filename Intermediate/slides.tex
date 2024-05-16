@@ -81,11 +81,11 @@
     \begin{frame}
         \vspace{-1em}
         \begin{columns}[T]
-            \begin{column}{0.33\textwidth}
+            \begin{column}{0.50\textwidth}
                 \centering
                 \begin{block}{Grammatik}
                     \vspace{-1em}
-                    \begin{minipage}[t][7.5cm]{\linewidth}
+                    \begin{minipage}[t]{\linewidth}
                         \begin{align*}
                             & G(N,T,P,S) \\
                             & N= \{E\} \\
@@ -97,31 +97,35 @@
                         \end{align*}
                     \end{minipage}
                 \end{block}
+                \bigskip
+                \begin{block}{Definition\cite{softwarelanguage}}
+                    Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
+                \end{block}
             \end{column}
             \begin{column}{0.33\textwidth}
                 \centering
                 \begin{block}{Ableitungen}
                     \vspace{-1em}
-                    \begin{minipage}[t][7.5cm]{\linewidth}
+                    \begin{minipage}[t]{\linewidth}
                         \begin{align*}
                             & E \rightarrow E + E \\
-                            & \phantom{E} \rightarrow \bold{num} + E \\
-                            & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+                            & \phantom{E} \rightarrow E + E * E \\
+                            & \phantom{E} \rightarrow \bold{num} + E * E \\
+                            & \phantom{E} \rightarrow \bold{num} + \bold{num} * E \\
+                            & \phantom{E} \rightarrow \bold{num} + \bold{num} * \bold{num} \\
                         \end{align*}
                         \vspace{-2em}
                         \begin{align*}
                             & E \rightarrow E + E \\
-                            & \phantom{E} \rightarrow E + \bold{num} \\
-                            & \phantom{E} \rightarrow \bold{num} + \bold{num} \\
+                            & \phantom{E} \rightarrow \bold{num} + E \\
+                            & \phantom{E} \rightarrow \bold{num} + E * E \\
+                            & \phantom{E} \rightarrow \bold{num} + \bold{num} * E \\
+                            & \phantom{E} \rightarrow \bold{num} + \bold{num} * \bold{num} \\
                         \end{align*}
                     \end{minipage}
                 \end{block}
             \end{column}
         \end{columns}
-        \bigskip
-        \begin{block}{Definition\cite{softwarelanguage}}
-            Eine Grammatik ist mehrdeutig, wenn sie mehrere Ableitungen für ein Wort zulässt.
-        \end{block}
     \end{frame}
 
 
@@ -221,6 +225,22 @@
         \end{exampleblock}
     \end{frame}
 
+    \section{Lösen von Merhdeutigkeiten bei Operatoren}\label{sec:losen-von-merhdeutigkeiten-bei-operatoren}
+    \begin{frame}
+        \begin{block}{Probleme der Chomsky Normal Form}
+            \begin{itemize}
+                \item Keine Aussage über die Mehrdeutigkeit einer Grammatik
+                \item Für komplexe Sprachen werden viele Produktionen benötigt
+            \end{itemize}
+        \end{block}
+        \bigskip\bigskip
+        \begin{block}{Methode zur Beseitigung von Mehrdeutigkeiten}
+            \begin{itemize}
+                \item Durch Operatorvorrang und Operatorassoziativität können alle Mehrdeutigkeiten beseitigt werden
+                \item Die Grammatik kann weiterhin kontextfrei bleiben
+            \end{itemize}
+        \end{block}
+    \end{frame}
 
     \section{Definition von Mustern}\label{sec:muster}
     \begin{frame}
@@ -295,7 +315,7 @@
         \end{block}
         \bigskip\bigskip
         \begin{exampleblock}{Beispiel}
-            So wird $2 + 3 * 4$ gemäß der Definierten Assotiativität und der Vorrangsregeln eindeutig als
+            So wird $2 + 3 * 4$ gemäß der definierten Assoziativität und der Vorrangsregeln eindeutig als
             $2 + (3 * 4)$ ausgewertet, was korrekt ist.
         \end{exampleblock}
     \end{frame}
@@ -343,8 +363,7 @@
 
     \begin{frame}
         \centering
-        \begin{minipage}[c]{0.4\textwidth}
-            \vspace{-2em}
+        \begin{minipage}[c]{0.45\textwidth}
             \begin{block}{Nach der Erstellung von neuen Produktionsregeln}
                 \vspace{-2em}
                 \begin{align*}
@@ -362,18 +381,30 @@
                 \end{align*}
             \end{block}
         \end{minipage}%
-        \quad%
-        \begin{tikzpicture}
-            \draw[->, line width=1mm](0,0) -- (1,0);
-        \end{tikzpicture}%
-        \quad%
-        \begin{minipage}[c]{0.4\textwidth}
+        \quad\quad%
+        \begin{minipage}[c]{0.45\textwidth}
             \vspace{-1em}
+            \begin{exampleblock}{Beispiel aufgelöster Produktionsregel}
+                Für beispielsweise $E + E + E$ gibt es nur noch eine Möglichkeit:
+                \begin{align*}
+                    & E \rightarrow E_3 + E_4 \\
+                    & \phantom{E} \rightarrow E_3 + E_3 + E_4 \\
+                \end{align*}
+                Das Muster $(E, \bullet{E}+E, E+E)$ verhindert die Alternative.
+            \end{exampleblock}
+        \end{minipage}
+    \end{frame}
+
+    \begin{frame}
+        \centering
+        \begin{minipage}[c]{0.45\textwidth}
+            \vspace{-1em}
+            \centering
             \begin{block}{Nach dem Prüfen von verschachtelten Fällen}
                 \vspace{-2em}
                 \begin{align*}
                     & G(N,T,P,S) \\
-                    & N= \{E, E_1, E_2, E_3, E_4\} \\
+                    & N= \{E, E_1, E_2, E_3, E_4, E_5\} \\
                     & T= \{+, *, \bold{num}\} \\
                     & S= \{E\} \\
                     & P = \{ \\
@@ -386,6 +417,18 @@
                     & \}
                 \end{align*}
             \end{block}
+        \end{minipage}%
+        \quad\quad%
+        \begin{minipage}[c]{0.45\textwidth}
+            \vspace{-1em}
+            \centering
+            \begin{exampleblock}{Bemerkung}
+                \begin{itemize}
+                    \item Die Vorrangs und Assoziativitätsregeln sind in der Produktion umgesezt.
+                    \item Die Grammatik ist nun eindeutig.
+                    \item Die Gramatik ist frei von Zykeln
+                \end{itemize}
+            \end{exampleblock}
         \end{minipage}
     \end{frame}
 
