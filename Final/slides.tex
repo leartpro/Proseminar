@@ -25,6 +25,7 @@
 
 % PGFPlots is used for drawing some of the charts
 \usepackage{pgfplots}
+\usepackage{blkarray}
 \pgfplotsset{compat=newest}
 \input{plot_commands.tex}
 
@@ -32,72 +33,80 @@
 % as it requires some specific dimensions
 \usetheme{rwth}
 
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
 \begin{document}
 
-\logo{\includegraphics{logo.png}}
+	\logo{\includegraphics{logo.png}}
 
 % Setup presentation information
-\title{Syntaktische Mehrdeutigkeiten \\ Erkennung, Vermeidung und Auflösung}
-\date{07.06.2024}
-\author{Lennart Protte}
+	\title{Syntaktische Mehrdeutigkeiten \\ Erkennung, Vermeidung und Auflösung}
+	\date{07.06.2024}
+	\author{Lennart Protte}
 
-\frame{\titlepage}
+	\frame{\titlepage}
 
 
-\section{Motivation}
-\begin{frame}
-\begin{itemize}
-    \item Bedeutung von syntaktischen und lexikalischen Mehrdeutigkeiten
-    \item Auswirkungen auf die Zuverlässigkeit und Effizienz von Parsern und Compilern
-    \item Ziel: Erkennen, Vermeiden und Lösen von Mehrdeutigkeiten
-\end{itemize}
-\end{frame}
+	\section{Motivation}\label{sec:motivation}
+	\begin{frame}
+		\begin{block}{Fragestellung}
+			\begin{itemize}
+				\item Wann ist ein Syntax Mehrdeutig?
+				\item Was ist die Problematik von mehrdeutigen Syntaxen?
+				\item Wie können Mehrdeigkeiten erkannt werden?
+				\item Wie können Mehrdeutigkeiten aufgelöst werden?
+				\item Wie können Mehrdeutigkeiten vermieden werden?
+			\end{itemize}
+		\end{block}
+		\begin{block}{Zielsetzung}
+			Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
+			oder zur \textbf{Vermeidung} ihrer Entstehung.
+		\end{block}
+	\end{frame}
 
-\section{Inhalt}
-\begin{frame}
-\tableofcontents
-\end{frame}
 
-\section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
-\begin{frame}
-\begin{itemize}
-    \item Definition syntaktischer und lexikalischer Mehrdeutigkeiten
-    \item Beispiele für Mehrdeutigkeiten in Programmiersprachen
-    \item Negative Konsequenzen für die Parserleistung
-\end{itemize}
-\end{frame}
+	\section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
+	\begin{frame}
+		\begin{itemize}
+			\item Definition syntaktischer und lexikalischer Mehrdeutigkeiten
+			\item Beispiele für Mehrdeutigkeiten in Programmiersprachen
+			\item Negative Konsequenzen für die Parserleistung
+		\end{itemize}
+	\end{frame}
 
-\section{Theoretische Ergebnisse und algorithmische Lösungen}\label{sec:theoretische-ergebnisse-und-algorithmische-losungen}
-\begin{frame}
-\begin{itemize}
-    \item Formale Sprachen und Grammatiken
-    \item Algorithmen zur Erkennung von Mehrdeutigkeiten (Lookahead, Parse Trees)
-    \item Lösungsstrategien: Vorrangsregeln, Assoziativität, Grammatik-Korrektur
-\end{itemize}
-\end{frame}
 
-\section{Praktische Ansätze}\label{sec:praktische-ansatze}
-\begin{frame}
-\begin{itemize}
-    \item Beispiele aus der Praxis: Bekannte Compiler und Programmiersprachen
-    \item Fallstudien: Anwendung der Techniken in realen Projekten
-\end{itemize}
-\end{frame}
+	\section{Theoretische Ergebnisse und algorithmische Lösungen}\label{sec:theoretische-ergebnisse-und-algorithmische-losungen}
+	\begin{frame}
+		\begin{itemize}
+			\item Formale Sprachen und Grammatiken
+			\item Algorithmen zur Erkennung von Mehrdeutigkeiten
+			\item Lösungsstrategien: Vorrangsregeln, Assoziativität, Grammatik-Korrektur
+		\end{itemize}
+	\end{frame}
 
-\section{Ausblick und zukünftige Projekte}\label{sec:ausblick-und-zukunftige-projekte}
-\begin{frame}
-\begin{itemize}
-    \item Potenzielle Weiterentwicklungen: Neue Herausforderungen und Fragen
-    \item Ideen für Folgeprojekte: Erweiterung auf neue Sprachfamilien, maschinelles Lernen zur Erkennung von Mehrdeutigkeiten
-\end{itemize}
-\end{frame}
 
-\section{Quellen}\label{sec:quellen}
-\begin{frame}
-\begin{itemize}
-    \item Referenzen und weiterführende Literatur
-    \item Verweise auf den vollständigen Bericht und zusätzliche Materialien
-\end{itemize}
-\end{frame}
+	\section{Praktische Ansätze}\label{sec:praktische-ansatze}
+	\begin{frame}
+		\begin{itemize}
+			\item Beispiele aus der Praxis: Bekannte Compiler und Programmiersprachen
+			\item Fallstudien: Anwendung der Techniken in realen Projekten , (LALR(1), LL(1) Parser)
+		\end{itemize}
+	\end{frame}
+
+
+	\section{Ausblick}\label{sec:ausblick-und-zukunftige-projekte}
+	\begin{frame}
+		\begin{itemize}
+			\item Maschinelles Lernen zur Erkennung von Mehrdeutigkeiten
+			\item Natürliche Sprache => Komplexe MEhrdeutige Grammatiken
+		\end{itemize}
+	\end{frame}
+
+
+	\section{Quellen}\label{sec:quellen}
+	\begin{frame}[allowframebreaks]
+		\bibliographystyle{apalike}
+		\bibliography{refs}
+	\end{frame}
 
 \end{document}
