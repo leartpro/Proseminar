@@ -29,11 +29,10 @@
 \pgfplotsset{compat=newest}
 \input{plot_commands.tex}
 
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 % Load the actual RWTH theme. Suggested is to load the full theme,
 % as it requires some specific dimensions
 \usetheme{rwth}
-
-\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 \begin{document}
 
@@ -49,28 +48,42 @@
 
 	\section{Motivation}\label{sec:motivation}
 	\begin{frame}
-		\begin{block}{Fragestellung}
-			\begin{itemize}
-				\item Wann ist ein Syntax Mehrdeutig?
-				\item Was ist die Problematik von mehrdeutigen Syntaxen?
-				\item Wie können Mehrdeigkeiten erkannt werden?
-				\item Wie können Mehrdeutigkeiten aufgelöst werden?
-				\item Wie können Mehrdeutigkeiten vermieden werden?
-			\end{itemize}
-		\end{block}
-		\begin{block}{Zielsetzung}
-			Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
-			oder zur \textbf{Vermeidung} ihrer Entstehung.
-		\end{block}
+		\begin{columns}[T]
+			\column{0.5\textwidth}
+			\centering
+			\begin{block}{Zielsetzung}
+				\vspace{1em}
+					Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
+					oder zur \textbf{Vermeidung} ihrer Entstehung.
+				\vspace{1em}
+			\end{block}
+			\column{0.5\textwidth}
+			\centering
+			\begin{tikzpicture}[node distance=1.5cm, auto, every node/.style={align=center}]
+				% Nodes
+				\node (input) [rectangle, draw, text centered, minimum height=1cm, minimum width=2.5cm] {Mehrdeutigkeiten};
+				\node (detect) [rectangle, draw, below of=input, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Erkennung};
+				\node (solve) [rectangle, draw, below of=detect, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Lösung};
+				\node (avoid) [rectangle, draw, below of=solve, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Vermeidung};
+
+				% Arrows
+				\draw[->] (input) -- (detect);
+				\draw[->] (detect) -- (solve);
+				\draw[->] (solve) -- (avoid);
+			\end{tikzpicture}
+
+		\end{columns}
 	\end{frame}
 
 
 	\section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
 	\begin{frame}
 		\begin{itemize}
-			\item Definition syntaktischer und lexikalischer Mehrdeutigkeiten
-			\item Beispiele für Mehrdeutigkeiten in Programmiersprachen
-			\item Negative Konsequenzen für die Parserleistung
+			\item Wann ist ein Syntax Mehrdeutig?
+			\item Was ist die Problematik von mehrdeutigen Syntaxen?
+			\item Wie können Mehrdeutigkeiten vermieden werden?
+			\item Wie können Mehrdeigkeiten erkannt werden?
+			\item Wie können Mehrdeutigkeiten aufgelöst werden?
 		\end{itemize}
 	\end{frame}
 
@@ -78,10 +91,13 @@
 	\section{Theoretische Ergebnisse und algorithmische Lösungen}\label{sec:theoretische-ergebnisse-und-algorithmische-losungen}
 	\begin{frame}
 		\begin{itemize}
-			\item Formale Sprachen und Grammatiken
+			\item Chomsky-NormalForm
 			\item Algorithmen zur Erkennung von Mehrdeutigkeiten
 			\item Lösungsstrategien: Vorrangsregeln, Assoziativität, Grammatik-Korrektur
 		\end{itemize}
+		\begin{center}
+			\includegraphics[width=\textwidth]{./img}\cite{springer2013}
+		\end{center}
 	\end{frame}
 
 
