@@ -26,7 +26,7 @@
 % PGFPlots is used for drawing some of the charts
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
-\input{plot_commands.tex}
+\input{plot_commands}
 
 
 %custom
@@ -44,16 +44,18 @@
 
 % Define C++ style
 \lstdefinestyle{cppStyle}{
-	language=C++,
-	basicstyle=\Large\ttfamily,
-	keywordstyle=\color{blue},
-	stringstyle=\color{purple},
-	commentstyle=\color{green!60!black},
-	morecomment=[l][\color{magenta}]{\#},
-	tabsize=2,
-	breaklines=true,
-	showspaces=false,
-	showstringspaces=false
+    language=C++,
+    basicstyle=\Large\ttfamily,
+    keywordstyle=\color{blue},
+    stringstyle=\color{purple},
+    commentstyle=\color{green!60!black},
+    morecomment=[l][\color{magenta}]{\#},
+    tabsize=2,
+    breaklines=true,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    columns=flexible
 }
 
 \lstdefinestyle{antlr}{
@@ -63,8 +65,10 @@
     basicstyle=\\ttfamily,
     tabsize=2,
     breaklines=true,
+    showtabs=false,
     showspaces=false,
-    showstringspaces=false
+    showstringspaces=false,
+    columns=flexible
 }
 
 
@@ -79,123 +83,123 @@
 
 \begin{document}
 
-	\logo{\includegraphics{logo.png}}
+    \logo{\includegraphics{logo}}
 
 % Setup presentation information
-	\title{Syntaktische Mehrdeutigkeiten \\ Erkennung, Vermeidung und Auflösung}
-	\date{14.06.2024}
-	\author{Lennart Protte}
+    \title{Syntaktische Mehrdeutigkeiten \\ Erkennung, Vermeidung und Auflösung}
+    \date{14.06.2024}
+    \author{Lennart Protte}
 
-	\frame{\titlepage}
-
-
-	\section{Motivation}\label{sec:motivation}
-	\begin{frame}
-		\vspace{1em}
-		\begin{columns}[T]
-			\column{0.5\textwidth}
-			\centering
-			\begin{block}{Zielsetzung}
-				\vspace{1em}
-				Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
-				oder zur \textbf{Vermeidung} ihrer Entstehung.
-				\vspace{1em}
-			\end{block}
-			\column{0.5\textwidth}
-			\centering
-			\begin{tikzpicture}[node distance=1.5cm, auto, every node/.style={align=center}]
-				% Nodes
-				\node (avoid) [rectangle, draw, left of=input, text centered, minimum height=1cm, minimum width=2.5cm, xshift=-4.5cm] {Vermeidung};
-				\node (input) [rectangle, draw, text centered, minimum height=1cm, minimum width=2.5cm] {Mehrdeutigkeiten};
-				\node (detect) [rectangle, draw, below of=input, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Erkennung};
-				\node (solve) [rectangle, draw, below of=detect, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Lösung};
-
-				% Arrows
-				\draw[->] (input) -- (avoid);
-				\draw[->] (input) -- (detect);
-				\draw[->] (detect) -- (solve);
-			\end{tikzpicture}
-		\end{columns}
-		\vspace{1em}
-		\begin{exampleblock}{Beispiel}
-			Manchmal lassen sich Mehrdeutigkeiten nicht vermeiden. \\
-			Dann ist es notwendig diese zu Erkennen und Aufzulösen.
-		\end{exampleblock}
-	\end{frame}
+    \frame{\titlepage}
 
 
-	\section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
-	\begin{frame}
-		\begin{block}{Problemstellungen}
-			\begin{itemize}
-				\item Bei komplexen Programmiersprachen lassen sich Mehrdeutigkeiten kaum vermeiden.
-				\item Es existiert kein Algorithmus, welcher eindeutig Mehrdeutigkeiten erkennen kann.
-				\item Mehrdeutigkeiten können nur selten Algorithmisch aufgelöst werden.
-			\end{itemize}
-		\end{block}
-	\end{frame}
+    \section{Motivation}\label{sec:motivation}
+    \begin{frame}
+        \vspace{1em}
+        \begin{columns}[T]
+            \column{0.5\textwidth}
+            \centering
+            \begin{block}{Zielsetzung}
+                \vspace{1em}
+                Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
+                oder zur \textbf{Vermeidung} ihrer Entstehung.
+                \vspace{1em}
+            \end{block}
+            \column{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[node distance=1.5cm, auto, every node/.style={align=center}]
+                % Nodes
+                \node (avoid) [rectangle, draw, left of=input, text centered, minimum height=1cm, minimum width=2.5cm, xshift=-4.5cm] {Vermeidung};
+                \node (input) [rectangle, draw, text centered, minimum height=1cm, minimum width=2.5cm] {Mehrdeutigkeiten};
+                \node (detect) [rectangle, draw, below of=input, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Erkennung};
+                \node (solve) [rectangle, draw, below of=detect, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Lösung};
+
+                % Arrows
+                \draw[->] (input) -- (avoid);
+                \draw[->] (input) -- (detect);
+                \draw[->] (detect) -- (solve);
+            \end{tikzpicture}
+        \end{columns}
+        \vspace{1em}
+        \begin{exampleblock}{Beispiel}
+            Manchmal lassen sich Mehrdeutigkeiten nicht vermeiden. \\
+            Dann ist es notwendig diese zu Erkennen und Aufzulösen.
+        \end{exampleblock}
+    \end{frame}
 
 
-	\section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
-	\begin{frame}[fragile]
-		\begin{block}{Design eindeutiger Programmiersprachen}
-			\begin{itemize}
-				\item Symbole
-				\item Bezeichner
-				\item Vorrangsregeln
-				\item Assoziativität
-			\end{itemize}
-		\end{block}
-		\begin{columns}[T,onlytextwidth]
-			\column{0.45\textwidth}
-			\begin{exampleblock}{Mehrdeutiger C++ Code}
-				\hspace*{-3em}
-				\begin{minipage}{\textwidth+3em}
-					\begin{lstlisting}[style=cppStyle,label={lst:lstlisting1}]
-				class A {public: void func() {}};
-				class B {public: void func() {}};
-				class C: public A, public B {};
-				int main() {
-				    C c;
-				    c.func();
-				    return 0;
-				}
-					\end{lstlisting}
-				\end{minipage}
-			\end{exampleblock}
-			\column{0.48\textwidth}
-			\begin{exampleblock}{Eindeutiger C++ Code}
-				\hspace*{-3em}
-				\begin{minipage}{\textwidth+3em}
-					\begin{lstlisting}[style=cppStyle,label={lst:lstlisting2}]
-				class A {public: void func() {}};
-				class B {public: void func() {}};
-				class C: public A, public B {};
-				int main() {
-				    C c;
-				    c.A::func();
-				    return 0;
-				}
-					\end{lstlisting}
-				\end{minipage}
-			\end{exampleblock}
-		\end{columns}
-	\end{frame}
+    \section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
+    \begin{frame}
+        \begin{block}{Problemstellungen}
+            \begin{itemize}
+                \item Bei komplexen Programmiersprachen lassen sich Mehrdeutigkeiten kaum vermeiden.
+                \item Es existiert kein Algorithmus, welcher eindeutig Mehrdeutigkeiten erkennen kann.
+                \item Mehrdeutigkeiten können nur selten Algorithmisch aufgelöst werden.
+            \end{itemize}
+        \end{block}
+    \end{frame}
 
 
-	\section{Erkennung von Mehrdeutigkeiten}\label{sec:erkennung-von-mehrdeutigkeiten}
-	\begin{frame}
-		\begin{block}{Methoden zur Erkennung von Mehrdeutigkeiten}
-			\begin{itemize}
-				\item Suchbasierte Mehrdeutigkeitserkennung
-				\item Analyse der Parsing-Tabelle
-				\item Analyze der Grammatik
-			\end{itemize}
-		\end{block}
-		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
-			\includegraphics[width=\textwidth]{./detectors}\cite{springer2013}
-		\end{exampleblock}
-	\end{frame}
+    \section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
+    \begin{frame}[fragile]
+        \begin{block}{Design eindeutiger Programmiersprachen}
+            \begin{itemize}
+                \item Symbole
+                \item Bezeichner
+                \item Vorrangsregeln
+                \item Assoziativität
+            \end{itemize}
+        \end{block}
+        \begin{columns}[T,onlytextwidth]
+            \column{0.45\textwidth}
+            \begin{exampleblock}{Mehrdeutiger C++ Code}
+                \hspace*{-3em}
+                \begin{minipage}{\textwidth+3em}
+                    \begin{lstlisting}[style=cppStyle,label={lst:lstlisting1}]
+            class A {public: void func() {}};
+            class B {public: void func() {}};
+            class C: public A, public B {};
+            int main() {
+                C c;
+                c.func();
+                return 0;
+            }
+                    \end{lstlisting}
+                \end{minipage}
+            \end{exampleblock}
+            \column{0.48\textwidth}
+            \begin{exampleblock}{Eindeutiger C++ Code}
+                \hspace*{-3em}
+                \begin{minipage}{\textwidth+3em}
+                    \begin{lstlisting}[style=cppStyle,label={lst:lstlisting2}]
+            class A {public: void func() {}};
+            class B {public: void func() {}};
+            class C: public A, public B {};
+            int main() {
+                C c;
+                c.A::func();
+                return 0;
+            }
+                    \end{lstlisting}
+                \end{minipage}
+            \end{exampleblock}
+        \end{columns}
+    \end{frame}
+
+
+    \section{Erkennung von Mehrdeutigkeiten}\label{sec:erkennung-von-mehrdeutigkeiten}
+    \begin{frame}
+        \begin{block}{Methoden zur Erkennung von Mehrdeutigkeiten}
+            \begin{itemize}
+                \item Suchbasierte Mehrdeutigkeitserkennung
+                \item Analyse der Parsing-Tabelle
+                \item Analyze der Grammatik
+            \end{itemize}
+        \end{block}
+        \begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
+            \includegraphics[width=\textwidth]{./detectors}\cite{springer2013}
+        \end{exampleblock}
+    \end{frame}
 
 
 	\section{Auflösung von Mehrdeutigkeiten}\label{sec:auflsung-von-mehrdeutigkeiten}
@@ -230,40 +234,40 @@
 	\end{frame}
 
 
-	\section{Praktische Ansätze}\label{sec:praktische-ansatze}
-	\begin{frame}[fragile]
-			\begin{block}{ANTLR}
-				\begin{minipage}{\textwidth}
-					\begin{lstlisting}[style=antlr,label={lst:lstlisting3}]
-						start   : statement* EOF ;
-						statement: 'if' condition 'then' statement ('else' statement)?? ;
+    \section{Praktische Ansätze}\label{sec:praktische-ansatze}
+    \begin{frame}[fragile]
+        \begin{block}{ANTLR}
+            \begin{minipage}{\textwidth}
+                \begin{lstlisting}[style=antlr,label={lst:lstlisting3}]
+                    start   : statement* EOF ;
+                    statement: 'if' condition 'then' statement ('else' statement)?? ;
 
-						condition: '(' STRING ')' ;
-						STRING   : '"' .*? '"' ;
-						WS       : [ \t\r\n]+ -> skip ;
-					\end{lstlisting}
-				\end{minipage}
-			\end{block}
-			\vspace{1em}
-			\begin{exampleblock}{Erläuterung des \(??\) Operators}
-				Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird. \\
-			\end{exampleblock}\cite{parr}
-	\end{frame}
-
-
-	\section{Ausblick}\label{sec:ausblick-und-zukunftige-projekte}
-	\begin{frame}
-		\begin{itemize}
-			\item Maschinelles Lernen zur Erkennung von Mehrdeutigkeiten
-			\item Natürliche Sprache => Komplexe Mehrdeutige Grammatiken
-		\end{itemize}
-	\end{frame}
+                    condition: '(' STRING ')' ;
+                    STRING   : '"' .*? '"' ;
+                    WS       : [ \t\r\n]+ -> skip ;
+                \end{lstlisting}
+            \end{minipage}
+        \end{block}
+        \vspace{1em}
+        \begin{exampleblock}{Erläuterung des \(??\) Operators}
+            Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird. \\
+        \end{exampleblock}\cite{parr}
+    \end{frame}
 
 
-	\section{Quellen}\label{sec:quellen}
-	\begin{frame}[allowframebreaks]
-		\bibliographystyle{apalike}
-		\bibliography{refs}
-	\end{frame}
+    \section{Ausblick}\label{sec:ausblick-und-zukunftige-projekte}
+    \begin{frame}
+        \begin{itemize}
+            \item Maschinelles Lernen zur Erkennung von Mehrdeutigkeiten
+            \item Natürliche Sprache => Komplexe Mehrdeutige Grammatiken
+        \end{itemize}
+    \end{frame}
+
+
+    \section{Quellen}\label{sec:quellen}
+    \begin{frame}[allowframebreaks]
+        \bibliographystyle{apalike}
+        \bibliography{refs}
+    \end{frame}
 
 \end{document}
