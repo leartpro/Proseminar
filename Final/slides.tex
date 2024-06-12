@@ -195,7 +195,7 @@
 			\end{itemize}
 		\end{block}
 		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
-			\includegraphics[width=\textwidth]{./img}\cite{springer2013}
+			\includegraphics[width=\textwidth]{./detectors}\cite{springer2013}
 		\end{exampleblock}
 	\end{frame}
 
@@ -230,10 +230,7 @@
 				\begin{minipage}{\textwidth}
 					\begin{lstlisting}[style=cppStyle,label={lst:lstlisting3}]
 						start   : statement* EOF ;
-						statement: 'if' condition 'then' statement ('else' statement)??
-						         | 'print' STRING
-						         | 'begin' statement* 'end'
-						         ;
+						statement: 'if' condition 'then' statement ('else' statement)?? ;
 
 						condition: '(' STRING ')' ;
 						STRING   : '"' .*? '"' ;
@@ -241,8 +238,10 @@
 					\end{lstlisting}
 				\end{minipage}
 			\end{block}
-		"??" gibt dem Else die niedrigste priorität, womit es mit dem äußerden if gematched wird
-		LALR(1), LL(1) Parser
+			\vspace{1em}
+			\begin{exampleblock}{Erläuterung des \(??\) Operators}
+				Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird. \\
+			\end{exampleblock}\cite{parr}
 	\end{frame}
 
 
