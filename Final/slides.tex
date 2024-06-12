@@ -48,47 +48,78 @@
 
 	\section{Motivation}\label{sec:motivation}
 	\begin{frame}
+		\vspace{1em}
 		\begin{columns}[T]
 			\column{0.5\textwidth}
 			\centering
 			\begin{block}{Zielsetzung}
 				\vspace{1em}
-					Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
-					oder zur \textbf{Vermeidung} ihrer Entstehung.
+				Entwicklung von Strategien zur \textbf{Erkennung} und \textbf{Lösung} von Mehrdeutigkeiten
+				oder zur \textbf{Vermeidung} ihrer Entstehung.
 				\vspace{1em}
 			\end{block}
 			\column{0.5\textwidth}
 			\centering
 			\begin{tikzpicture}[node distance=1.5cm, auto, every node/.style={align=center}]
 				% Nodes
+				\node (avoid) [rectangle, draw, left of=input, text centered, minimum height=1cm, minimum width=2.5cm, xshift=-4.5cm] {Vermeidung};
 				\node (input) [rectangle, draw, text centered, minimum height=1cm, minimum width=2.5cm] {Mehrdeutigkeiten};
 				\node (detect) [rectangle, draw, below of=input, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Erkennung};
 				\node (solve) [rectangle, draw, below of=detect, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Lösung};
-				\node (avoid) [rectangle, draw, below of=solve, text centered, minimum height=1cm, minimum width=2.5cm, yshift=-0.5cm] {Vermeidung};
 
 				% Arrows
+				\draw[->] (input) -- (avoid);
 				\draw[->] (input) -- (detect);
 				\draw[->] (detect) -- (solve);
-				\draw[->] (solve) -- (avoid);
 			\end{tikzpicture}
-
 		\end{columns}
+		\vspace{1em}
+		\begin{exampleblock}{Beispiel}
+			Manchmal lassen sich Mehrdeutigkeiten nicht vermeiden. \\
+			Dann ist es notwendig diese zu Erkennen und Aufzulösen.
+		\end{exampleblock}
 	\end{frame}
 
 
 	\section{Probleme und Herausforderungen}\label{sec:probleme-und-herausforderungen}
 	\begin{frame}
-		\begin{itemize}
-			\item Wann ist ein Syntax Mehrdeutig?
-			\item Was ist die Problematik von mehrdeutigen Syntaxen?
-			\item Wie können Mehrdeutigkeiten vermieden werden?
-			\item Wie können Mehrdeigkeiten erkannt werden?
-			\item Wie können Mehrdeutigkeiten aufgelöst werden?
-		\end{itemize}
+		\begin{block}{Problemstellungen}
+			\begin{itemize}
+				\item Bei komplexen Programmiersprachen lassen sich Mehrdeutigkeiten kaum vermeiden.
+				\item Es existiert kein Algorithmus, welcher eindeutig Mehrdeutigkeiten erkennen kann.
+				\item Mehrdeutigkeiten können nur selten Algorithmisch aufgelöst werden.
+			\end{itemize}
+		\end{block}
 	\end{frame}
 
 
-	\section{Theoretische Ergebnisse und algorithmische Lösungen}\label{sec:theoretische-ergebnisse-und-algorithmische-losungen}
+	\section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
+	\begin{frame}
+		\begin{itemize}
+			\item Chomsky-NormalForm
+			\item Algorithmen zur Erkennung von Mehrdeutigkeiten
+			\item Lösungsstrategien: Vorrangsregeln, Assoziativität, Grammatik-Korrektur
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=\textwidth]{./img}\cite{springer2013}
+		\end{center}
+	\end{frame}
+
+	\section{Erkennung von Mehrdeutigkeiten}\label{sec:erkennung-von-mehrdeutigkeiten}
+	\begin{frame}
+		\begin{block}{Methoden zur Erkennung von Merhdeutigkeiten}
+			\begin{itemize}
+				\item Suchbasierte Mehrdeutigkeitserkennung
+				\item Analyse der Parsing-Tabelle
+				\item Analyze der Grammatik
+			\end{itemize}
+		\end{block}
+		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
+			\includegraphics[width=\textwidth]{./img}\cite{springer2013}
+		\end{exampleblock}
+	\end{frame}
+
+	\section{Auflösung von Mehrdeutigkeiten}\label{sec:auflsung-von-mehrdeutigkeiten}
 	\begin{frame}
 		\begin{itemize}
 			\item Chomsky-NormalForm
