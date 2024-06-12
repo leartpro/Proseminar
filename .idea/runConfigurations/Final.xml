@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Final" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
     <texify>
-      <compiler>LUALATEX</compiler>
+      <compiler>XELATEX</compiler>
       <compiler-path />
       <sumatra-path />
       <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
