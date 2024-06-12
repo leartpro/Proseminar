@@ -62,7 +62,7 @@
     language=Java,
     morekeywords={grammar,returns},
     keywordstyle=\\color{blue},
-    basicstyle=\\ttfamily,
+    basicstyle=\ttfamily,
     tabsize=2,
     breaklines=true,
     showtabs=false,
@@ -215,8 +215,10 @@
 				\end{align*}
 			\end{block}
 			\begin{exampleblock}
-				Einige Mehrdeutigkeiten können durch die Umformung in eine CNF aufgelöst werden.\cite{10.1007/978-3-662-21545-6_41}
-				Desweiteren vereinfacht es eine weitere Analyse der Grammatik.
+				\begin{itemize}
+					\item Mehrdeutigkeiten können durch die Umformung in eine CNF aufgelöst werden.\cite{kemp1974}
+					\item Vereinfacht es eine weitere Analyse der Grammatik.
+				\end{itemize}
 			\end{exampleblock}
 			\column{0.45\textwidth}
 			\begin{block}{Algorithmus von Vasudevan und Tratt}
@@ -237,14 +239,15 @@
     \section{Praktische Ansätze}\label{sec:praktische-ansatze}
     \begin{frame}[fragile]
         \begin{block}{ANTLR}
-            \begin{minipage}{\textwidth}
+	        \hspace*{-3.5em}
+            \begin{minipage}{\textwidth+3.5em}
                 \begin{lstlisting}[style=antlr,label={lst:lstlisting3}]
-                    start   : statement* EOF ;
-                    statement: 'if' condition 'then' statement ('else' statement)?? ;
+        start   : statement* EOF ;
+        statement: 'if' condition 'then' statement ('else' statement)?? ;
 
-                    condition: '(' STRING ')' ;
-                    STRING   : '"' .*? '"' ;
-                    WS       : [ \t\r\n]+ -> skip ;
+        condition: '(' STRING ')' ;
+        STRING   : '"' .*? '"' ;
+        WS       : [ \t\r\n]+ -> skip ;
                 \end{lstlisting}
             \end{minipage}
         \end{block}
