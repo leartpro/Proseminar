@@ -58,6 +58,18 @@
 	showstringspaces=false
 }
 
+\lstdefinestyle{antlr}{
+    language=Java,
+    morekeywords={grammar,returns},
+    keywordstyle=\\color{blue},
+    basicstyle=\\ttfamily,
+    tabsize=2,
+    breaklines=true,
+    showspaces=false,
+    showstringspaces=false
+}
+
+
 \renewcommand{\Coloneqq}{\mathrel{\mathop{::}}=}
 \newcommand*{\mybox}[1]{\framebox{#1}}
 
@@ -213,17 +225,24 @@
 
 
 	\section{Praktische Ansätze}\label{sec:praktische-ansatze}
-	\begin{frame}
-		\begin{columns}[T]
-			\column{0.45\textwidth}
+	\begin{frame}[fragile]
 			\begin{block}{ANTLR}
+				\begin{minipage}{\textwidth}
+					\begin{lstlisting}[style=cppStyle,label={lst:lstlisting3}]
+						start   : statement* EOF ;
+						statement: 'if' condition 'then' statement ('else' statement)??
+						         | 'print' STRING
+						         | 'begin' statement* 'end'
+						         ;
 
+						condition: '(' STRING ')' ;
+						STRING   : '"' .*? '"' ;
+						WS       : [ \t\r\n]+ -> skip ;
+					\end{lstlisting}
+				\end{minipage}
 			\end{block}
-			\column{0.45\textwidth}
-			\begin{block}{LALR(1), LL(1) Parser}
-
-			\end{block}
-		\end{columns}
+		"??" gibt dem Else die niedrigste priorität, womit es mit dem äußerden if gematched wird
+		LALR(1), LL(1) Parser
 	\end{frame}
 
 
