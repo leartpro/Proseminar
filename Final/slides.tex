@@ -29,8 +29,6 @@
 \input{plot_commands.tex}
 
 
-
-
 %custom
 \usepackage{tikz}
 \usetikzlibrary{trees}
@@ -212,6 +210,10 @@
 					& S \rightarrow \varepsilon
 				\end{align*}
 			\end{block}
+			\begin{exampleblock}
+				Einige Mehrdeutigkeiten können durch die Umformung in eine CNF aufgelöst werden.\cite{10.1007/978-3-662-21545-6_41}
+				Desweiteren vereinfacht es eine weitere Analyse der Grammatik.
+			\end{exampleblock}
 			\column{0.45\textwidth}
 			\begin{block}{Algorithmus von Vasudevan und Tratt}
 				\begin{align*}
@@ -220,6 +222,10 @@
 					& \phantom{|} | \phantom{|} \bold{num}
 				\end{align*}
 			\end{block}
+			\begin{exampleblock}
+				Kann unter gegebener Assotiativität und Vorrangsregeln eine eindeutige Grammatik erzeugen.
+
+			\end{exampleblock}
 		\end{columns}
 	\end{frame}
 
@@ -228,7 +234,7 @@
 	\begin{frame}[fragile]
 			\begin{block}{ANTLR}
 				\begin{minipage}{\textwidth}
-					\begin{lstlisting}[style=cppStyle,label={lst:lstlisting3}]
+					\begin{lstlisting}[style=antlr,label={lst:lstlisting3}]
 						start   : statement* EOF ;
 						statement: 'if' condition 'then' statement ('else' statement)?? ;
 
