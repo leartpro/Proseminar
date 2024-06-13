@@ -138,8 +138,8 @@
 		\begin{block}{Problemstellungen}
 			\begin{itemize}
 				\item Bei komplexen Programmiersprachen lassen sich Mehrdeutigkeiten kaum vermeiden.
-				\item Es existiert kein Algorithmus, welcher stehts alle Mehrdeutigkeiten erkennen kann.\cite{springer2013}
-				\item Mehrdeutigkeiten können nur selten Algorithmisch aufgelöst werden.
+				\item Es existiert kein Algorithmus, welcher stets alle Mehrdeutigkeiten erkennen kann.\cite{springer2013}
+				\item Mehrdeutigkeiten können nur selten algorithmisch aufgelöst werden.
 			\end{itemize}
 		\end{block}
 		\vspace{2em}
@@ -204,12 +204,12 @@
 	\begin{frame}
 		\begin{block}{Methoden zur Erkennung von Mehrdeutigkeiten}
 			\begin{itemize}
-				\item Suchbasierte Mehrdeutigkeitserkennung
+				\item Suchbasierte Erkennung von Mehrdeutigkeiten
 				\item Analyse der Parsing-Tabelle
-				\item Analyze der Grammatik
+				\item Analyse der Grammatik
 			\end{itemize}
 		\end{block}
-		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung \cite{springer2013}}
+		\begin{exampleblock}{Suchbasierte Mehrdeutigkeitserkennung \cite{springer2013}}
 			\includegraphics[width=\textwidth]{./detectors}
 		\end{exampleblock}
 	\end{frame}
@@ -220,7 +220,7 @@
 		\vspace{-1em}
 		\begin{columns}[T]
 			\column{0.45\textwidth}
-			\begin{block}{Chomsly Normalform}
+			\begin{block}{Chomsky Normalform}
 				Für $A,B,C \in N$, $S \in \text{Startsymbol}$, $a \in T$ und $B,C \neq S$. \\
 				\begin{align*}
 					& A \rightarrow BC \\
@@ -248,7 +248,7 @@
 			\end{exampleblock}
 			\column{0.45\textwidth}
 			\begin{exampleblock}{}
-				Kann unter gegebener Assotiativität und Vorrangsregeln eine eindeutige Grammatik erzeugen. \cite{springer2013}
+				Kann unter gegebener Assoziativität und Vorrangsregeln eine eindeutige Grammatik erzeugen. \cite{springer2013}
 			\end{exampleblock}
 		\end{columns}
 	\end{frame}
@@ -286,7 +286,7 @@
 		\end{block}
 		\vspace{1em}
 		\begin{exampleblock}{Erläuterung des \(??\) Operators \cite{parr}}
-			Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird.
+			Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If verknüpft wird.
 		\end{exampleblock}
 	\end{frame}
 
@@ -298,7 +298,7 @@
 			\begin{itemize}
 				\item Für komplexe Grammatiken effizienter
 				\item Risiko von Fehlentscheidungen der KI
-				\item hohe Resourcenintensität
+				\item hohe Ressourcenintensität
 			\end{itemize}
 		\end{block}
 		\vspace{1em}
