@@ -155,13 +155,13 @@
 
 	\section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
 	\begin{frame}[fragile]
-		\begin{block}{Design eindeutiger Programmiersprachen}
+		\begin{block}{Design eindeutiger Programmiersprachen \cite{watrous}}
 			\begin{itemize}
 				\item Symbole
 				\item Bezeichner
 				\item Vorrangsregeln
 				\item Assoziativität
-			\end{itemize}\cite{watrous}
+			\end{itemize}
 		\end{block}
 		\begin{columns}[T,onlytextwidth]
 			\column{0.45\textwidth}
@@ -176,8 +176,8 @@
                 C c;
                 c.func();
                 return 0;
-			}
-					\end{lstlisting}
+            }
+                    \end{lstlisting}
 				\end{minipage}
 			\end{exampleblock}
 			\column{0.48\textwidth}
@@ -192,8 +192,8 @@
                 C c;
                 c.A::func();
                 return 0;
-			}
-					\end{lstlisting}
+            }
+                    \end{lstlisting}
 				\end{minipage}
 			\end{exampleblock}
 		\end{columns}
@@ -209,9 +209,9 @@
 				\item Analyze der Grammatik
 			\end{itemize}
 		\end{block}
-		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
+		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung \cite{springer2013}}
 			\includegraphics[width=\textwidth]{./detectors}
-		\end{exampleblock}\cite{springer2013}
+		\end{exampleblock}
 	\end{frame}
 
 
@@ -248,7 +248,7 @@
 			\end{exampleblock}
 			\column{0.45\textwidth}
 			\begin{exampleblock}{}
-				Kann unter gegebener Assotiativität und Vorrangsregeln eine eindeutige Grammatik erzeugen.\cite{springer2013}
+				Kann unter gegebener Assotiativität und Vorrangsregeln eine eindeutige Grammatik erzeugen. \cite{springer2013}
 			\end{exampleblock}
 		\end{columns}
 	\end{frame}
@@ -256,6 +256,7 @@
 
 	\section{Praktische Anwendungen}\label{sec:praktische-ansatze1}
 	\begin{frame}
+        \vspace{3em}
 	\begin{itemize}
 		\item \textbf{ANTLR, YACC, Bison}: Parser-Generator-Tools, können Mehrdeutigkeiten erkennen und melden.
 		\vspace{1em}
@@ -279,19 +280,19 @@
 
         condition: '(' STRING ')' ;
         STRING   : '"' .*? '"' ;
-	    WS       : [ \t\r\n]+ -> skip ;
-				\end{lstlisting}
+        WS       : [ \t\r\n]+ -> skip ;
+                \end{lstlisting}
 			\end{minipage}
 		\end{block}
 		\vspace{1em}
-		\begin{exampleblock}{Erläuterung des \(??\) Operators}
+		\begin{exampleblock}{Erläuterung des \(??\) Operators \cite{parr}}
 			Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird.
-		\end{exampleblock}\cite{parr}
+		\end{exampleblock}
 	\end{frame}
 
 
 	\section{Ausblick}\label{sec:ausblick-und-zukunftige-projekte}
-	\vspace{1em}
+	\centering
 	\begin{frame}
 		\begin{block}{Maschinelles Lernen zur Erkennung von Mehrdeutigkeiten}
 			\begin{itemize}
@@ -313,7 +314,7 @@
 
 	\section{Quellen}\label{sec:quellen}
 	\begin{frame}[allowframebreaks]
-		\bibliographystyle{apalike}
+		\bibliographystyle{plain}
 		\bibliography{refs}
 	\end{frame}
 
