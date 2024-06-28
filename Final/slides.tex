@@ -138,8 +138,8 @@
 		\begin{block}{Problemstellungen}
 			\begin{itemize}
 				\item Bei komplexen Programmiersprachen lassen sich Mehrdeutigkeiten kaum vermeiden.
-				\item Es existiert kein Algorithmus, welcher stehts alle Mehrdeutigkeiten erkennen kann.\cite{springer2013}
-				\item Mehrdeutigkeiten können nur selten Algorithmisch aufgelöst werden.
+				\item Es existiert kein Algorithmus, welcher stets alle Mehrdeutigkeiten erkennen kann.\cite{springer2013}
+				\item Mehrdeutigkeiten können nur selten algorithmisch aufgelöst werden.
 			\end{itemize}
 		\end{block}
 		\vspace{2em}
@@ -155,13 +155,13 @@
 
 	\section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
 	\begin{frame}[fragile]
-		\begin{block}{Design eindeutiger Programmiersprachen}
+		\begin{block}{Design eindeutiger Programmiersprachen \cite{watrous}}
 			\begin{itemize}
 				\item Symbole
 				\item Bezeichner
 				\item Vorrangsregeln
 				\item Assoziativität
-			\end{itemize}\cite{watrous}
+			\end{itemize}
 		\end{block}
 		\begin{columns}[T,onlytextwidth]
 			\column{0.45\textwidth}
@@ -176,8 +176,8 @@
                 C c;
                 c.func();
                 return 0;
-			}
-					\end{lstlisting}
+            }
+                    \end{lstlisting}
 				\end{minipage}
 			\end{exampleblock}
 			\column{0.48\textwidth}
@@ -192,8 +192,8 @@
                 C c;
                 c.A::func();
                 return 0;
-			}
-					\end{lstlisting}
+            }
+                    \end{lstlisting}
 				\end{minipage}
 			\end{exampleblock}
 		\end{columns}
@@ -204,14 +204,14 @@
 	\begin{frame}
 		\begin{block}{Methoden zur Erkennung von Mehrdeutigkeiten}
 			\begin{itemize}
-				\item Suchbasierte Mehrdeutigkeitserkennung
+				\item Suchbasierte Erkennung von Mehrdeutigkeiten
 				\item Analyse der Parsing-Tabelle
-				\item Analyze der Grammatik
+				\item Analyse der Grammatik
 			\end{itemize}
 		\end{block}
-		\begin{exampleblock}{Suchbasierte Merhdeutigkeitserkennung}
+		\begin{exampleblock}{Suchbasierte Mehrdeutigkeitserkennung \cite{springer2013}}
 			\includegraphics[width=\textwidth]{./detectors}
-		\end{exampleblock}\cite{springer2013}
+		\end{exampleblock}
 	\end{frame}
 
 
@@ -220,7 +220,7 @@
 		\vspace{-1em}
 		\begin{columns}[T]
 			\column{0.45\textwidth}
-			\begin{block}{Chomsly Normalform}
+			\begin{block}{Chomsky Normalform}
 				Für $A,B,C \in N$, $S \in \text{Startsymbol}$, $a \in T$ und $B,C \neq S$. \\
 				\begin{align*}
 					& A \rightarrow BC \\
@@ -248,7 +248,7 @@
 			\end{exampleblock}
 			\column{0.45\textwidth}
 			\begin{exampleblock}{}
-				Kann unter gegebener Assotiativität und Vorrangsregeln eine eindeutige Grammatik erzeugen.\cite{springer2013}
+				Kann unter gegebener Assoziativität und Vorrangsregeln eine eindeutige Grammatik erzeugen. \cite{springer2013}
 			\end{exampleblock}
 		\end{columns}
 	\end{frame}
@@ -256,6 +256,7 @@
 
 	\section{Praktische Anwendungen}\label{sec:praktische-ansatze1}
 	\begin{frame}
+        \vspace{3em}
 	\begin{itemize}
 		\item \textbf{ANTLR, YACC, Bison}: Parser-Generator-Tools, können Mehrdeutigkeiten erkennen und melden.
 		\vspace{1em}
@@ -279,25 +280,25 @@
 
         condition: '(' STRING ')' ;
         STRING   : '"' .*? '"' ;
-	    WS       : [ \t\r\n]+ -> skip ;
-				\end{lstlisting}
+        WS       : [ \t\r\n]+ -> skip ;
+                \end{lstlisting}
 			\end{minipage}
 		\end{block}
 		\vspace{1em}
-		\begin{exampleblock}{Erläuterung des \(??\) Operators}
-			Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If gematched wird.
-		\end{exampleblock}\cite{parr}
+		\begin{exampleblock}{Erläuterung des \(??\) Operators \cite{parr}}
+			Der \(??\) Operator gibt dem Else die niedrigste Priorität, womit es mit dem äußersten If verknüpft wird.
+		\end{exampleblock}
 	\end{frame}
 
 
 	\section{Ausblick}\label{sec:ausblick-und-zukunftige-projekte}
-	\vspace{1em}
+	\centering
 	\begin{frame}
 		\begin{block}{Maschinelles Lernen zur Erkennung von Mehrdeutigkeiten}
 			\begin{itemize}
 				\item Für komplexe Grammatiken effizienter
 				\item Risiko von Fehlentscheidungen der KI
-				\item hohe Resourcenintensität
+				\item hohe Ressourcenintensität
 			\end{itemize}
 		\end{block}
 		\vspace{1em}
@@ -313,7 +314,7 @@
 
 	\section{Quellen}\label{sec:quellen}
 	\begin{frame}[allowframebreaks]
-		\bibliographystyle{apalike}
+		\bibliographystyle{plain}
 		\bibliography{refs}
 	\end{frame}
 
