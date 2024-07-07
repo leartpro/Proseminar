@@ -1,0 +1,73 @@
+1. Einführung
+- Wann ist eine Grammatik mehrdeutig?
+ - Formalisierung: Kontextfreie Grammatiken und Parse-Bäume
+ - Beispiel: Mehrdeutige Produktion in kontextfreien Grammatiken
+- Welche arten von Mehrdeutigkeiten gibt es?
+ - Lexikalische Mehrdeutigkeit
+ - Syntaktische Mehrdeutigkeit
+ - Konkretisierung: Syntaktische Mehrdeutigkeit
+ - Beispiel: "Dangling else" Problem
+ - Kontext: Unterschiedliche Interpretationen desselben Quellcodes
+- Problematik von Mehrdeutigkeiten beim Parsen
+ - Performance-Einbußen durch Mehrdeutigkeiten
+ - Schwierigkeiten in der Optimierung von Compiler-Implementierungen
+ - Beispielhafte Fehlerfälle und ihre Folgen
+- Relevanz des Problems
+ - ...
+- Schwierigkeit des Problems
+ - Theoretische Grenzen der Mehrdeutigkeitsauflösung
+ - Beispiel: "P versus NP"-Problematik im Kontext von Parsing
+ - Komplexität der Implementierung und Wartung von Parsern
+
+
+2. Vermeidung
+- Design von Sprachen die eindeutig sind
+ - Methoden zur Vermeidung von Mehrdeutigkeit beim Sprachdesign
+ - Assoziativität, Vorrangregeln
+ - Vorteile und Nachteile von eindeutigen Sprachen
+- Vorteile einfacherer Parser
+ - Kosteneinsparungen bei der Entwicklung und Wartung
+ - Bessere Performance durch einfachere Algorithmen
+ - LL Parser
+- Nachteile: Einschränkung der Sprache
+ - Beispiele für Sprachen, die durch Eindeutigkeitsanforderungen eingeschränkt sind
+
+3. Erkennung
+- Suchbasierte Erkennung
+ - bekannte Algorithmen
+ - Tiefen/Breiten-Suche
+ - Beispielhafte Implementierungen
+ -Laufzeit vergleich
+- dynamic1 Algorithmus
+
+4. Auflösung
+-algorithmus von Vasudevan und Tratt
+ - beispiel
+-chomsky normalform zur auflösung
+- LL(k)- und LR(k)-Parser im Detail
+ - Unterschiede und Gemeinsamkeiten
+ - Beispielhafte Implementierungen
+
+5. Parsen von mehrdeutigen gramamtiken
+- Erweiterte Heuristiken zur Mehrdeutigkeitsauflösung
+- Nutzung von Backtracking und Lookahead-Techniken
+- Parser-Generatoren
+- Spezifische Parser-Techniken (z.B. Early-Parser, Chart-Parser)
+- Abschließend: Vergleich LL, LR, LALR, SLR, Earley-Parser
+
+
+6. praxis
+- wo fidnet das anwendung?
+- Anwendungen in Compilerbau, Sprachverarbeitung und maschinellem Lernen
+-parser generatoren
+- early-aprser/chart parser
+
+
+7. fazit
+- eindeutige sprachen erleichtern das Schreiben von code
+ - Vorteile für die Entwickler: Effizienz und Fehlervermeidung
+
+- erleichtern das parsen
+- trend geht aber in andere richtung (zukünftige Entwicklungen im Sprachdesign)
+ - neue programmiersprachen sind oft mehrdeutig
+ - beispiel: python

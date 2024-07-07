@@ -21,7 +21,7 @@
 
 \begin{document}
 %
-\title{Handhabung syntaktischer Mehrdeutigkeiten beim Parsen}
+\title{syntaktische Mehrdeutigkeiten beim Parsen}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -38,8 +38,17 @@
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Ipsum lorem ipsum dolor sit amet, consectetur adipiscing elit.
-\keywords{keywords, keywords, keywords keywords}
+    Syntaktische Mehrdeutigkeiten stellen eine zentrale Herausforderung beim Parsen von Programmiersprachen dar.
+
+    Diese Arbeit untersucht die theoretischen Grundlagen und praktischen Auswirkungen solcher Mehrdeutigkeiten
+    und bietet Einblicke in moderne Ansätze zu ihrer Vermeidung und Auflösung.
+    Wir analysieren die Ursachen von Mehrdeutigkeiten und deren Einfluss auf die Effizienz und Zuverlässigkeit von Parsern.
+    Dabei beleuchten wir verschiedene Strategien, von der sprachlichen Gestaltung über Assoziativitäts- und Vorrangregeln
+    bis hin zu fortschrittlichen Algorithmen wie dem Dynamic1-Algorithmus und den Techniken von Vasudevan und Tratt.
+    Die Arbeit zeigt auf, wie eindeutige Sprachdesigns die Komplexität des Parsens reduzieren können und welche Kompromisse dabei eingegangen werden müssen.
+    Durch Fallstudien und praktische Beispiele verdeutlichen wir die Anwendung dieser Konzepte in realen Projekten
+    und bieten einen Ausblick auf zukünftige Entwicklungen im Sprachdesign und Parserbau.
+    \keywords{Compilerbau, Syntaktische Mehrdeutigkeiten, Sprachdesign}
 \end{abstract}
 %
 %
@@ -47,13 +56,78 @@ Ipsum lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 %Sample citation: \cite{gelman2013bayesian}.
 %See Springer website\footnote{\url{https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines}.} for further inforamtion on the \LaTeX style.
-\section{Problem Description}
+\section{Einführung}
+- Wann ist eine Grammatik mehrdeutig?
+- Formalisierung: Kontextfreie Grammatiken und Parse-Bäume
+- Beispiel: Mehrdeutige Produktion in kontextfreien Grammatiken
+- Welche arten von Mehrdeutigkeiten gibt es?
+- Lexikalische Mehrdeutigkeit
+- Syntaktische Mehrdeutigkeit
+- Konkretisierung: Syntaktische Mehrdeutigkeit
+- Beispiel: "Dangling else" Problem
+- Kontext: Unterschiedliche Interpretationen desselben Quellcodes
+- Problematik von Mehrdeutigkeiten beim Parsen
+- Performance-Einbußen durch Mehrdeutigkeiten
+- Schwierigkeiten in der Optimierung von Compiler-Implementierungen
+- Beispielhafte Fehlerfälle und ihre Folgen
 
-\section{State of the Art}
+\section{Problemstellung}
+- Relevanz des Problems
+- ...
+- Schwierigkeit des Problems
+- Theoretische Grenzen der Mehrdeutigkeitsauflösung
+- Beispiel: "P versus NP"-Problematik im Kontext von Parsing
+- Komplexität der Implementierung und Wartung von Parsern
 
-\section{Contribution}
+\section{Vermeidung von Mehrdeutigkeiten}
+- Design von Sprachen die eindeutig sind
+- Methoden zur Vermeidung von Mehrdeutigkeit beim Sprachdesign
+- Assoziativität, Vorrangregeln
+- Vorteile und Nachteile von eindeutigen Sprachen
+- Vorteile einfacherer Parser
+- Kosteneinsparungen bei der Entwicklung und Wartung
+- Bessere Performance durch einfachere Algorithmen
+- LL Parser
+- Nachteile: Einschränkung der Sprache
+- Beispiele für Sprachen, die durch Eindeutigkeitsanforderungen eingeschränkt sind
 
-\section{Conclusion}
+\section{Erkennung von Mehrdeutigkeiten}
+- Suchbasierte Erkennung
+- bekannte Algorithmen
+- Tiefen/Breiten-Suche
+- Beispielhafte Implementierungen
+-Laufzeit vergleich
+- dynamic1 Algorithmus
+
+\section{Auflösung von Mehrdeutigkeiten}
+-algorithmus von Vasudevan und Tratt
+- beispiel
+-chomsky normalform zur auflösung
+- LL(k)- und LR(k)-Parser im Detail
+- Unterschiede und Gemeinsamkeiten
+- Beispielhafte Implementierungen
+
+\section{Parsen von Mehrdeutigkeiten}
+- Erweiterte Heuristiken zur Mehrdeutigkeitsauflösung
+- Nutzung von Backtracking und Lookahead-Techniken
+- Parser-Generatoren
+- Spezifische Parser-Techniken (z.B. Early-Parser, Chart-Parser)
+- Abschließend: Vergleich LL, LR, LALR, SLR, Earley-Parser
+
+\section{Praktische Beispiele}
+- wo fidnet das anwendung?
+- Anwendungen in Compilerbau, Sprachverarbeitung und maschinellem Lernen
+-parser generatoren
+- early-aprser/chart parser
+
+\section{Zusammenfassung und Ausblick}
+- eindeutige sprachen erleichtern das Schreiben von code
+- Vorteile für die Entwickler: Effizienz und Fehlervermeidung
+
+- erleichtern das parsen
+- trend geht aber in andere richtung (zukünftige Entwicklungen im Sprachdesign)
+- neue programmiersprachen sind oft mehrdeutig
+- beispiel: python
 
 %
 % ---- Bibliography ----
