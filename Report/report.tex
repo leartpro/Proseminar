@@ -75,6 +75,23 @@ Die Problematik dessen wird im Folgenden behandelt.
 
 \section{Problemstellung}
 
+Mehrdeutigkeiten in Grammatiken von Programmiersprachen
+spielen eine entscheidene Rolle bei der Konzeption der Sprache,
+so wie bei der Implementierung des zugehörigen Parsers.
+Wenn Mehrdeutigkeiten inhärent in der Grammatik vorhanden sind,
+muss sich der Parser mit der Auflösung dieser Mehrdeutigkeiten auseinandersetzen.
+Mehrdeutigkeiten erhöhen die Komplexität des Parsvorgangs erheblich.
+Ein Parser muss alle möglichen Interpretationen eines Satzes zu finden, um die richtige zu identifizieren.
+Dies kann zu einer hohen Laufzeit des Parsers führen,
+da der Parser potenziell exponentiell viele Möglichkeiten in Betracht ziehen muss.
+Auch das Programmieren in eine Sprache mit Mehrdeutigkeiten kann zu unerwartetem Verhalten führen
+und damit die Effizienz in der in dieser Sprache entwickelt wird, beeinträchtigen.
+
+Die vollständige Beseitigung von Mehrdeutigkeiten in einer kontextfreien Grammatik ist nicht immer möglich.
+So sind einige Probleme, wie das oben erwähnte ``Dangling Else''-Problem,
+inhärent mehrdeutig und benötigen zusätzliche Kontexte oder heuristische Ansätze, um aufgelöst zu werden.
+Auf der anderen Seite ist eine eindeutige Grammatik einfacher zu parsen und zu verstehen,
+aber sie kann auch eine Einschränkung der Sprache bedeuten.
 
 - Relevanz des Problems
 - Problematik von Mehrdeutigkeiten beim Parsen
