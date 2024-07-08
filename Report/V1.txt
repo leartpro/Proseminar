@@ -1,0 +1,71 @@
+\section{Einführung}
+
+Eine Grammatik ist mehrdeutig, wenn es mindestens einen Satz gibt, der durch diese Grammatik auf verschiedene Weisen abgeleitet werden kann.
+Die Formalisierung erfolgt durch kontextfreie Grammatiken und die Darstellung durch Parse-Bäume.
+Ein klassisches Beispiel für eine mehrdeutige Produktion in kontextfreien Grammatiken ist das "dangling else" Problem,
+bei dem derselbe Quellcode unterschiedlich interpretiert werden kann.
+
+Es gibt verschiedene Arten von Mehrdeutigkeiten:
+\begin{itemize}
+    \item Lexikalische Mehrdeutigkeit
+    \item Syntaktische Mehrdeutigkeit
+\end{itemize}
+
+Bei der syntaktischen Mehrdeutigkeit können unterschiedliche Strukturen für denselben Code generiert werden.
+Ein bekanntes Beispiel ist das "dangling else" Problem. Diese Mehrdeutigkeiten führen zu unterschiedlichen Interpretationen desselben Quellcodes.
+
+Mehrdeutigkeiten beim Parsen verursachen erhebliche Probleme.
+Sie führen zu Performance-Einbußen und erschweren die Optimierung von Compiler-Implementierungen.
+Beispielhafte Fehlerfälle zeigen die gravierenden Folgen solcher Mehrdeutigkeiten.
+
+\section{Problemstellung}
+
+Die Relevanz des Problems liegt in der Notwendigkeit zuverlässiger und effizienter Parser.
+Theoretische Grenzen der Mehrdeutigkeitsauflösung, wie die "P versus NP"-Problematik im Kontext von Parsing, verdeutlichen die Komplexität.
+Die Implementierung und Wartung von Parsern wird durch diese Komplexität erheblich erschwert.
+
+\section{Vermeidung von Mehrdeutigkeiten}
+
+Ein Ansatz zur Vermeidung von Mehrdeutigkeiten ist das Design von Sprachen, die eindeutig sind.
+Methoden zur Vermeidung von Mehrdeutigkeit beim Sprachdesign umfassen Assoziativität und Vorrangregeln.
+
+Eindeutige Sprachen haben sowohl Vorteile als auch Nachteile.
+Die Vorteile umfassen einfachere Parser, Kosteneinsparungen bei der Entwicklung und Wartung sowie bessere Performance durch einfachere Algorithmen, wie LL-Parser.
+Ein Nachteil ist die Einschränkung der Sprache. Beispiele für Sprachen, die durch Eindeutigkeitsanforderungen eingeschränkt sind, zeigen diese Problematik auf.
+
+\section{Erkennung von Mehrdeutigkeiten}
+
+Zur Erkennung von Mehrdeutigkeiten werden suchbasierte Algorithmen verwendet. Bekannte Algorithmen umfassen Tiefen- und Breitensuche.
+Beispielhafte Implementierungen und Laufzeitvergleiche zeigen die Effizienz dieser Ansätze. Ein spezialisierter Algorithmus ist der Dynamic1-Algorithmus.
+
+\section{Auflösung von Mehrdeutigkeiten}
+
+Zur Auflösung von Mehrdeutigkeiten gibt es verschiedene Ansätze. Der Algorithmus von Vasudevan und Tratt ist ein Beispiel hierfür.
+Die Chomsky-Normalform kann ebenfalls zur Auflösung beitragen.
+
+LL(k)- und LR(k)-Parser werden im Detail betrachtet, wobei ihre Unterschiede und Gemeinsamkeiten sowie beispielhafte Implementierungen erläutert werden.
+
+\section{Parsen von Mehrdeutigkeiten}
+
+Erweiterte Heuristiken zur Mehrdeutigkeitsauflösung sowie die Nutzung von Backtracking- und Lookahead-Techniken sind gängige Methoden.
+Parser-Generatoren und spezifische Parser-Techniken, wie Early-Parser und Chart-Parser, bieten weitere Ansätze.
+
+Ein abschließender Vergleich von LL-, LR-, LALR-, SLR- und Earley-Parsern gibt einen umfassenden Überblick.
+
+\section{Praktische Beispiele}
+
+Mehrdeutigkeiten finden Anwendung in verschiedenen Bereichen:
+\begin{itemize}
+    \item Anwendungen im Compilerbau
+    \item Sprachverarbeitung
+    \item Maschinelles Lernen
+\end{itemize}
+
+Parser-Generatoren sowie Early-Parser und Chart-Parser sind dabei von besonderer Bedeutung.
+
+\section{Zusammenfassung und Ausblick}
+
+Eindeutige Sprachen erleichtern das Schreiben von Code und bieten Vorteile für Entwickler, wie Effizienz und Fehlervermeidung. Sie erleichtern auch das Parsen.
+
+Der Trend geht jedoch in eine andere Richtung, hin zu mehr Ausdruckskraft und damit potenzieller Mehrdeutigkeit.
+Neue Programmiersprachen sind oft mehrdeutig, wie am Beispiel von Python gezeigt werden kann.

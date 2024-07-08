@@ -57,23 +57,30 @@
 %Sample citation: \cite{gelman2013bayesian}.
 %See Springer website\footnote{\url{https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines}.} for further inforamtion on the \LaTeX style.
 \section{Einführung}
-- Wann ist eine Grammatik mehrdeutig?
-- Formalisierung: Kontextfreie Grammatiken und Parse-Bäume
-- Beispiel: Mehrdeutige Produktion in kontextfreien Grammatiken
-- Welche arten von Mehrdeutigkeiten gibt es?
-- Lexikalische Mehrdeutigkeit
-- Syntaktische Mehrdeutigkeit
-- Konkretisierung: Syntaktische Mehrdeutigkeit
-- Beispiel: "Dangling else" Problem
-- Kontext: Unterschiedliche Interpretationen desselben Quellcodes
+Bei der Handhabung von Mehrdeutigkeiten, bietet es sich an, die Grammatiken der Sprachen zu betrachten.
+Dabei stellt sich die Frage nach der Definition von Mehrdeutigkeit
+und nach der Bedeutung für die syntaktische Analyse im Parserbau.
+Es gilt: ``Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.''
+
+Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
+Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
+Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
+Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
+Das bekannteste Beispiel hierfür ist das ``Dangling else''-Problem, das in vielen Programmiersprachen auftritt.
+HIER BEISPIEL DANGLING-ELSE
+Wie dieses Beispiel erkennen lässt,
+können syntaktische Mehrdeutigkeiten zu unterschiedlichen Interpretationen desselben Quellcodes führen.
+Die Problematik dessen wird im Folgenden behandelt.
+
+
+\section{Problemstellung}
+
+
+- Relevanz des Problems
 - Problematik von Mehrdeutigkeiten beim Parsen
 - Performance-Einbußen durch Mehrdeutigkeiten
 - Schwierigkeiten in der Optimierung von Compiler-Implementierungen
 - Beispielhafte Fehlerfälle und ihre Folgen
-
-\section{Problemstellung}
-- Relevanz des Problems
-- ...
 - Schwierigkeit des Problems
 - Theoretische Grenzen der Mehrdeutigkeitsauflösung
 - Beispiel: "P versus NP"-Problematik im Kontext von Parsing
@@ -115,10 +122,10 @@
 - Abschließend: Vergleich LL, LR, LALR, SLR, Earley-Parser
 
 \section{Praktische Beispiele}
-- wo fidnet das anwendung?
+- wo findet das anwendung?
 - Anwendungen in Compilerbau, Sprachverarbeitung und maschinellem Lernen
 -parser generatoren
-- early-aprser/chart parser
+- early-parser/chart parser
 
 \section{Zusammenfassung und Ausblick}
 - eindeutige sprachen erleichtern das Schreiben von code
