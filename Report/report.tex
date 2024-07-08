@@ -39,15 +39,23 @@
 %
 	\begin{abstract}
 		Syntaktische Mehrdeutigkeiten stellen eine zentrale Herausforderung beim Parsen von Programmiersprachen dar.
+		Diese vorliegende Arbeit untersucht die Auswirkungen solcher Mehrdeutigkeiten
+		und betrachtet dabei moderne Ansätze zu ihrer Erkennung, Vermeidung und Auflösung.
+		Dabei werden die Vor- und Nachteile von mehrdeutigen Sprachen und Grammatiken diskutiert
+		und die Auswirkungen auf die Effizienz und Komplexität von Parsern beleuchtet.
 
-		Diese Arbeit untersucht die theoretischen Grundlagen und praktischen Auswirkungen solcher Mehrdeutigkeiten
-		und bietet Einblicke in moderne Ansätze zu ihrer Vermeidung und Auflösung.
-		Wir analysieren die Ursachen von Mehrdeutigkeiten und deren Einfluss auf die Effizienz und Zuverlässigkeit von Parsern.
-		Dabei beleuchten wir verschiedene Strategien, von der sprachlichen Gestaltung über Assoziativitäts- und Vorrangregeln
-		bis hin zu fortschrittlichen Algorithmen wie dem Dynamic1-Algorithmus und den Techniken von Vasudevan und Tratt.
-		Die Arbeit zeigt auf, wie eindeutige Sprachdesigns die Komplexität des Parsens reduzieren können und welche Kompromisse dabei eingegangen werden müssen.
-		Durch Fallstudien und praktische Beispiele verdeutlichen wir die Anwendung dieser Konzepte in realen Projekten
-		und bieten einen Ausblick auf zukünftige Entwicklungen im Sprachdesign und Parserbau.
+		Um diese Problematik zu lösen,
+		wurden Strategien und Algorithmen zur Erkennung und behebung syntaktischer Mehrdeutigkeiten diskutiert.
+		Es zeigt sich, dass die Vermeidung von Mehrdeutigkeiten in Grammatiken eine effiziente und zuverlässige Analyse ermöglicht,
+		allerdings nicht immer sinvoll ist.
+
+		Die Arbeit stellt effektive Methoden zur Erkennung und Auflösung von Mehrdeutigkeiten vor
+		und zeigt wie moderne Parser-Techniken dieser Problematik begegnen.
+
+		Die Abwägung zwischen der Einfachheit der Grammatik und der Lesbarkeit der Sprache zeigt,
+		dass eindeutige Sprachdesigns die Komplexität des Parsens reduzieren können,
+		aber Mehrdeutigkeiten nicht immer ein Hindernis darstellen müssen.
+
 		\keywords{Compilerbau, Syntaktische Mehrdeutigkeiten, Sprachdesign}
 	\end{abstract}
 	%
@@ -66,10 +74,19 @@
 	Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
 	Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
 	Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
-	HIER CODE SNIPPET
+
+	\begin{verbatim}
+		int a = 1 + 2;
+		a++;
+		String b = "Hello" + "World";
+	\end{verbatim}
+
 	Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
 	Das bekannteste Beispiel hierfür ist das ``Dangling else''-Problem, das in vielen Programmiersprachen auftritt.
+
 	HIER BEISPIEL DANGLING-ELSE
+
+
 	Wie dieses Beispiel erkennen lässt,
 	können syntaktische Mehrdeutigkeiten zu unterschiedlichen Interpretationen desselben Quellcodes führen.
 	Die Problematik dessen wird im Folgenden behandelt.

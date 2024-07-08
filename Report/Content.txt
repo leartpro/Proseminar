@@ -71,3 +71,6 @@
 - trend geht aber in andere richtung (zukünftige Entwicklungen im Sprachdesign)
  - neue programmiersprachen sind oft mehrdeutig
  - beispiel: python
+
+
+ https://echo-bravo-fox.medium.com/make-a-grammar-unambiguous-4b12554bc3a6
