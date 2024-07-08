@@ -64,6 +64,7 @@ Es gilt: ``Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Ein
 Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
 Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
 Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
+HIER CODE SNIPPET
 Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
 Das bekannteste Beispiel hierfür ist das ``Dangling else''-Problem, das in vielen Programmiersprachen auftritt.
 HIER BEISPIEL DANGLING-ELSE
@@ -79,10 +80,10 @@ spielen eine entscheidene Rolle bei der Konzeption der Sprache,
 so wie bei der Implementierung des zugehörigen Parsers.
 Wenn Mehrdeutigkeiten inhärent in der Grammatik vorhanden sind,
 muss sich der Parser mit der Auflösung dieser Mehrdeutigkeiten auseinandersetzen.
-Mehrdeutigkeiten erhöhen die Komplexität des Parsvorgangs erheblich.
-Ein Parser muss alle möglichen Interpretationen eines Satzes zu finden, um die richtige zu identifizieren.
-Dies kann zu einer hohen Laufzeit des Parsers führen,
-da der Parser potenziell exponentiell viele Möglichkeiten in Betracht ziehen muss.
+Dies kann zu einer erhöhten Komplexität des Parsers führen
+und je nach Parser zu einer nicht-deterministischen Laufzeit oder sogar einem nicht terminierendem Lauf.
+Das liegt daran, dass ein Parser alle möglichen Interpretationen eines Satzes finden muss, um die richtige zu identifizieren.
+So muss der Parser potenziell exponentiell viele Möglichkeiten in Betracht ziehen.
 Auch das Programmieren in eine Sprache mit Mehrdeutigkeiten kann zu unerwartetem Verhalten führen
 und damit die Effizienz in der in dieser Sprache entwickelt wird, beeinträchtigen.
 
@@ -92,27 +93,21 @@ inhärent mehrdeutig und benötigen zusätzliche Kontexte oder heuristische Ans�
 Auf der anderen Seite ist eine eindeutige Grammatik einfacher zu parsen und zu verstehen,
 aber sie kann auch eine Einschränkung der Sprache bedeuten.
 
-- Relevanz des Problems
-- Problematik von Mehrdeutigkeiten beim Parsen
-- Performance-Einbußen durch Mehrdeutigkeiten
-- Schwierigkeiten in der Optimierung von Compiler-Implementierungen
-- Beispielhafte Fehlerfälle und ihre Folgen
-- Schwierigkeit des Problems
-- Theoretische Grenzen der Mehrdeutigkeitsauflösung
-- Beispiel: "P versus NP"-Problematik im Kontext von Parsing
-- Komplexität der Implementierung und Wartung von Parsern
-
 \section{Vermeidung von Mehrdeutigkeiten}
-- Design von Sprachen die eindeutig sind
-- Methoden zur Vermeidung von Mehrdeutigkeit beim Sprachdesign
-- Assoziativität, Vorrangregeln
-- Vorteile und Nachteile von eindeutigen Sprachen
-- Vorteile einfacherer Parser
-- Kosteneinsparungen bei der Entwicklung und Wartung
-- Bessere Performance durch einfachere Algorithmen
-- LL Parser
-- Nachteile: Einschränkung der Sprache
-- Beispiele für Sprachen, die durch Eindeutigkeitsanforderungen eingeschränkt sind
+
+Da Mehrdeutigkeiten in Grammatiken sowohl in der Entwicklung des Parsers,
+als auch in der Anwendung der Sprache hinderlich sein können,
+ist es sinnvoll Mehrdeutigkeiten von vornherein zu vermeiden.
+Um eine Sprache eindeutig zu gestalten,
+können beispielsweise Assoziativitäts- und Vorrangregeln festgelegt werden,
+die eine eindeutige Struktur der Grammatik garantieren.
+Eine solche Sprache kann effizient und in linearer Zeit von einem LL-Parser verarbeitet werden.
+
+Allerdings kann es auch Nachteile haben, eine Sprache eindeutig zu gestalten.
+So ist die Grammatik einer mehrdeutigen Sprache oft einfacher, kürzer und intuitiver als die einer eindeutigen Sprache.
+So können die Eindeutigkeitsanforderungen and eine Sprache schnell Boilplate-Code verursachen.
+Es ist also eine Abwägung zwischen der Einfachheit des Parsers und der Komplexität und Lesbarkeit der Sprache zu treffen.
+
 
 \section{Erkennung von Mehrdeutigkeiten}
 - Suchbasierte Erkennung
