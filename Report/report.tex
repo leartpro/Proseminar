@@ -12,12 +12,35 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
+
 % Used for displaying a sample figure. If possible, figure files should
 % be included in EPS format.
 %
 % If you use the hyperref package, please uncomment the following line
 % to display URLs in blue roman font according to Springer's eBook style:
 % \renewcommand\UrlFont{\color{blue}\rmfamily}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{automata, positioning}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\usepackage{tcolorbox}
+\usepackage{framed}
+\usepackage{forest}
+\usepackage{xcolor}
+\usepackage{blkarray}
+\usepackage{comment}
+
+\lstdefinestyle{cppStyle}{
+	language=C++,
+	basicstyle=\small\ttfamily,
+	tabsize=4,
+	breaklines=true,
+	showtabs=false,
+	showspaces=false,
+	showstringspaces=false,
+	columns=flexible
+}
 
 \begin{document}
 %
@@ -68,49 +91,151 @@
 	\section{Einführung}
 	Bei der Handhabung von Mehrdeutigkeiten, bietet es sich an, die Grammatiken der Sprachen zu betrachten.
 	Dabei stellt sich die Frage nach der Definition von Mehrdeutigkeit
-	und nach der Bedeutung für die syntaktische Analyse im Parserbau.
-	Es gilt: ``Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.''
+	und nach der Bedeutung von Mehrdeutigkeiten für die syntaktische Analyse im Parserbau.
+
+	Die Definition einer mehrdeutigen Grammatik lässt isch wie folgt ausdrücken:
+	``Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.''
+	Daher ist eine Grammatik mehrdeutig, wenn ein Wort der Grammatik über mehrere Wege abgeleitet werden kann.
 
 	Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
 	Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
 	Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
 
+	In Java kann das Token ``+'' sowohl als arithmetischer Operator,
+	als auch als Konkatenationsoperator von Strings verstanden werden.
+
 	\begin{verbatim}
+		//Hier wird der Operator als arithmetischer Operator verwendet
 		int a = 1 + 2;
-		a++;
+		//Hier wird der Operator als Konkatenationsoperator verwendet
 		String b = "Hello" + "World";
 	\end{verbatim}
 
+	Solche lexikalischen Mehrdeutigkeiten werden im Lexer behandelt und im Weiteren nicht näher betrachtet.
+
 	Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
-	Das bekannteste Beispiel hierfür ist das ``Dangling else''-Problem, das in vielen Programmiersprachen auftritt.
+	Das wohl bekannteste Beispiel dafür ist das ``Dangling else''-Problem,
+	welches in vielen bekannten Programmiersprachen auftritt.
 
-	HIER BEISPIEL DANGLING-ELSE
+	Eine beispielhafte Grammatik, die den Syntax eines if-else-Statements beschreibt, ist folgende:
 
 
-	Wie dieses Beispiel erkennen lässt,
+	\begin{align*}
+		ausdruck \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck \ \textbf{else} \ ausdruck \\
+	\end{align*}
+
+	Wie zu erkennen ist, ist diese Grammatik mehrdeutig, da unklar ist,
+	welcher ``else''-Block zu welchem ``if''-Block gehört.
+	Im folgenden sind zwei unterschiedliche Interpretationen des Wortes
+	``if $\dots$ then if $\dots$ then $\dots$ else $\dots$'' dargestellt.
+
+	\begin{figure}
+		\centering
+		\begin{forest}
+		[\textit{ausdruck}
+		[\textbf{if}]
+		[\textit{bedingung}]
+		[\textbf{then}]
+		[\textit{ausdruck}
+		[\textbf{if}]
+		[\textit{bedingung}]
+		[\textbf{then}]
+		[\textit{ausdruck}]
+		[\textbf{else}]
+		[\textit{ausdruck}]
+		]
+		]
+		\end{forest}
+		\caption{Hier wird der else-Block der inneren if-Abfrage zugeordnet.}
+		\label{fig:figure}
+	\end{figure}
+
+	\begin{figure}
+		\centering
+		\begin{forest}
+		[\textit{ausdruck}
+		[\textbf{if}]
+		[\textit{bedingung}]
+		[\textbf{then}]
+		[\textit{ausdruck}
+		[\textbf{if}]
+		[\textit{bedingung}]
+		[\textbf{then}]
+		[\textit{ausdruck}]
+		]
+		[\textbf{else}]
+		[\textit{ausdruck}]
+		]
+		\end{forest}
+		\caption{In diesem Parse-Baum wird der else-Block der äußeren if-Abfrage zugeordnet.}
+		\label{fig:figure2}
+	\end{figure}
+
+	Wie hier zu erkennen ist,
 	können syntaktische Mehrdeutigkeiten zu unterschiedlichen Interpretationen desselben Quellcodes führen.
 	Die Problematik dessen wird im Folgenden behandelt.
 
 
 	\section{Problemstellung}
 
-	Mehrdeutigkeiten in Grammatiken von Programmiersprachen
-	spielen eine entscheidene Rolle bei der Konzeption der Sprache,
-	so wie bei der Implementierung des zugehörigen Parsers.
-	Wenn Mehrdeutigkeiten inhärent in der Grammatik vorhanden sind,
-	muss sich der Parser mit der Auflösung dieser Mehrdeutigkeiten auseinandersetzen.
-	Dies kann zu einer erhöhten Komplexität des Parsers führen
-	und je nach Parser zu einer nicht-deterministischen Laufzeit oder sogar einem nicht terminierendem Lauf.
-	Das liegt daran, dass ein Parser alle möglichen Interpretationen eines Satzes finden muss, um die richtige zu identifizieren.
-	So muss der Parser potenziell exponentiell viele Möglichkeiten in Betracht ziehen.
-	Auch das Programmieren in eine Sprache mit Mehrdeutigkeiten kann zu unerwartetem Verhalten führen
-	und damit die Effizienz in der in dieser Sprache entwickelt wird, beeinträchtigen.
+	Die Problematik von Mehrdeutigkeiten in Grammatiken besteht darin,
+	dass ein Parser keinen eindeutigen Parse-Baum für ein zu parsendes Programm erzeugen kann.
+	Wenn Mehrdeutigkeiten bei der konzeption einer Programmiersprache nicht vermieden werden können,
+	muss der Parser in der Lage sein, diese zu handhaben.
+	Um die korrekte Struktur eines mehrdeutigen Programmes zu ermitteln benötigt ein Parser
+	entweder zusätzliche Informationen oder eine bestimmte Vorgehensweise.
+	Mehrdeutigkeiten die nicht aufgelöst werden können, daher inhärent sind,
+	werden an den Programmierer weitergegeben und erschweren die Entwicklung in der jeweiligen Sprache.
 
-	Die vollständige Beseitigung von Mehrdeutigkeiten in einer kontextfreien Grammatik ist nicht immer möglich.
-	So sind einige Probleme, wie das oben erwähnte ``Dangling Else''-Problem,
-	inhärent mehrdeutig und benötigen zusätzliche Kontexte oder heuristische Ansätze, um aufgelöst zu werden.
-	Auf der anderen Seite ist eine eindeutige Grammatik einfacher zu parsen und zu verstehen,
-	aber sie kann auch eine Einschränkung der Sprache bedeuten.
+
+	\begin{flushleft}
+		\begin{minipage}{0.48\textwidth}
+			\begin{lstlisting}[style=cppStyle,label={lst:lstlisting1}]
+class A {public: void func() {}};
+class B {public: void func() {}};
+class C: public A, public B {};
+int main() {
+	C c;
+	c.func();
+	return 0;
+}
+			\end{lstlisting}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\begin{lstlisting}[style=cppStyle,label={lst:lstlisting2}]
+class A {public: void func() {}};
+class B {public: void func() {}};
+class C: public A, public B {};
+int main() {
+	C c;
+	c.A::func();
+	return 0;
+}
+			\end{lstlisting}
+		\end{minipage}
+	\end{flushleft}
+
+	An diesem Beispiel wird deutlich,
+	wieso es nicht sinnvoll ist, Mehrdeutigkeiten an den Entwickler weiterzugeben.
+	Der Code in Listing \ref{lst:lstlisting1} ist mehrdeutig und wird auch als fehlerhaft erkannt.
+	Die Mehrdeutigkeit kommt zu Stande, da die Klasse C von den Klassen A und B erbt,
+	die beide eine Methode mit dem Namen ``func'' besitzen.
+	Beim Aufruf der Methode ``func'' auf einem Objekt der Klasse C ist unklar,
+	ob die Methode von der Oberklasse A oder B aufgerufen werden soll.
+	Diese Mehrfachvererbung führt dazu, dass sich nun der Entwickler mit dieser Mehrdeutigkeit auseinandersetzen muss.
+	Dies passiert nur, weil die Sprache C++ keine explizite Angabe der Klasse bei einem Methodenaufruf verlangt.
+
+	Eine weitere Möglichkeit, Mehrdeutigkeiten aufzulösen, kann die Laufzeit eines Parsers beeinträchtigen
+	und sollte daher gut abgewogen werden.
+	Während eindeutige Sprachen einfach und effizient, beispielsweise mit einem LL-Parser, geparst werden können,
+	ist das Parsen von mehrdeutigen Sprachen komplexer und weniger effizient.
+
+	Eine weitere Problematik ist, dass es theoretisch nicht möglich ist zu entscheiden,
+	ob eine gegebene Grammatik mehrdeutig ist oder nicht.
+	Dieses Problem, auch bekannt als Post'sche Korrespondenzproblem
+	spielt vor allem in der Konzeption neuer Programmiersprachen eine Rolle.
+	Dieses Problem wird im nächsten Abschnitt genauer erläutert.
 
 
 	\section{Vermeidung von Mehrdeutigkeiten}
@@ -127,6 +252,9 @@
 	So ist die Grammatik einer mehrdeutigen Sprache oft einfacher, kürzer und intuitiver als die einer eindeutigen Sprache.
 	So können die Eindeutigkeitsanforderungen and eine Sprache schnell Boilplate-Code verursachen.
 	Es ist also eine Abwägung zwischen der Einfachheit des Parsers und der Komplexität und Lesbarkeit der Sprache zu treffen.
+
+	Eine eindeutige Grammatik ist einfacher zu parsen und zu verstehen,
+	aber sie kann auch eine Einschränkung der Sprache bedeuten.
 
 
 	\section{Erkennung von Mehrdeutigkeiten}
@@ -206,6 +334,8 @@
 	Auch existieren immer mehr Ansätze, die auf natürliche Sprache setzten
 	und somit hin zu mehrdeutigen Sprachen tendieren.
 	\cite{watrous2020,springer2013,wharton1976,watrous,parr,kemp1974,qi2018generalized,softwarelanguage,thorup1994}
+
+	FAZIT: macht es den enticklern leichter
 
 
 %
