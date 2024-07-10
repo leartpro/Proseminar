@@ -31,7 +31,7 @@
 \usepackage{blkarray}
 \usepackage{comment}
 
-\lstdefinestyle{cppStyle}{
+\lstdefinestyle{lstStyle}{
 	language=C++,
 	basicstyle=\small\ttfamily,
 	tabsize=4,
@@ -88,7 +88,7 @@
 	%
 
 
-	\section{Einführung}
+	\section{Einführung}\label{sec:einfuhrung}
 	Bei der Handhabung von Mehrdeutigkeiten, bietet es sich an, die Grammatiken der Sprachen zu betrachten.
 	Dabei stellt sich die Frage nach der Definition von Mehrdeutigkeit
 	und nach der Bedeutung von Mehrdeutigkeiten für die syntaktische Analyse im Parserbau.
@@ -117,11 +117,17 @@
 	Das wohl bekannteste Beispiel dafür ist das ``Dangling else''-Problem,
 	welches in vielen bekannten Programmiersprachen auftritt.
 
-	Eine beispielhafte Grammatik, die den Syntax eines if-else-Statements beschreibt, ist folgende:
+	Eine beispielhafter Ausschnitt aus den Produktionsregeln einer Grammatik, die den Syntax eines if-else-Statements beschreibt,
+	ist der folgende:
 
 
 	\begin{align*}
-		ausdruck \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck \ \textbf{else} \ ausdruck \\
+		& P = \{ \begin{aligned}[t]
+			         \\
+			         ausdruck & \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck \\
+			         ausdruck & \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck \ \textbf{else} \ ausdruck \\
+		\end{aligned} \\
+		& \}
 	\end{align*}
 
 	Wie zu erkennen ist, ist diese Grammatik mehrdeutig, da unklar ist,
@@ -180,17 +186,19 @@
 
 	Die Problematik von Mehrdeutigkeiten in Grammatiken besteht darin,
 	dass ein Parser keinen eindeutigen Parse-Baum für ein zu parsendes Programm erzeugen kann.
-	Wenn Mehrdeutigkeiten bei der konzeption einer Programmiersprache nicht vermieden werden können,
-	muss der Parser in der Lage sein, diese zu handhaben.
+	Wenn Mehrdeutigkeiten bei der Konzeption einer Programmiersprache nicht vermieden werden können,
+	muss der Parser in der Lage sein, diese zu parsen.
 	Um die korrekte Struktur eines mehrdeutigen Programmes zu ermitteln benötigt ein Parser
 	entweder zusätzliche Informationen oder eine bestimmte Vorgehensweise.
-	Mehrdeutigkeiten die nicht aufgelöst werden können, daher inhärent sind,
+	Mehrdeutigkeiten die nicht aufgelöst werden können, da die Sprache inhärent Mehrdeutig ist,
 	werden an den Programmierer weitergegeben und erschweren die Entwicklung in der jeweiligen Sprache.
 
 
-	\begin{flushleft}
+
+	\begin{figure}
+		\centering
 		\begin{minipage}{0.48\textwidth}
-			\begin{lstlisting}[style=cppStyle,label={lst:lstlisting1}]
+			\begin{lstlisting}[style=lstStyle,label={lst:lstlisting1}]
 class A {public: void func() {}};
 class B {public: void func() {}};
 class C: public A, public B {};
@@ -203,7 +211,7 @@ int main() {
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.48\textwidth}
-			\begin{lstlisting}[style=cppStyle,label={lst:lstlisting2}]
+			\begin{lstlisting}[style=lstStyle,label={lst:lstlisting2}]
 class A {public: void func() {}};
 class B {public: void func() {}};
 class C: public A, public B {};
@@ -214,7 +222,9 @@ int main() {
 }
 			\end{lstlisting}
 		\end{minipage}
-	\end{flushleft}
+		\caption{Mehrdeutigkeit in der Mehrfachvererbung in C++}
+		\label{fig:figure3}
+	\end{figure}
 
 	An diesem Beispiel wird deutlich,
 	wieso es nicht sinnvoll ist, Mehrdeutigkeiten an den Entwickler weiterzugeben.
@@ -226,9 +236,10 @@ int main() {
 	Diese Mehrfachvererbung führt dazu, dass sich nun der Entwickler mit dieser Mehrdeutigkeit auseinandersetzen muss.
 	Dies passiert nur, weil die Sprache C++ keine explizite Angabe der Klasse bei einem Methodenaufruf verlangt.
 
-	Eine weitere Möglichkeit, Mehrdeutigkeiten aufzulösen, kann die Laufzeit eines Parsers beeinträchtigen
-	und sollte daher gut abgewogen werden.
-	Während eindeutige Sprachen einfach und effizient, beispielsweise mit einem LL-Parser, geparst werden können,
+	Wenn Mehrdeutigkeiten nicht vermieden werden können,
+	kann der Ansatz versucht werden, diese zu erkennen und aufzulösen.
+	Dies kann jedoch die Laufzeit eines Parsers beeinträchtigen und sollte daher gut abgewogen werden.
+	Während eindeutige Sprachen einfach und effizient, beispielsweise mit einem LR-Parser, geparst werden können,
 	ist das Parsen von mehrdeutigen Sprachen komplexer und weniger effizient.
 
 	Eine weitere Problematik ist, dass es theoretisch nicht möglich ist zu entscheiden,
@@ -238,75 +249,107 @@ int main() {
 	Dieses Problem wird im nächsten Abschnitt genauer erläutert.
 
 
-	\section{Vermeidung von Mehrdeutigkeiten}
+	\section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
 
 	Da Mehrdeutigkeiten in Grammatiken sowohl in der Entwicklung des Parsers,
 	als auch in der Anwendung der Sprache hinderlich sein können,
 	ist es sinnvoll Mehrdeutigkeiten von vornherein zu vermeiden.
 	Um eine Sprache eindeutig zu gestalten,
-	können beispielsweise Assoziativitäts- und Vorrangregeln festgelegt werden,
-	die eine eindeutige Struktur der Grammatik garantieren. \cite{wharton1976}
-	Eine solche Sprache kann effizient und in linearer Zeit von einem LL-Parser verarbeitet werden.
+	muss die Grammatik der Sprache so konzipiert werden,
+	dass es für jedes Wort der Sprache nur einen Parse-Baum gibt.
+	So können wir Beispielsweise die obige Grammatik des ``Dangling else''-Problems auch wie folgt realisieren\cite{Abrahams1966}:
+
+	\begin{align*}
+		& P = \{ \begin{aligned}[t]
+			         \\
+			         ausdruck & \rightarrow ausdruck_{auf} | ausdruck_{zu} \\
+			         ausdruck_{auf} & \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck \\
+			         \phantom{A} & \phantom{\rightarrow} \vert \textbf{if} \ bedingung \ \textbf{then} \ ausdruck_{zu} \ \textbf{else} \ offener\_ausdruck \\
+			         ausdruck_{zu} & \rightarrow \textbf{if} \ bedingung \ \textbf{then} \ ausdruck_{zu} \ \textbf{else} \ ausdruck_{zu} \\
+		\end{aligned} \\
+		& \}
+	\end{align*}
+
+	Dadurch, dass nun zwischen offenen und geschlossenen ``if''-Blöcken unterschieden wird,
+	kann diese Grammatik eindeutig von einem LR-Parser verarbeitet werden.
+
+	Das Festlegen von zusätzlichen Regeln wie Vorrangsregeln und Assoziativität,
+	macht die Grammatik nicht direkt eindeutig,
+	ermöglicht es aber diese in eine eindeutige Form zu bringen.
 
 	Allerdings kann es auch Nachteile haben, eine Sprache eindeutig zu gestalten.
 	So ist die Grammatik einer mehrdeutigen Sprache oft einfacher, kürzer und intuitiver als die einer eindeutigen Sprache.
-	So können die Eindeutigkeitsanforderungen and eine Sprache schnell Boilplate-Code verursachen.
-	Es ist also eine Abwägung zwischen der Einfachheit des Parsers und der Komplexität und Lesbarkeit der Sprache zu treffen.
+	Auch können die Eindeutigkeitsanforderungen an eine Sprache schnell Boilerplate-Code verursachen.
 
-	Eine eindeutige Grammatik ist einfacher zu parsen und zu verstehen,
-	aber sie kann auch eine Einschränkung der Sprache bedeuten.
+	\begin{figure}
+		\begin{lstlisting}[style=lstStyle,label={lst:lstlisting3}]
+			public class Main {
+			    public static void main(String[] args) {
+			        System.out.println("Hello, World!");
+			    }
+			}
+		\end{lstlisting}
+		\caption{Beispiel für Boilerplate-Code in Java}
+		\label{fig:figure4}
+	\end{figure}
 
-
-	\section{Erkennung von Mehrdeutigkeiten}
-
-	Wenn die Vermeidung von Mehrdeutigkeiten nicht möglich ist,
-	muss der Parser in der Lage sein, Mehrdeutigkeiten zu erkennen und aufzulösen.
-	Wie Mehrdeutigkeiten algorithmisch erkannt werden können wird im Folgenden erläutert.
-	Zum einen besteht die Möglichkeit alle möglichen Ableitungen eines gegebenen Wortes zu ermitteln.
-	Um mit dieser Methode zu prüfen, ob eine Grammatik mehrdeutig ist,
-	können Wörter nach Heuristiken generiert und anschließend analysiert werden.
-	Die Analyse kann entweder durch eine Tiefen- oder Breitensuche erfolgen.
-	Bei der Tiefensuche wird die Grammatik rekursiv abgeleitet,
-	während bei der Breitensuche alle möglichen Ableitungen auf einer Ebene betrachtet werden.
-	HIER GRAFIK
-	Dieser Ansatz basiert allerdings auf dem Brute-Force-Prinzip und ist daher nicht effizient.
-	Effizientere Methoden sind bekannter Algorithmen wie derCYK-Algorithmus oder der Earley-Parser.
-	Diese werden im Weiteren genauer erläutert und verglichen.
-
-	- Suchbasierte Erkennung
-	- bekannte Algorithmen
-	- Tiefen/Breiten-Suche
-	- Beispielhafte Implementierungen
-	-Laufzeit vergleich
-	- dynamic1 Algorithmus
+	Dieses Beispiel der Sprache Java zeigt, dass zu große Eindeutigkeitsanforderungen,
+	hier in Form von Sichtbarkeitsmodifikatoren und Typenangaben, schnell zu verbosem Code führen können.
+	Es ist daher eine Abwägung zwischen der Einfachheit des Parsers und der Komplexität und Lesbarkeit der Sprache zu treffen.
 
 
-	\section{Auflösung von Mehrdeutigkeiten}
+	\section{Erkennung von Mehrdeutigkeiten}\label{sec:erkennung-von-mehrdeutigkeiten}
+
+	Um eine eindeutige Grammatik für eine Sprache zu entwerfen,
+	ist es notwendig diese Grammatik auf Mehrdeutigkeiten zu überprüfen.
+	Dazu eignen sich Suchalgorithmen, die durch die Ableitungen der Grammatik traversieren
+	und dabei auf Mehrdeutigkeiten prüfen.
+	Dabei ist zu beachten, dass die Überprüfung, ob eine Grammatik mehrdeutig ist oder nicht,
+	unentscheidbar ist.\cite{hopcroft2006introduction}
+	Statistisch gesehen ist es wahrscheinlicher eine Mehrdeutigkeiten bei einer Breitensuche zu finden,
+	als bei einer Tiefensuche.\cite{springer2013}
+	Der ``dynamic1''-Algorithmus\cite{springer2013} ist ein nicht-deterministischer Algorithmus,
+	welcher zufällige Ableitungsalternativen wählt und dabei bis zu einer festgelegten Tiefe traversiert.
+	Wenn der Algorithmus diese Tiefe erreicht hat, bevorzugt er Alternativen, welche zuvor noch gar nicht oder
+	verhältnismäßig selten gewählt oder weniger bis keine nicht-Terminalsymbole enthalten.
+	Allerdings kann es auch bei diesem Algorithmus dazu kommen, dass er nicht terminiert.
+	In einem Experiment\cite{springer2013} zeigte sich,
+	dass der  ``dynamic1''-Algorithmus eine Verbesserung zu ACLA, AMBER und AmbiDexter darstellt.
+	Zwar übersieht er teilweise Mehrdeutigkeiten, die von den anderen Algorithmen gefunden wurden,
+	aber insgesamt findet er zum einen mehr und zum anderen deutlich tiefer verschachtelte Mehrdeutigkeiten.
+
+	\section{Auflösung von Mehrdeutigkeiten}\label{sec:auflosung-von-mehrdeutigkeiten}
 
 	Sollte eine Grammatik mehrdeutig sein, so muss ein Parser in der Lage sein, diese Mehrdeutigkeiten aufzulösen.
-	Eine Möglichkeit dies zu tun ist die Umformung der Grammatik in die Chomsky-Normalform.
+	Konkret bedeutet dies, dass zusätzliche Regeln
+	wie beispielsweise Assoziativität und Vorrangregeln für Operatoren festgelegt werden müssen,
+	unter welchen die Grammatik in eine eindeutige Form gebracht werden kann.
+
+	HIER BEISPIEL AUS TEACH-VORTRAG
+
+	Eine solche Grammatik kann dann effizient und in linearer Zeit von einem LR-Parser verarbeitet werden.
+	Ein LR-Parser ist ein Bottom-Up-Parser, der die Produktionen der Grammatik von links nach rechts verarbeitet.
+	Er arbeitet mit Shift- und Reduce-Operationen und kann durch die Verwendung eines Stack und einer Zustandsmaschine
+	die Produktionen der Grammatik in linearer Zeit verarbeiten.
+
+	Eine weitere Möglichkeit Mehrdeutigkeiten in einer gegebenen Grammatik aufzulösen
+	ist die Umformung der Grammatik in die Chomsky-Normalform (kurz CNF).
 	Bei der Umformung in die CNF können Mehrdeutigkeiten aufgelöst werden, müssen aber nicht.
-	Ein weiterer Ansatz besteht darin, immer den ersten Ableitungsschritt zu wählen, wenn mehrere Ableitungen möglich sind.
-	Dieser Ansatz ist jedoch nicht immer korrekt und kann zu falschen Interpretationen führen.
-	Eine weitere Möglichkeit besteht darin, den Parser so zu erweitern,
-	dass er in der Lage ist, mehrere Interpretationen zu verfolgen und zu vergleichen.
-	Parser mit dieser Fähigkeit werden als Chart-Parser bezeichnet und im Folgenden genauer erläutert.
-	Wenn zu einer Grammatik zusätzliche Regel wie Assoziativitäts- und Vorrangregeln existieren,
-	können diese genutzt werden, um Mehrdeutigkeiten aufzulösen. \cite{springer2013}
-	- LL(k)- und LR(k)-Parser im Detail
-	- Unterschiede und Gemeinsamkeiten
+	Nach der Umformung kann daher keine Aussage über die Mehrdeutigkeit der Grammatik getroffen werden.
+	Dennoch kann eine Umformung in die CNF sinnvoll sein, besonders da die Parse-Bäume,
+	die aus einer Grammatik in der CNF resultieren, immer Binärbäume sind.
 
+	\section{Parsen von Mehrdeutigkeiten}\label{sec:parsen-von-mehrdeutigkeiten}
 
-	\section{Parsen von Mehrdeutigkeiten}
+	- LL, LR, LALR, SLR können Mehrdeutigkeiten nicht parsen
+	- Beispiel LR-Parser für Dangling else (fail)
+	- lockahead (LL(*), LR(*))
+	- Was sind Chart Parser?
+	- Early-Parser
+	- Beispiel wie Early-Parser Dangling else löst
+	- Was nutzen Parser-Generatoren wie ANTLR oder Bison?
 
-	- Erweiterte Heuristiken zur Mehrdeutigkeitsauflösung
-	- Nutzung von Backtracking und Lookahead-Techniken
-	- Parser-Generatoren
-	- Spezifische Parser-Techniken (z.B. Early-Parser, Chart-Parser)
-	- Abschließend: Vergleich LL, LR, LALR, SLR, Earley-Parser
-
-
-	\section{Praktische Beispiele}
+	\section{Praktische Beispiele}\label{sec:praktische-beispiele}
 
 	Die Handhabung von Mehrdeutigkeiten ist neben dem Compilerbau
 	auch in Bereichen wie der Sprachverarbeitung und dem maschinellen Lernen von Bedeutung.
@@ -317,8 +360,10 @@ int main() {
 	bessere Ergebnisse erzielen und die Effizienz der Verarbeitung steigern.
 	STIMMT DAS SO?
 
+	- ANTLR beispielsweise vewrwendet LL(*)-Parser (bleiebig viel lookahead)
 
-	\section{Zusammenfassung und Ausblick}
+
+	\section{Zusammenfassung}\label{sec:zusammenfassung}
 
 	Abschließend lässt sich festhalten, dass Mehrdeutigkeiten in Grammatiken von Programmiersprachen
 	eine zentrale Herausforderung beim Parsen darstellen.
@@ -333,9 +378,9 @@ int main() {
 	um Mehrdeutigkeiten effizient aufzulösen.
 	Auch existieren immer mehr Ansätze, die auf natürliche Sprache setzten
 	und somit hin zu mehrdeutigen Sprachen tendieren.
-	\cite{watrous2020,springer2013,wharton1976,watrous,parr,kemp1974,qi2018generalized,softwarelanguage,thorup1994}
 
 	FAZIT: macht es den enticklern leichter
+	-viele moderne und viel benutzte PRogrammiersprachen verwenden den mehrduetigen c syntax
 
 
 %
@@ -344,6 +389,9 @@ int main() {
 % BibTeX users should specify bibliography style 'splncs04'.
 % References will then be sorted and formatted in the correct style.
 %
+
+
+	\nocite{*}
 	\bibliographystyle{splncs04}
 	\bibliography{refs}
 \end{document}
