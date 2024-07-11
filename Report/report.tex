@@ -500,46 +500,48 @@ int main() {
 
 	\section{Parsen von Mehrdeutigkeiten}\label{sec:parsen-von-mehrdeutigkeiten}
 
-	- LL, LR, LALR, SLR können Mehrdeutigkeiten nicht parsen
-	- Beispiel LR-Parser für Dangling else (fail)
-	- lockahead (LL(*), LR(*))
-	- Was sind Chart Parser?
-	- Early-Parser
-	- Beispiel wie Early-Parser Dangling else löst
-	- Was nutzen Parser-Generatoren wie ANTLR oder Bison?
+	Zum Parsen von Mehrdeutigkeiten benötigt es komplexere Parser-Techniken als die klassischen LL- und LR-Parser.
+	Eine Möglichkeit Mehrdeutigkeiten zu parsen sind Lookahead-Parser.
+	Lookaheads sind eine Technik, bei der der Parser nicht nur das aktuelle Token betrachtet,
+	wie es bei einem LL- oder LR-Parser der Fall ist, sondern nachfolgende Tokens.
+	Parser-Generatoren wie ANTLR oder Bison verwenden Lookahead-Parser,
+	die beliebig viele nachfolgende Tokens betrachten.
 
-	schreibe dieesen abschnitt in latex aus, der titel des seminar papers ist syntaktische Mehrdeutigkeiten beim Parsen
+	HIER EVENTUELLE BEISPIEL FÜR EINEN LOOKAHEAD-PARSER (Dangling-Else)
 
+	Eine weitere Möglichkeit Mehrdeutigkeiten zu parsen sind Chart-Parser.
+	Eine Variante davon ist der CYK-Parser,
+	dieser ...
+
+	HIER EVENTUELLE BEISPIEL FÜR EINEN CYK-PARSER (Dangling-Else)
 
 	\section{Praktische Beispiele}\label{sec:praktische-beispiele}
 
 	Die Handhabung von Mehrdeutigkeiten ist neben dem Compilerbau
 	auch in Bereichen wie der Sprachverarbeitung und dem maschinellen Lernen von Bedeutung.
-	So behandeln Parser-Generatoren wie ANTLR oder Bison die Problematik der Mehrdeutigkeiten
-	und bieten dem Nutzer Möglichkeiten zur Auflösung.
-	Auch in der Sprachverarbeitung und dem maschinellen Lernen sind Mehrdeutigkeiten ein zentrales Thema.
-	So können Sprachmodelle wie BERT oder GPT-3 durch die Handhabung von Mehrdeutigkeiten
-	bessere Ergebnisse erzielen und die Effizienz der Verarbeitung steigern.
-	STIMMT DAS SO?
-
-	- ANTLR beispielsweise vewrwendet LL(*)-Parser (bleiebig viel lookahead)
+	Neben Parser-Generatoren spielen Mehrdeutigkeiten auch bei Sprachmodellen wie dem GPT-3 eine Rolle.
 
 
-	\section{Zusammenfassung}\label{sec:zusammenfassung}
+	\section{Fazit}\label{sec:zusammenfassung}
 
 	Abschließend lässt sich festhalten, dass Mehrdeutigkeiten in Grammatiken von Programmiersprachen
 	eine zentrale Herausforderung beim Parsen darstellen.
-	Die Vermeidung und Auflösung von Mehrdeutigkeiten kann die Effizienz und Zuverlässigkeit von Parsern erhöhen
-	und die Entwicklung in der Sprache erleichtern.
-	Sie kann aber auch zu Einschränkungen in der Sprache führen und die Lesbarkeit des Codes beeinträchtigen.
+	Durch die Vermeidung und Auflösung von Mehrdeutigkeiten können einfachere Parser verwendet werden
+	und wenn vermieden werden kann, dass Mehrdeutigkeiten an den Entwickler weitergegeben werden,
+	erleichtert dies die Entwicklung in der jeweiligen Sprache.
+	Dies kann aber auch zu Einschränkungen in der Sprache führen und die Lesbarkeit des Codes beeinträchtigen.
 	Mehrdeutige Sprachen sind oft einfacher und intuitiver zu verstehen
 	und die Tatsache, dass viele gängige Programmiersprachen wie C, Java oder Python mehrdeutig sind,
 	zeigt, dass Mehrdeutigkeiten nicht immer ein Hindernis darstellen müssen.
 
-	Neuere Programmiersprachen sind oft mehrdeutig und setzen auf fortschrittliche Parser-Techniken,
+	Neuere Programmiersprachen sind oft mehrdeutig und setzen auf teilweise komplexe Parser-Techniken,
 	um Mehrdeutigkeiten effizient aufzulösen.
+	Ein Beispiel dafür ist ...
 	Auch existieren immer mehr Ansätze, die auf natürliche Sprache setzten
 	und somit hin zu mehrdeutigen Sprachen tendieren.
+
+	Abschließend sollte festgehalten werden, dass bei der Konzeption einer neuen Programmiersprache
+	darauf geachtet werden sollte, keine Mehrdeutigkeiten an den Entwickler weiterzugeben.
 
 	FAZIT: macht es den enticklern leichter
 	-viele moderne und viel benutzte PRogrammiersprachen verwenden den mehrduetigen c syntax
