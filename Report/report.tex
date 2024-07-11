@@ -30,6 +30,10 @@
 \usepackage{xcolor}
 \usepackage{blkarray}
 \usepackage{comment}
+\usepackage{footnote}
+
+
+\renewcommand{\Coloneqq}{\mathrel{\mathop{::}}=}
 
 \lstdefinestyle{lstStyle}{
 	language=C++,
@@ -314,9 +318,10 @@ int main() {
 	verhältnismäßig selten gewählt oder weniger bis keine nicht-Terminalsymbole enthalten.
 	Allerdings kann es auch bei diesem Algorithmus dazu kommen, dass er nicht terminiert.
 	In einem Experiment\cite{springer2013} zeigte sich,
-	dass der  ``dynamic1''-Algorithmus eine Verbesserung zu ACLA, AMBER und AmbiDexter darstellt.
+	dass der ``dynamic1''-Algorithmus eine Verbesserung zu ACLA, AMBER und AmbiDexter darstellt.
 	Zwar übersieht er teilweise Mehrdeutigkeiten, die von den anderen Algorithmen gefunden wurden,
 	aber insgesamt findet er zum einen mehr und zum anderen deutlich tiefer verschachtelte Mehrdeutigkeiten.
+
 
 	\section{Auflösung von Mehrdeutigkeiten}\label{sec:auflosung-von-mehrdeutigkeiten}
 
@@ -324,12 +329,163 @@ int main() {
 	Konkret bedeutet dies, dass zusätzliche Regeln
 	wie beispielsweise Assoziativität und Vorrangregeln für Operatoren festgelegt werden müssen,
 	unter welchen die Grammatik in eine eindeutige Form gebracht werden kann.
+	Dazu eignet sich ein Algorithmus\footnotemark[1], welcher die gebenen Regeln auf die Grammatik anwendet
+	und sie so in eine eindeutige Form transformiert.
+	Der Algorithmus arbeitet mit so gennanten ``Mustern zur Beseitigung von Mehrdeutigkeiten''.
+	Ein Muster ist ein vier-Tupel $(S, \alpha \circ \beta, \gamma)$, mit $S$ als das Startsymbol der Produktion,
+	$\alpha \circ \beta$ sind zwei Nichtterminale aus $G$ mit $\circ$ als Operator und $\gamma$ ist die gewählte Ableitung, wobei
+	$\bullet$ markiert, ob $\alpha$ oder $\beta$ abgeleitet wird.
+	Mithilfe von diesen Mustern können Tabellen\footnotemark[2] für unsere zwei binären Operatoren $+$ und $*$ aufgestellt werden:
 
-	HIER BEISPIEL AUS TEACH-VORTRAG
+	\begin{figure}
+		\centering
+		\begin{tabular}{|c|c|}
+			\hline
+			& $E \Coloneqq E\alpha_{2}E$                   \\
+			\hline
+			$E \Coloneqq E\alpha_{1}E$ & $(E, \bullet{E}\alpha_{1}E, {E}\alpha_{2}E)$ \\
+			& $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$   \\
+			\hline
+		\end{tabular}
+		\caption{Tabelle für Vorrangsregeln}
+		\label{fig:figure5}
+	\end{figure}
+
+	Diese Tabelle zeigt, dass der Operator $\alpha_{1}$ Vorrang vor dem Operator $\alpha_{2}$ hat,
+	daher immer zuerst abgeleitet wird.
+
+	\begin{figure}
+		\centering
+		\begin{tabular}{|c|c|c|}
+			\hline
+			& $E \Coloneqq E\alpha_{1}E$                 & $E \Coloneqq E\alpha_{2}E$                 \\
+			\hline
+			$E \Coloneqq E\alpha_{1}E$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{1}\bullet{E}, E\alpha_{2}E)$ \\
+			\hline
+			$E \Coloneqq E\alpha_{2}E$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{1}E)$ & $(E, E\alpha_{2}\bullet{E}, E\alpha_{2}E)$ \\
+			\hline
+		\end{tabular}
+		\caption{Tabelle die links-Assotiativität}
+		\label{fig:figure6}
+	\end{figure}
+
+	Hier ist die Assotiativität festgelegt.
+	Wie zu erkennen ist, wird in jeder möglichen Kombination beider Operatoren immer erst das linke Nichtterminal abgeleitet.
+	Im Weiteren betrachten wir einen beispielhaften Durchlauf des Algorithmus anhand einer gegebenen Grammatik.
+	Angenommen wir haben folgende Grammatik für einfache arithmetische Ausdrücke mit dazu gegebener Assoziativität und Vorrang:
+
+	\begin{figure}
+		\begin{minipage}{0.48\textwidth}
+			\begin{flushleft}
+				\begin{align*}
+					& G(N,T,P,S) \\
+					& N = \{E\} \\
+					& T = \{+, *, \bold{zahl}\} \\
+					& S = \{E\} \\
+					& P = \{ \begin{aligned}[t]
+						         \\ E & \rightarrow E + E | E * E | \bold{zahl}
+					\end{aligned} \\
+					& \}
+				\end{align*}
+			\end{flushleft}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				Operator & Assoziativität & Priorität \\
+				\hline
+				+            & links          & 1         \\
+				*            & links          & 2         \\
+				\hline
+			\end{tabular}
+		\end{minipage}
+		\caption{mehrdeutige Grammatik mit Operator-Assoziativitäten und Vorangregeln}
+		\label{fig:figure7}
+	\end{figure}
+
+	Der Algorithmus ermittelt nun die Muster zur Beseitigung von Mehrdeutigkeiten und kommt dabei zu folgendem Ergebnis:
+
+	\begin{figure}
+		\begin{minipage}{0.48\textwidth}
+			\begin{flushleft}
+				\begin{align*}
+				(E, E*\bullet{E}, E*E)
+					\\
+					(E, \bullet{E}*E, E+E) \\
+					(E, E+\bullet{E}, E*E) \\
+					(E, \bullet{E}+E, E+E)
+				\end{align*}
+			\end{flushleft}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N = \{E, E_1, E_2, E_3, E_4\} \\
+				& T = \{+, *, \bold{zahl}\} \\
+				& S = \{E\} \\
+				& P = \{ \begin{aligned}[t]
+					         \\
+					         E &\rightarrow E_1 * E_2 | E_3 + E_4 | \bold{zahl} \\
+				\end{aligned} \\
+				& \}
+			\end{align*}
+		\end{minipage}
+		\caption{Anwenden der Muster auf die gegebene Grammatik}
+		\label{fig:figure8}
+	\end{figure}
+
+	Wie hier zu erkennen ist, wurde im ersten Schritt für jedes der Muster ein neues Nichtterminal hinzugefügt.
+	Der Algorithmus kopiert die Produktion der Grammatik nun für jedes neu eingeführte Nichtterminal
+	und wendet dabei jeweils eines Muster auf die Produktion an.
+	In einem weiteren Schritt wird der Prozess dann für verschachtelte Fälle wiederholt.
+
+	\begin{figure}
+		\begin{minipage}{0.48\textwidth}
+			\begin{flushleft}
+				\begin{align*}
+					& G(N,T,P,S) \\
+					& N= \{E, E_1, E_2, E_3, E_4\} \\
+					& T= \{+, *, \bold{num}\} \\
+					& S= \{E\} \\
+					& P = \{ \\
+					& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+					& E_1   \rightarrow E_1 * E_2 | \bold{num} \\
+					& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+					& E_3   \rightarrow E_1 * E_2 | \bold{num} \\
+					& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+					& \}
+				\end{align*}
+			\end{flushleft}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\begin{align*}
+				& G(N,T,P,S) \\
+				& N= \{E, E_1, E_2, E_3, E_4, E_5\} \\
+				& T= \{+, *, \bold{num}\} \\
+				& S= \{E\} \\
+				& P = \{ \\
+				& E     \rightarrow E_1 * E_2 | E_3 + E_4 | \bold{num} \\
+				& E_1   \rightarrow E_1 * E_5 | \bold{num} \\
+				& E_2   \rightarrow E_3 + E_4 | \bold{num} \\
+				& E_3   \rightarrow E_5 * E_2 | \bold{num} \\
+				& E_4   \rightarrow E_3 + E_4 | \bold{num} \\
+				& E_5   \rightarrow \bold{num} \\
+				& \}
+			\end{align*}
+		\end{minipage}
+		\caption{Erstellung neuer Produktionen und prüfen von Verschachtelungen}
+		\label{fig:figure9}
+	\end{figure}
+
+	Hier wurde der verschachtelte Fall aufgelöst, wo die Multiplikation über einen Zwischenschritt von rechts aufgebaut werden konnte.
+
 
 	Eine solche Grammatik kann dann effizient und in linearer Zeit von einem LR-Parser verarbeitet werden.
 	Ein LR-Parser ist ein Bottom-Up-Parser, der die Produktionen der Grammatik von links nach rechts verarbeitet.
-	Er arbeitet mit Shift- und Reduce-Operationen und kann durch die Verwendung eines Stack und einer Zustandsmaschine
+	Er arbeitet mit Shift- und Reduce-Operationen und kann unter Verwendung eines Stack und einer Zustandsmaschine
 	die Produktionen der Grammatik in linearer Zeit verarbeiten.
 
 	Eine weitere Möglichkeit Mehrdeutigkeiten in einer gegebenen Grammatik aufzulösen
@@ -338,6 +494,9 @@ int main() {
 	Nach der Umformung kann daher keine Aussage über die Mehrdeutigkeit der Grammatik getroffen werden.
 	Dennoch kann eine Umformung in die CNF sinnvoll sein, besonders da die Parse-Bäume,
 	die aus einer Grammatik in der CNF resultieren, immer Binärbäume sind.
+
+	\footnotetext[1]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 149 - 150}
+	\footnotetext[2]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 147}
 
 	\section{Parsen von Mehrdeutigkeiten}\label{sec:parsen-von-mehrdeutigkeiten}
 
@@ -348,6 +507,9 @@ int main() {
 	- Early-Parser
 	- Beispiel wie Early-Parser Dangling else löst
 	- Was nutzen Parser-Generatoren wie ANTLR oder Bison?
+
+	schreibe dieesen abschnitt in latex aus, der titel des seminar papers ist syntaktische Mehrdeutigkeiten beim Parsen
+
 
 	\section{Praktische Beispiele}\label{sec:praktische-beispiele}
 

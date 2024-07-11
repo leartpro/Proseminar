@@ -1,0 +1,61 @@
+Viele Parsertechniken wie LL, LR, LALR und SLR können Mehrdeutigkeiten nicht korrekt parsen.
+Ein klassisches Beispiel dafür ist der \emph{dangling else}-Fehler, bei dem es für einen LR-Parser schwierig ist,
+die richtige Zuordnung von \texttt{else}-Klauseln zu \texttt{if}-Klauseln zu finden. In solchen Fällen scheitern diese Parserarten.
+
+Fortgeschrittene Techniken wie \textit{lookahead} (z.B. LL(*), LR(*)) können hier Abhilfe schaffen,
+indem sie weiter in die Zukunft des Tokensstroms blicken, um die Mehrdeutigkeit zu erkennen und korrekt zu behandeln.
+
+\subsection{Parsertechniken}
+\subsubsection{LL-Parser}
+Ein LL-Parser liest die Eingabe von links nach rechts (\textbf{L}eft to right)
+und produziert einen Linksableitungsbaum (\textbf{L}eftmost derivation).
+Er verwendet dabei nur eine begrenzte Vorschau (\textit{lookahead}) auf die nächsten Tokens,
+um die richtige Produktionsregel auszuwählen. LL-Parser sind einfach zu implementieren,
+jedoch oft nicht in der Lage, komplexe Grammatiken oder Mehrdeutigkeiten zu handhaben.
+
+\subsubsection{LR-Parser}
+Ein LR-Parser liest die Eingabe ebenfalls von links nach rechts,
+produziert jedoch einen Rechtsableitungsbaum (\textbf{R}ightmost derivation) in umgekehrter Reihenfolge.
+LR-Parser sind mächtiger als LL-Parser und können eine größere Klasse von Grammatiken parsen.
+Sie verwenden einen Stack, um die Zustände zu verfolgen, und sind in der Lage,
+viele praktische Programmiersprachen zu parsen. Der Nachteil ist ihre Komplexität in der Implementierung und die Tatsache,
+dass sie bei Mehrdeutigkeiten wie dem \emph{dangling else} scheitern können.
+
+\subsubsection{LALR-Parser}
+Ein \textbf{L}ookahead \textbf{L}R (\textbf{L}R) Parser ist eine Optimierung des LR-Parsers.
+LALR-Parser kombinieren Zustände, die identische Reduktionen durchführen, wodurch sie weniger Speicher benötigen als LR-Parser.
+Sie sind eine gute Balance zwischen der Einfachheit von SLR-Parsern und der Mächtigkeit von LR-Parsern
+und werden häufig in Parser-Generatoren wie Bison verwendet.
+
+\subsubsection{SLR-Parser}
+Ein \textbf{S}imple \textbf{L}R (\textbf{L}R) Parser ist eine einfachere Version des LR-Parsers.
+SLR-Parser verwenden eine einfachere Methode zur Behandlung von Konflikten, was sie weniger mächtig macht als LR- oder LALR-Parser.
+Sie sind jedoch leichter zu implementieren und können viele praktische Grammatiken parsen.
+
+\subsection{Lookaheads}
+Lookaheads sind eine Technik, bei der der Parser nicht nur das aktuelle Token betrachtet,
+sondern auch eine bestimmte Anzahl von nachfolgenden Tokens (\textit{lookahead tokens}), um Entscheidungen zu treffen.
+Dies hilft, Mehrdeutigkeiten zu erkennen und zu behandeln. Bei LL(*)- und LR(*)-Parsern wird der Lookahead dynamisch bestimmt
+und kann theoretisch unbegrenzt viele Tokens umfassen, um die korrekte Parsing-Entscheidung zu treffen.
+Diese Technik ermöglicht es den Parsern, komplexere Grammatiken zu handhaben und Mehrdeutigkeiten besser zu lösen.
+
+\subsection{Chart-Parser}
+Chart-Parser sind eine Klasse von Parsern, die dynamische Programmierung verwenden,
+um alle möglichen Ableitungen eines Eingabesatzes zu berechnen. Sie sind besonders nützlich, um Ambiguitäten zu handhaben,
+da sie alle möglichen Parse-Bäume gleichzeitig verfolgen und somit eine umfassende Lösung bieten.
+
+\subsection{Earley-Parser}
+Ein Beispiel für einen Chart-Parser ist der Earley-Parser. Der Earley-Parser ist in der Lage,
+beliebige kontextfreie Grammatiken zu parsen, einschließlich derjenigen mit Mehrdeutigkeiten.
+Er verfolgt während des Parsing-Prozesses alle möglichen Zustände und verwendet eine Reihe von Regeln,
+um die Eingabe schrittweise zu analysieren.
+
+Ein konkretes Beispiel, wie der Earley-Parser den \emph{dangling else}-Fehler löst:
+Der Earley-Parser würde beide möglichen Zuweisungen des \texttt{else} (zu einem der beiden \texttt{if}-Anweisungen) parallel verfolgen
+und somit sicherstellen, dass keine der beiden Möglichkeiten verloren geht.
+
+\subsection{Parser-Generatoren wie ANTLR oder Bison}
+Parser-Generatoren wie ANTLR oder Bison nutzen diese fortgeschrittenen Parsing-Techniken, um robuste Parser zu erzeugen,
+die in der Lage sind, syntaktische Mehrdeutigkeiten zu erkennen und zu behandeln. ANTLR verwendet LL(*)-Parsing,
+während Bison auf LALR-Parsing basiert. Beide Generatoren sind in der Lage, komplexe Grammatiken zu handhaben
+und bieten Mechanismen, um Mehrdeutigkeiten explizit zu lösen oder durch zusätzliche Grammatikregeln zu umgehen.
