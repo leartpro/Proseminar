@@ -59,3 +59,28 @@ Parser-Generatoren wie ANTLR oder Bison nutzen diese fortgeschrittenen Parsing-T
 die in der Lage sind, syntaktische Mehrdeutigkeiten zu erkennen und zu behandeln. ANTLR verwendet LL(*)-Parsing,
 während Bison auf LALR-Parsing basiert. Beide Generatoren sind in der Lage, komplexe Grammatiken zu handhaben
 und bieten Mechanismen, um Mehrdeutigkeiten explizit zu lösen oder durch zusätzliche Grammatikregeln zu umgehen.
+
+
+
+ S -> H0 A
+ A -> H0 A
+ B -> b
+H0 -> H2 H1
+H1 -> e
+H2 -> H3 A
+H3 -> H5 H4
+H4 -> t
+H5 -> H6 B
+H6 -> i
+
+
+S -> a | CA | DA
+A -> a | CA | DA
+B -> b
+C -> FE
+D -> HG
+E -> t
+F -> IB
+G -> e
+H -> CA
+I -> i
