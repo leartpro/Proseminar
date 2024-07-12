@@ -67,29 +67,22 @@
 	\begin{abstract}
 		Syntaktische Mehrdeutigkeiten stellen eine zentrale Herausforderung beim Parsen von Programmiersprachen dar.
 		Diese vorliegende Arbeit untersucht die Auswirkungen solcher Mehrdeutigkeiten
-		und betrachtet dabei moderne Ansätze zu ihrer Erkennung, Vermeidung und Auflösung.
+		und betrachtet dabei Ansätze zu ihrer Erkennung, Vermeidung und Auflösung.
 		Dabei werden die Vor- und Nachteile von mehrdeutigen Sprachen und Grammatiken diskutiert
-		und die Auswirkungen auf die Effizienz und Komplexität von Parsern beleuchtet.
-
+		und die Auswirkungen auf das Parsen beleuchtet.
 		Um diese Problematik zu lösen,
 		wurden Strategien und Algorithmen zur Erkennung und behebung syntaktischer Mehrdeutigkeiten diskutiert.
-		Es zeigt sich, dass die Vermeidung von Mehrdeutigkeiten in Grammatiken eine effiziente und zuverlässige Analyse ermöglicht,
-		allerdings nicht immer sinvoll ist.
-
-		Die Arbeit stellt effektive Methoden zur Erkennung und Auflösung von Mehrdeutigkeiten vor
-		und zeigt wie moderne Parser-Techniken dieser Problematik begegnen.
+		Es zeigt sich, dass die Vermeidung von Mehrdeutigkeiten in Grammatiken
+		ein einfacheres Parsen ermöglicht, allerdings nicht immer sinnvoll ist.
+		Die Arbeit stellt praxistaugliche Methoden zur Erkennung und Auflösung von Mehrdeutigkeiten vor
+		und zeigt wie Parser-Techniken dieser Problematik begegnen.
 
 		Die Abwägung zwischen der Einfachheit der Grammatik und der Lesbarkeit der Sprache zeigt,
-		dass eindeutige Sprachdesigns die Komplexität des Parsens reduzieren können,
-		aber Mehrdeutigkeiten nicht immer ein Hindernis darstellen müssen.
+		dass eindeutige Sprachkonzepte die Komplexität des Parsens reduzieren können,
+		aber Mehrdeutigkeiten dennoch nicht immer ein Hindernis darstellen müssen.
 
-		\keywords{Compilerbau, Syntaktische Mehrdeutigkeiten, Sprachdesign}
+		\keywords{Parserbau, syntaktische Mehrdeutigkeiten, Sprachkonzeption}
 	\end{abstract}
-	%
-	%Sample citation: \cite{gelman2013bayesian}.
-	%See Springer website\footnote{\url{https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines}.}
-	%for further inforamtion on the \LaTeX style.
-	%
 
 
 	\section{Einführung}\label{sec:einfuhrung}
@@ -498,6 +491,7 @@ int main() {
 	\footnotetext[1]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 149 - 150}
 	\footnotetext[2]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 147}
 
+
 	\section{Parsen von Mehrdeutigkeiten}\label{sec:parsen-von-mehrdeutigkeiten}
 
 	Zum Parsen von Mehrdeutigkeiten benötigt es komplexere Parser-Techniken als die klassischen LL- und LR-Parser.
@@ -507,13 +501,27 @@ int main() {
 	Parser-Generatoren wie ANTLR oder Bison verwenden Lookahead-Parser,
 	die beliebig viele nachfolgende Tokens betrachten.
 
-	HIER EVENTUELLE BEISPIEL FÜR EINEN LOOKAHEAD-PARSER (Dangling-Else)
-
 	Eine weitere Möglichkeit Mehrdeutigkeiten zu parsen sind Chart-Parser.
 	Eine Variante davon ist der CYK-Parser,
-	dieser ...
+	dieser benötigt eine Grammatik in der Chomsky-Normalform.
 
-	HIER EVENTUELLE BEISPIEL FÜR EINEN CYK-PARSER (Dangling-Else)
+	Wir betrachten beispielhaft unsere mehrdeutige ``Dangline-Else''-Grammatik in der CNF:
+	\begin{align*}
+		& P = \{ \begin{aligned}[t]
+			         \\
+			         S & \rightarrow h0 \ ausdruck \\
+			         h0 & \rightarrow h2 \ h1 \\
+			         h1 & \rightarrow \bold{else} \\
+			         h2 & \rightarrow h3 \ ausdruck \\
+			         h3 & \rightarrow h5 \ h4 \\
+			         h4 & \rightarrow \bold{then} \\
+			         h5 & \rightarrow h6 \ bedingung \\
+			         h6 & \rightarrow \bold{if} \\
+		\end{aligned} \\
+		& \}
+	\end{align*}
+	HIER BEISPIEL FÜR EINEN CYK-PARSER (Dangling-Else)
+
 
 	\section{Praktische Beispiele}\label{sec:praktische-beispiele}
 
@@ -521,26 +529,26 @@ int main() {
 	auch in Bereichen wie der Sprachverarbeitung und dem maschinellen Lernen von Bedeutung.
 	Neben Parser-Generatoren spielen Mehrdeutigkeiten auch bei Sprachmodellen wie dem GPT-3 eine Rolle.
 
+	- Swift Parser ein beispiel für lookahead https://stackoverflow.com/questions/36387657/how-does-swift-disambiguate-type-arguments-in-expression-contexts
+
 
 	\section{Fazit}\label{sec:zusammenfassung}
 
 	Abschließend lässt sich festhalten, dass Mehrdeutigkeiten in Grammatiken von Programmiersprachen
 	eine zentrale Herausforderung beim Parsen darstellen.
-	Durch die Vermeidung und Auflösung von Mehrdeutigkeiten können einfachere Parser verwendet werden
-	und wenn vermieden werden kann, dass Mehrdeutigkeiten an den Entwickler weitergegeben werden,
+	Durch die Vermeidung und Auflösung von Mehrdeutigkeiten können einfachere Parser verwendet werden.
+	Wenn vermieden werden kann, dass Mehrdeutigkeiten an den Entwickler weitergegeben werden,
 	erleichtert dies die Entwicklung in der jeweiligen Sprache.
 	Dies kann aber auch zu Einschränkungen in der Sprache führen und die Lesbarkeit des Codes beeinträchtigen.
-	Mehrdeutige Sprachen sind oft einfacher und intuitiver zu verstehen
-	und die Tatsache, dass viele gängige Programmiersprachen wie C, Java oder Python mehrdeutig sind,
-	zeigt, dass Mehrdeutigkeiten nicht immer ein Hindernis darstellen müssen.
+	Mehrdeutige Sprachen sind oft einfacher und intuitiver zu verstehen.
+	Die Tatsache, dass viele gängige Programmiersprachen wie C, Java oder Python mehrdeutig sind,
+	zeigt, dass Mehrdeutigkeiten in Programmiersprachen praxistauglich sind.
 
-	Neuere Programmiersprachen sind oft mehrdeutig und setzen auf teilweise komplexe Parser-Techniken,
-	um Mehrdeutigkeiten effizient aufzulösen.
-
-	Ein Beispiel dafür ist ...
-
-	Auch existieren immer mehr Ansätze, die auf natürliche Sprache setzten
-	und somit hin zu mehrdeutigen Sprachen tendieren.
+	Neuere Programmiersprachen wie Swift oder C# hingegen vermeiden oft Mehrdeutigkeiten
+	und können daher effizienter, beispielsweise mit einfachen Lookahead-Parsern, geparst werden.
+	Dem gegenüber stehen Ansätze wie AppleScript,
+	welches einen Syntax ähnlich der natürlichen Sprache besitzt
+	und damit besonders einsteigerfreundlich aber eben auch mehrdeutig ist.
 
 	Abschließend sollte festgehalten werden, dass bei der Konzeption einer neuen Programmiersprache
 	darauf geachtet werden sollte, keine Mehrdeutigkeiten an den Entwickler weiterzugeben.
