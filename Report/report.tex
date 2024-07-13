@@ -538,59 +538,59 @@ int main() {
 				node distance = 0pt,
 				every node/.style = {draw, minimum size=7mm, inner sep=0pt, outer sep=0pt}
 			]
-				\node (n1)  {S, A, H}
+				\node (n1)  {S, A, H};
 				%
-				\node (n11) [below left=of n1.south]    {D}
-				\node (n12) [right=of n11]              {}
+				\node (n11) [below left=of n1.south]    {D};
+				\node (n12) [right=of n11]              {};
 				%
-				\node (n21) [below left=of n11.south]   {S,A,H}
-				\node (n22) [right=of n21]              {}
-				\node (n23) [right=of n22]              {}
+				\node (n21) [below left=of n11.south]   {S,A,H};
+				\node (n22) [right=of n21]              {};
+				\node (n23) [right=of n22]              {};
 				%
-				\node (n31) [below left=of n21.south]   {}
-				\node (n32) [right=of n31]              {}
-				\node (n33) [right=of n32]              {}
-				\node (n34) [right=of n33]              {S,A}
+				\node (n31) [below left=of n21.south]   {};
+				\node (n32) [right=of n31]              {};
+				\node (n33) [right=of n32]              {};
+				\node (n34) [right=of n33]              {S,A};
 				%
-				\node (n41) [below left=of n31.south]   {}
-				\node (n42) [right=of n41]              {}
-				\node (n43) [right=of n42]              {}
-				\node (n44) [right=of n43]              {D}
+				\node (n41) [below left=of n31.south]   {};
+				\node (n42) [right=of n41]              {};
+				\node (n43) [right=of n42]              {};
+				\node (n44) [right=of n43]              {D};
 				\node (n45) [right=of n44]              {};
 
 				%
-				\node (n51) [below left=of n41.south]   {}
-				\node (n52) [right=of n51]              {}
-				\node (n53) [right=of n52]              {}
-				\node (n54) [right=of n53]              {S,A,H}
-				\node (n55) [right=of n54]              {}
-				\node (n56) [right=of n55]              {}
+				\node (n51) [below left=of n41.south]   {};
+				\node (n52) [right=of n51]              {};
+				\node (n53) [right=of n52]              {};
+				\node (n54) [right=of n53]              {S,A,H};
+				\node (n55) [right=of n54]              {};
+				\node (n56) [right=of n55]              {};
 				%
-				\node (n61) [below left=of n51.south]   {C}
-				\node (n62) [right=of n61]              {}
-				\node (n63) [right=of n62]              {}
-				\node (n64) [right=of n63]              {C}
-				\node (n65) [right=of n64]              {}
-				\node (n66) [right=of n65]              {}
-				\node (n67) [right=of n66]              {}
+				\node (n61) [below left=of n51.south]   {C};
+				\node (n62) [right=of n61]              {};
+				\node (n63) [right=of n62]              {};
+				\node (n64) [right=of n63]              {C};
+				\node (n65) [right=of n64]              {};
+				\node (n66) [right=of n65]              {};
+				\node (n67) [right=of n66]              {};
 				%
-				\node (n71) [below left=of n61.south]   {F}
-				\node (n72) [right=of n71]              {}
-				\node (n73) [right=of n72]              {}
-				\node (n74) [right=of n73]              {F}
-				\node (n75) [right=of n74]              {}
-				\node (n76) [right=of n75]              {}
-				\node (n77) [right=of n76]              {}
-				\node (n78) [right=of n77]              {}
+				\node (n71) [below left=of n61.south]   {F};
+				\node (n72) [right=of n71]              {};
+				\node (n73) [right=of n72]              {};
+				\node (n74) [right=of n73]              {F};
+				\node (n75) [right=of n74]              {};
+				\node (n76) [right=of n75]              {};
+				\node (n77) [right=of n76]              {};
+				\node (n78) [right=of n77]              {};
 				%
-				\node (n81) [below left=of n71.south]   {I}
-				\node (n82) [right=of n81]              {B}
-				\node (n83) [right=of n82]              {E}
-				\node (n84) [right=of n83]              {I}
-				\node (n85) [right=of n84]              {B}
-				\node (n86) [right=of n85]              {E}
-				\node (n87) [right=of n86]              {S,A}
-				\node (n88) [right=of n87]              {G}
+				\node (n81) [below left=of n71.south]   {I};
+				\node (n82) [right=of n81]              {B};
+				\node (n83) [right=of n82]              {E};
+				\node (n84) [right=of n83]              {I};
+				\node (n85) [right=of n84]              {B};
+				\node (n86) [right=of n85]              {E};
+				\node (n87) [right=of n86]              {S,A};
+				\node (n88) [right=of n87]              {G};
 				\node (n89) [right=of n88]              {S,A};
 
 			\end{tikzpicture}
@@ -617,7 +617,7 @@ int main() {
 	Mehrdeutige Sprachen sind oft einfacher und intuitiver zu verstehen.
 	Die Tatsache, dass viele gängige Programmiersprachen wie C, Java oder Python mehrdeutig sind,
 	zeigt, dass Mehrdeutigkeiten in Programmiersprachen praxistauglich sind.
-	Neuere Programmiersprachen wie Swift oder C# hingegen vermeiden oft Mehrdeutigkeiten
+	Neuere Programmiersprachen wie Swift oder C\# hingegen vermeiden oft Mehrdeutigkeiten
 	und können daher effizienter, beispielsweise mit einfachen Lookahead-Parsern, geparst werden.
 	Dem gegenüber stehen Ansätze wie AppleScript,
 	welches einen Syntax ähnlich der natürlichen Sprache besitzt
