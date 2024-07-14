@@ -1,4 +1,4 @@
-@misc{watrous2020,
+@misc{watrous2020parse,
     author = {Watrous, John},
     title = {Parse trees, ambiguity, and Chomsky normal form},
     year = {2020},
@@ -6,7 +6,7 @@
     note = {[Online; accessed 17-April-2024]}
 }
 
-@inproceedings{springer2013,
+@inproceedings{vasudevan2013detecting,
     abstract = {Ambiguous Context Free Grammars (CFGs) are problematic for programming languages, as they allow inputs to be parsed in more than one way. In this paper, we introduce a simple non-deterministic search-based approach to ambiguity detection which non-exhaustively explores a grammar in breadth for ambiguity. We also introduce two new techniques for generating random grammars --Boltzmann sampling and grammar mutation --allowing us to test ambiguity detection tools on much larger corpuses than previously possible. Our experiments show that our breadth-based approach to ambiguity detection performs as well as, and generally better, than extant tools.},
     address = {Cham},
     author = {Vasudevan, Naveneetha and Tratt, Laurence},
@@ -23,7 +23,26 @@
     year = {2013}
 }
 
-@article{wharton1976,
+@InProceedings{vasudevan2013operator,
+    author={Afroozeh, Ali
+and van den Brand, Mark
+and Johnstone, Adrian
+and Scott, Elizabeth
+and Vinju, Jurgen},
+    editor={Erwig, Martin
+and Paige, Richard F.
+and Van Wyk, Eric},
+    title={Safe Specification of Operator Precedence Rules},
+    booktitle={Software Language Engineering},
+    year={2013},
+    publisher={Springer International Publishing},
+    address={Cham},
+    pages={137--156},
+    abstract={In this paper we present an approach to specifying operator precedence based on declarative disambiguation constructs and an implementation mechanism based on grammar rewriting. We identify a problem with existing generalized context-free parsing and disambiguation technology: generating a correct parser for a language such as OCaml using declarative precedence specification is not possible without resorting to some manual grammar transformation. Our approach provides a fully declarative solution to operator precedence specification for context-free grammars, is independent of any parsing technology, and is safe in that it guarantees that the language of the resulting grammar will be the same as the language of the specification grammar. We evaluate our new approach by specifying the precedence rules from the OCaml reference manual against the highly ambiguous reference grammar and validate the output of our generated parser.},
+    isbn={978-3-319-02654-1}
+}
+
+@article{wharton1976resolution,
     abstract = {The use of context-free grammars to define the syntax of programming languages is complicated by the phenomenon of ambiguity. Ambiguity can be resolved by the specification of a unique canonical parse. A set of rules is given which defines a canonical bottom-up parse, and these rules are implemented in a left-to-right bottom-up parsing algorithm. A second set of rules is given which defines a canonical top-down parse, and these rules are similarly implemented in a left-to-right top-down parsing algorithm.},
     author = {Wharton, R.  M. },
     date = {1976/12/01},
@@ -42,7 +61,7 @@
     bdsk-url-1 = {https://doi.org/10.1007/BF00268139}
 }
 
-@misc{watrous,
+@misc{watrous2024parse,
     author = {Watrous, John},
     title = {Parse Trees, Ambiguity, and Chomsky Normal Form},
     year = {2024},
@@ -50,7 +69,7 @@
     note = {[Online; accessed 17-April-2024]}
 }
 
-@misc{parr,
+@misc{parr2024definitive,
     author = {Parr, Terence},
     title = {The Definitive ANTLR Reference},
     year = {2024},
@@ -58,7 +77,7 @@
     note = {[Online; accessed 12-June-2024]}
 }
 
-@InProceedings{kemp1974,
+@InProceedings{kemp1974automata,
     author={Kemp, R.},
     editor={Loeckx, Jacques},
     title={Mehrdeutigkeiten Kontextfreier Grammatiken},
@@ -67,7 +86,7 @@
     publisher={Springer Berlin Heidelberg},
     address={Berlin, Heidelberg},
     pages={534--546},
-    abstract = {Es wird ein Kriterium angegeben, bei dessen Erf{\"u}lltsein eine kontextfreie Grammatik G mehrdeutig wird. F{\"u}r bestimmte Klassen kontextfreier, chomskyreduzierter Grammatiken ergeben sich daraus Absch{\"a}tzungen f{\"u}r die Wahrscheinlichkeit, da{\ss} eine solche gegebene Grammatik G mehrdeutig ist. Es ergibt sich, da{\ss} eine Grammatik desto eher mehrdeutig ist, je n{\"a}her die Anzahl der Zwischenregeln mit verschiedenen Quellen in ihrer Chomskynormalform in der Gr{\"o}{\ss}enordnung des zugeh{\"o}rigen Hilfsalphabetes liegt.},
+    abstract={Es wird ein Kriterium angegeben, bei dessen Erf{\"u}lltsein eine kontextfreie Grammatik G mehrdeutig wird. F{\"u}r bestimmte Klassen kontextfreier, chomskyreduzierter Grammatiken ergeben sich daraus Absch{\"a}tzungen f{\"u}r die Wahrscheinlichkeit, da{\ss} eine solche gegebene Grammatik G mehrdeutig ist. Es ergibt sich, da{\ss} eine Grammatik desto eher mehrdeutig ist, je n{\"a}her die Anzahl der Zwischenregeln mit verschiedenen Quellen in ihrer Chomskynormalform in der Gr{\"o}{\ss}enordnung des zugeh{\"o}rigen Hilfsalphabetes liegt.},
     isbn={978-3-662-21545-6}
 }
 
@@ -80,7 +99,7 @@
     primaryClass={stat.ML}
 }
 
-@article{thorup1994,
+@article{thorup1994controlled,
     author = {Thorup, Mikkel},
     title = {Controlled Grammatic Ambiguity},
     year={1994},
@@ -88,7 +107,7 @@
     note = {[Online; accessed 17-April-2024]}
 }
 
-@article{Abrahams1966,
+@article{abrahams1966association,
     author = {Abrahams, Paul W.},
     title = {A final solution to the Dangling else of ALGOL 60 and related languages},
     year = {1966},
