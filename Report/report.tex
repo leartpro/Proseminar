@@ -54,7 +54,7 @@
 % If the paper title is too long for the running head, you can set
 % an abbreviated paper title here
 %
-    \author{Lennart Protte\inst{1}}
+    \author{Lennart Protte}
 %
     \authorrunning{Author}
 % First names are abbreviated in the running head.
@@ -90,9 +90,9 @@
     Dabei stellt sich die Frage nach der Definition von Mehrdeutigkeit
     und nach der Bedeutung von Mehrdeutigkeiten für die syntaktische Analyse im Parserbau.
 
-    Die Definition einer mehrdeutigen Grammatik lässt sich wie folgt ausdrücken:
-    ``Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.''
-    Daher ist eine Grammatik mehrdeutig, wenn ein Wort der Grammatik über mehrere Wege abgeleitet werden kann.
+    Die Frage nach der Definition einer mehrdeutigen Grammatik ist simpel zu beantworten.
+    Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.
+    Daher ist eine Grammatik mehrdeutig, wenn für ein Wort der Grammatik mehrere Linksableitungen existieren\cite{watrous2020parse}.
     Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
     Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
     Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
@@ -103,7 +103,7 @@
 
     Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
     Das wohl bekannteste Beispiel dafür ist das ``Dangling else''-Problem,
-    welches in vielen Compilern gängiger Programmiersprachen auftritt.
+    welches in vielen Compilern gängiger Programmiersprachen auftritt\cite{abrahams1966association}.
 
     Ein beispielhafter Ausschnitt aus den Produktionsregeln einer Grammatik, die den Syntax eines if-else-Statements beschreibt,
     ist der folgende:
@@ -181,7 +181,7 @@
     muss der Parser in der Lage sein, diese zu parsen.
     Um die korrekte Struktur eines mehrdeutigen Programmes zu ermitteln, benötigt ein Parser
     entweder zusätzliche Informationen oder eine festgelegte Vorgehensweise auf die er zurückgreifen kann.
-    Mehrdeutigkeiten die nicht aufgelöst werden können, da die Sprache inhärent Mehrdeutig ist,
+    Mehrdeutigkeiten die nicht aufgelöst werden können, da die Sprache inhärent Mehrdeutig ist\cite{hopcroft2006introduction},
     werden an den Programmierer weitergegeben und erschweren die Entwicklung in der jeweiligen Sprache.
 
 
@@ -220,23 +220,23 @@ int main() {
     An diesem Beispiel wird deutlich,
     wieso es nicht sinnvoll ist, Mehrdeutigkeiten an den Entwickler weiterzugeben.
     Der Code auf der linken Seite ist mehrdeutig und wird auch als fehlerhaft erkannt.
-    Die Mehrdeutigkeit kommt zu Stande, da die Klasse C von den Klassen A und B erbt,
+    Die Mehrdeutigkeit kommt zustande, da die Klasse C von den Klassen A und B erbt,
     die beide eine Methode mit dem Namen ``func'' besitzen.
     Beim Aufruf der Methode ``func'' auf einem Objekt der Klasse C ist unklar,
     ob die Methode von der Oberklasse A oder B aufgerufen werden soll.
     Diese Mehrfachvererbung führt dazu, dass sich nun der Entwickler mit dieser Mehrdeutigkeit auseinandersetzen muss.
     Dies passiert nur, weil die Sprache C++ keine explizite Angabe der Klasse bei einem Methodenaufruf verlangt.
-    In diesem Fall lässt sich die Mehrdeutigkeit durch so eine explizite Angabe der Klasse lösen,
+    In diesem Fall lässt sich die Mehrdeutigkeit durch eine explizite Angabe der Klasse lösen,
     wie im Code auf der rechten Seite zu sehen ist.
     Wenn Mehrdeutigkeiten nicht vermieden werden können,
     kann der Ansatz versucht werden, diese zu erkennen und aufzulösen.
-    Dies kann jedoch die Laufzeit und Komplexität eines Parsers beeinträchtigen und bedarf daher einer guten Abwägung.
+    Dies kann jedoch Einfluss auf die Laufzeit und Komplexität eines Parsers nehmen und bedarf daher einer guten Abwägung.
     Das Parsen von mehrdeutige Sprachen ist komplexer und weniger effizienter als bei eindeutigen Sprachen,
-    da für eine korrekte Lösung alle möglichen Ableitungen betrachtet werden müssen.
+    da für eine korrekte Lösung alle möglichen Ableitungen betrachtet werden müssen\cite{wharton1976resolution}.
     Eine weitere Problematik ist, dass es theoretisch nicht möglich ist zu entscheiden,
-    ob eine gegebene Grammatik mehrdeutig ist oder nicht.
+    ob eine gegebene Grammatik mehrdeutig ist oder nicht\cite{vasudevan2013detecting}.
     Dieses Problem, auch bekannt als Post'sche Korrespondenzproblem,
-    spielt vor allem in der Konzeption neuer Programmiersprachen eine Rolle.
+    spielt vor allem in der Konzeption neuer Programmiersprachen eine Rolle\cite{hans2014postsche}.
 
 
     \section{Vermeidung von Mehrdeutigkeiten}\label{sec:vermeidung-von-mehrdeutigkeiten}
@@ -247,7 +247,7 @@ int main() {
     Um eine Sprache eindeutig zu gestalten,
     muss die Grammatik der Sprache so konzipiert werden,
     dass es für jedes Wort der Sprache nur einen Parse-Baum gibt.
-    So können wir Beispielsweise die obige Grammatik des ``Dangling else''-Problems auch wie folgt realisieren\cite{Abrahams1966}:
+    So können wir Beispielsweise die obige Grammatik des ``Dangling else''-Problems auch wie folgt realisieren:
 
     \begin{align*}
         & P = \{ \begin{aligned}[t]
@@ -261,8 +261,8 @@ int main() {
     \end{align*}
 
     Dadurch, dass nun zwischen offenen und geschlossenen ``if''-Blöcken unterschieden wird,
-    kann diese Grammatik eindeutig von einem LR-Parser verarbeitet werden.
-    Allerdings kann es auch Nachteile haben, eine Sprache eindeutig zu gestalten.
+    kann diese Grammatik eindeutig von einem LR-Parser verarbeitet werden\cite{abrahams1966association}.
+    Allerdings kann es auch Nachteile haben, eine Sprache eindeutig zu gestalten\cite{wharton1976resolution}.
     So ist die Grammatik einer mehrdeutigen Sprache oft einfacher, kürzer und intuitiver als die einer eindeutigen Sprache
     und damit für den Entwickler der Sprache einfacher zu entwerfen.
     Auch können die Eindeutigkeitsanforderungen an eine Sprache schnell Boilerplate-Code verursachen.
@@ -291,18 +291,19 @@ int main() {
     Um eine eindeutige Grammatik für eine Sprache zu entwerfen,
     ist es notwendig diese Grammatik auf Mehrdeutigkeiten zu überprüfen.
     Wie bereits bemerkt, ist zu beachten, dass die Überprüfung, ob eine Grammatik mehrdeutig ist oder nicht,
-    unentscheidbar ist.\cite{hopcroft2006introduction}
+    unentscheidbar ist\cite{hopcroft2006introduction}.
+
     Daher wird auf Suchalgorithmen zurückgegriffen, die durch die Ableitungen der Grammatik traversieren
     und dabei auf Mehrdeutigkeiten prüfen.
     Diese bietet zwar keine sicheren Ergebnisse, aber immerhin eine gute Annäherung.
     Statistisch gesehen ist es wahrscheinlicher eine Mehrdeutigkeiten bei einer Breitensuche zu finden,
-    als bei einer Tiefensuche.\cite{springer2013}
-    Der ``dynamic1''-Algorithmus\cite{springer2013} ist ein nicht-deterministischer Algorithmus, welcher zufällige \\
+    als bei einer Tiefensuche.
+    Der ``dynamic1''-Algorithmus\cite{vasudevan2013detecting} ist ein nicht-deterministischer Algorithmus, welcher zufällige
     Ableitungsalternativen wählt und dabei bis zu einer festgelegten Tiefe traversiert.
     Wenn der Algorithmus diese Tiefe erreicht hat, bevorzugt er Alternativen, welche zuvor noch gar nicht oder
     verhältnismäßig selten gewählt oder weniger bis keine nicht-Terminalsymbole enthalten.
-    In einem Experiment\cite{springer2013} zeigte sich,
-    dass der ``dynamic1''-Algorithmus eine Verbesserung zu ACLA, AMBER und AmbiDexter darstellt.
+    In einem Experiment\cite{vasudevan2013detecting} zeigte sich,
+    dass dieser Algorithmus eine Verbesserung zu ACLA, AMBER und AmbiDexter darstellt.
     Zwar übersieht er teilweise Mehrdeutigkeiten, die von den anderen Algorithmen gefunden wurden,
     aber insgesamt findet er zum einen mehr und zum anderen deutlich tiefer verschachtelte Mehrdeutigkeiten.
 
@@ -312,7 +313,7 @@ int main() {
     Sollte eine Grammatik mehrdeutig sein, so muss ein Parser in der Lage sein, diese Mehrdeutigkeiten aufzulösen.
     Konkret bedeutet dies, dass zusätzliche Regeln
     wie beispielsweise Assoziativität und Vorrangregeln für Operatoren festgelegt werden müssen,
-    unter welchen die Grammatik in eine eindeutige Form gebracht werden kann.
+    unter welchen die Grammatik in eine eindeutige Form gebracht werden kann\cite{vasudevan2013operator}.
     Dazu eignet sich ein Algorithmus\footnotemark[1], welcher die gegebenen Regeln auf die Grammatik anwendet
     und sie so in eine eindeutige Form transformiert.
     Der Algorithmus arbeitet mit sogenannten ``Mustern zur Beseitigung von Mehrdeutigkeiten''.
@@ -469,15 +470,16 @@ int main() {
     Hier wurde der verschachtelte Fall aufgelöst,
     wo die Multiplikation über einen Zwischenschritt von rechts aufgebaut werden konnte.
     Eine solche Grammatik kann dann effizient und in linearer Zeit von einem LR-Parser verarbeitet werden.
+
     Eine weitere Möglichkeit Mehrdeutigkeiten in einer gegebenen Grammatik aufzulösen
     ist die Umformung der Grammatik in die Chomsky-Normalform.
-    Bei der Umformung in die Chomsky-Normalform können Mehrdeutigkeiten aufgelöst werden, dies muss aber nicht passieren.
+    Bei der Umformung in die Chomsky-Normalform können Mehrdeutigkeiten aufgelöst werden, dies muss aber nicht passieren\cite{kemp1974automata}.
     Nach der Umformung kann daher keine Aussage über die Mehrdeutigkeit der Grammatik getroffen werden.
     Dennoch kann eine Umformung in die Chomsky-Normalform sinnvoll sein, besonders da die Parse-Bäume,
-    die aus einer Grammatik in der Chomsky-Normalform resultieren, immer Binärbäume sind.
+    die aus einer Grammatik in der Chomsky-Normalform resultieren, immer Binärbäume sind\cite{watrous2020parse}.
 
-    \footnotetext[1]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 149 - 150}
-    \footnotetext[2]{Vasudevan, N., Tratt, L. (2013). Detecting Ambiguity in Programming Language Grammars. Seite 147}
+    \footnotetext[1]{Vasudevan, N., Tratt, L. (2013). Safe Specification of Operator Precedence Rules Seite 149 - 150}
+    \footnotetext[2]{Vasudevan, N., Tratt, L. (2013). Safe Specification of Operator Precedence Rules. Seite 147}
 
 
     \newpage
@@ -485,16 +487,16 @@ int main() {
 
     \section{Parsen von Mehrdeutigkeiten}\label{sec:parsen-von-mehrdeutigkeiten}
 
-    Zum Parsen von Mehrdeutigkeiten benötigt es komplexere Parser-Techniken als die klassischen LL- und LR-Parser.
+    Zum Parsen von Mehrdeutigkeiten benötigt es teilweise komplexere Parser-\\Techniken als die klassischen LL- und LR-Parser\cite{thorup1994controlled}.
     Um die richtige aus den möglichen Ableitungen zu wählen,
     muss ein Parser in der Lage sein, alle möglichen Ableitungen zu finden.
     Eine Möglichkeit Mehrdeutigkeiten zu parsen sind Lookahead-Parser.
     Lookaheads sind eine Technik, bei der der Parser nicht nur das aktuelle Token betrachtet,
     wie es bei einem LL- oder LR-Parser der Fall ist, sondern auch nachfolgende Tokens.
     Beispielsweise verwendet der ANTLR-Parser-Generator Lookaheads,
-    für beliebig viele nachfolgende Tokens.
+    für beliebig viele nachfolgende Tokens\cite{parr2024definitive}.
     Eine weitere Möglichkeit Mehrdeutigkeiten zu parsen sind Chart-Parser.
-    Eine Variante davon ist der CYK-Parser, welcher auf dem Cocke-Younger-Kasami-Algorithmus basiert.
+    Eine Variante davon ist der CYK-Parser\cite{klaus2009cky}, welcher auf dem Cocke-Younger-Kasami-Algorithmus basiert.
     Dieser benötigt eine Grammatik in der Chomsky-Normalform.
     Wir betrachten beispielhaft unsere mehrdeutige ``Dangline-Else''-Grammatik in der Chomsky-Normalform.
     Für das Wort ``\textbf{if} $bedingung$ \textbf{then} \textbf{if} $bedingung$ \textbf{then} $ausdruck$ \textbf{else} $ausdruck$'',
@@ -600,14 +602,14 @@ int main() {
     Abschließend lässt sich festhalten, dass Mehrdeutigkeiten in Grammatiken von Programmiersprachen
     eine Herausforderung beim Parsen darstellen.
     Durch die Vermeidung von Mehrdeutigkeiten in der Sprache können einfachere und effizientere Parser verwendet werden.
-    Neuere Programmiersprachen wie Swift oder C\# vermeiden Mehrdeutigkeiten
+    Neuere Programmiersprachen wie Swift\cite{apple2024swift} oder C\# vermeiden Mehrdeutigkeiten
     und können daher effizienter, beispielsweise mit einfachen Lookahead-Parsern, geparst werden.
     Wenn zudem vermieden werden kann, dass Mehrdeutigkeiten an den Entwickler weitergegeben werden,
     erleichtert es zusätzlich die Entwicklung in der jeweiligen Sprache.
     Auf der anderen Seite kann die Vermeidung von Mehrdeutigkeiten zu Boilerplate-Code führen.
     Die Tatsache, dass viele gängige Programmiersprachen wie C, Java oder Python Mehrdeutigkeiten aufweisen,
     zeigt, dass Mehrdeutigkeiten in Programmiersprachen praxistauglich sind.
-    Ein weiteres Beispiel für die Eignung von mehrdeutiger Sprache im Programmieren ist AppleScript,
+    Ein weiteres Beispiel für die Eignung von mehrdeutiger Sprache im Programmieren ist AppleScript\cite{apple2016script},
     welches eine Syntax ähnlich der natürlichen Sprache besitzt
     und damit besonders einsteigerfreundlich ist.
     Die Tatsache aber, dass mehrdeutiger Code das Programmieren erschweren kann
@@ -624,7 +626,7 @@ int main() {
 %
 
 
-    \nocite{*}
+    %\nocite{*}
     \bibliographystyle{splncs04}
     \bibliography{refs}
 \end{document}
