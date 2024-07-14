@@ -31,7 +31,7 @@
 \usepackage{blkarray}
 \usepackage{comment}
 \usepackage{footnote}
-
+\usepackage[ngerman]{babel}
 
 \renewcommand{\Coloneqq}{\mathrel{\mathop{::}}=}
 
@@ -93,19 +93,19 @@
     Die Frage nach der Definition einer mehrdeutigen Grammatik ist simpel zu beantworten.
     Eine Grammatik ist genau dann mehrdeutig, wenn es mindestens eine Eingabe gibt, die mehrere Parse-Bäume besitzt.
     Daher ist eine Grammatik mehrdeutig, wenn für ein Wort der Grammatik mehrere Linksableitungen existieren\cite{watrous2020parse}.
-    Bei Mehrdeutigkeiten lässt sich zwischen lexikalischer und syntaktischer Mehrdeutigkeit unterscheiden.
-    Lexikalische Mehrdeutigkeiten treten auf, wenn ein Token mehrere Bedeutungen haben kann.
-    Ein Beispiel hierfür ist die lexikalische Mehrdeutigkeit des Tokens ``+'' in der Programmiersprache Java.
+    Bei Mehrdeutigkeiten lässt sich zwischen semantischer und syntaktischer Mehrdeutigkeit unterscheiden.
+    Semantische Mehrdeutigkeiten treten auf, wenn ein Token je nach Operation mehrere Bedeutungen haben kann.
+    Ein Beispiel hierfür ist die semantische Mehrdeutigkeit des Tokens \glqq +\grqq{} in der Programmiersprache Java.
 
-    In Java kann das Token ``+'' sowohl als arithmetischer Operator,
+    In Java kann das Token \glqq +\grqq{} sowohl als arithmetischer Operator,
     als auch als Konkatenationsoperator von Strings verstanden werden.
-    Solche lexikalischen Mehrdeutigkeiten werden im Lexer behandelt und im Weiteren nicht näher betrachtet.
+    Solche Mehrdeutigkeiten werden in der semantischen Analyse behandelt und im Weiteren nicht näher betrachtet.
 
     Syntaktische Mehrdeutigkeiten hingegen entstehen durch die Struktur der Grammatik selbst.
-    Das wohl bekannteste Beispiel dafür ist das ``Dangling else''-Problem,
+    Das wohl bekannteste Beispiel dafür ist das \glqq Dangling else\grqq{}-Problem,
     welches in vielen Compilern gängiger Programmiersprachen auftritt\cite{abrahams1966association}.
 
-    Ein beispielhafter Ausschnitt aus den Produktionsregeln einer Grammatik, die den Syntax eines if-else-Statements beschreibt,
+    Ein beispielhafter Ausschnitt aus den Produktionsregeln einer Grammatik, die den Syntax einer Wenn-Dann-Abfrage beschreiben,
     ist der folgende:
 
 
@@ -119,9 +119,9 @@
     \end{align*}
 
     Wie zu erkennen ist, ist diese Grammatik mehrdeutig, da unklar ist,
-    welcher ``else''-Block zu welchem ``if''-Block gehört.
+    welcher \glqq else\grqq{}-Block zu welchem \glqq if\grqq{}-Block gehört.
     Im Folgenden sind zwei unterschiedliche Parse-Bäume des Wortes
-    ``\textbf{if} $bedingung$ \textbf{then} \textbf{if} $bedingung$ \textbf{then} $ausdruck$ \textbf{else} $ausdruck$''
+    \glqq \textbf{if} $bedingung$ \textbf{then} \textbf{if} $bedingung$ \textbf{then} $ausdruck$ \textbf{else} $ausdruck$\grqq{}
     dargestellt.
 
     \begin{figure}
@@ -180,8 +180,9 @@
     Wenn Mehrdeutigkeiten bei der Konzeption einer Programmiersprache nicht vermieden werden können,
     muss der Parser in der Lage sein, diese zu parsen.
     Um die korrekte Struktur eines mehrdeutigen Programmes zu ermitteln, benötigt ein Parser
-    entweder zusätzliche Informationen oder eine festgelegte Vorgehensweise auf die er zurückgreifen kann.
-    Mehrdeutigkeiten die nicht aufgelöst werden können, da die Sprache inhärent Mehrdeutig ist\cite{hopcroft2006introduction},
+    entweder zusätzliche Informationen oder eine festgelegte Vorgehensweise,
+    um diese Mehrdeutigkeiten aufzulösen.
+    Mehrdeutigkeiten die nicht aufgelöst werden können, da die Sprache inhärent mehrdeutig ist\cite{hopcroft2006introduction},
     werden an den Programmierer weitergegeben und erschweren die Entwicklung in der jeweiligen Sprache.
 
 
@@ -221,8 +222,8 @@ int main() {
     wieso es nicht sinnvoll ist, Mehrdeutigkeiten an den Entwickler weiterzugeben.
     Der Code auf der linken Seite ist mehrdeutig und wird auch als fehlerhaft erkannt.
     Die Mehrdeutigkeit kommt zustande, da die Klasse C von den Klassen A und B erbt,
-    die beide eine Methode mit dem Namen ``func'' besitzen.
-    Beim Aufruf der Methode ``func'' auf einem Objekt der Klasse C ist unklar,
+    die beide eine Methode mit dem Namen \glqq func\grqq{} besitzen.
+    Beim Aufruf der Methode \glqq func\grqq{} auf einem Objekt der Klasse C ist unklar,
     ob die Methode von der Oberklasse A oder B aufgerufen werden soll.
     Diese Mehrfachvererbung führt dazu, dass sich nun der Entwickler mit dieser Mehrdeutigkeit auseinandersetzen muss.
     Dies passiert nur, weil die Sprache C++ keine explizite Angabe der Klasse bei einem Methodenaufruf verlangt.
@@ -230,7 +231,7 @@ int main() {
     wie im Code auf der rechten Seite zu sehen ist.
     Wenn Mehrdeutigkeiten nicht vermieden werden können,
     kann der Ansatz versucht werden, diese zu erkennen und aufzulösen.
-    Dies kann jedoch Einfluss auf die Laufzeit und Komplexität eines Parsers nehmen und bedarf daher einer guten Abwägung.
+    Dies kann jedoch Einfluss auf die Laufzeit und Komplexität eines Parsers nehmen und bedarf daher einer guten Abwägung\cite{aho2006compilers}.
     Das Parsen von mehrdeutige Sprachen ist komplexer und weniger effizienter als bei eindeutigen Sprachen,
     da für eine korrekte Lösung alle möglichen Ableitungen betrachtet werden müssen\cite{wharton1976resolution}.
     Eine weitere Problematik ist, dass es theoretisch nicht möglich ist zu entscheiden,
@@ -247,7 +248,7 @@ int main() {
     Um eine Sprache eindeutig zu gestalten,
     muss die Grammatik der Sprache so konzipiert werden,
     dass es für jedes Wort der Sprache nur einen Parse-Baum gibt.
-    So können wir Beispielsweise die obige Grammatik des ``Dangling else''-Problems auch wie folgt realisieren:
+    So können wir Beispielsweise die obige Grammatik des \glqq Dangling else\grqq{}-Problems auch wie folgt realisieren:
 
     \begin{align*}
         & P = \{ \begin{aligned}[t]
@@ -260,7 +261,7 @@ int main() {
         & \}
     \end{align*}
 
-    Dadurch, dass nun zwischen offenen und geschlossenen ``if''-Blöcken unterschieden wird,
+    Dadurch, dass nun zwischen offenen und geschlossenen \glqq if\grqq{}-Blöcken unterschieden wird,
     kann diese Grammatik eindeutig von einem LR-Parser verarbeitet werden\cite{abrahams1966association}.
     Allerdings kann es auch Nachteile haben, eine Sprache eindeutig zu gestalten\cite{wharton1976resolution}.
     So ist die Grammatik einer mehrdeutigen Sprache oft einfacher, kürzer und intuitiver als die einer eindeutigen Sprache
@@ -298,7 +299,7 @@ int main() {
     Diese bietet zwar keine sicheren Ergebnisse, aber immerhin eine gute Annäherung.
     Statistisch gesehen ist es wahrscheinlicher eine Mehrdeutigkeiten bei einer Breitensuche zu finden,
     als bei einer Tiefensuche.
-    Der ``dynamic1''-Algorithmus\cite{vasudevan2013detecting} ist ein nicht-deterministischer Algorithmus, welcher zufällige
+    Der \glqq dynamic1\grqq{}-Algorithmus\cite{vasudevan2013detecting} ist ein nicht-deterministischer Algorithmus, welcher zufällige
     Ableitungsalternativen wählt und dabei bis zu einer festgelegten Tiefe traversiert.
     Wenn der Algorithmus diese Tiefe erreicht hat, bevorzugt er Alternativen, welche zuvor noch gar nicht oder
     verhältnismäßig selten gewählt oder weniger bis keine nicht-Terminalsymbole enthalten.
@@ -311,12 +312,12 @@ int main() {
     \section{Auflösung von Mehrdeutigkeiten}\label{sec:auflosung-von-mehrdeutigkeiten}
 
     Sollte eine Grammatik mehrdeutig sein, so muss ein Parser in der Lage sein, diese Mehrdeutigkeiten aufzulösen.
-    Konkret bedeutet dies, dass zusätzliche Regeln
-    wie beispielsweise Assoziativität und Vorrangregeln für Operatoren festgelegt werden müssen,
-    unter welchen die Grammatik in eine eindeutige Form gebracht werden kann\cite{vasudevan2013operator}.
+    Um dies zu erreichen, können zusätzliche Regeln,
+    wie beispielsweise Assoziativität und Vorrangregeln, für Operatoren festgelegt werden,
+    unter welchen die Grammatik dann in eine eindeutige Form gebracht werden kann\cite{vasudevan2013operator}.
     Dazu eignet sich ein Algorithmus\footnotemark[1], welcher die gegebenen Regeln auf die Grammatik anwendet
     und sie so in eine eindeutige Form transformiert.
-    Der Algorithmus arbeitet mit sogenannten ``Mustern zur Beseitigung von Mehrdeutigkeiten''.
+    Der Algorithmus arbeitet mit sogenannten \glqq Mustern zur Beseitigung von Mehrdeutigkeiten\grqq{}.
     Ein Muster ist ein vier-Tupel $(S, \alpha \circ \beta, \gamma)$, mit $S$ als das Startsymbol der Produktion,
     $\alpha \circ \beta$ sind zwei Nichtterminale aus $G$ mit $\circ$ als Operator und $\gamma$ ist die gewählte Ableitung,
     wobei $\bullet$ markiert, ob $\alpha$ oder $\beta$ abgeleitet wird.
@@ -498,8 +499,8 @@ int main() {
     Eine weitere Möglichkeit Mehrdeutigkeiten zu parsen sind Chart-Parser.
     Eine Variante davon ist der CYK-Parser\cite{klaus2009cky}, welcher auf dem Cocke-Younger-Kasami-Algorithmus basiert.
     Dieser benötigt eine Grammatik in der Chomsky-Normalform.
-    Wir betrachten beispielhaft unsere mehrdeutige ``Dangline-Else''-Grammatik in der Chomsky-Normalform.
-    Für das Wort ``\textbf{if} $bedingung$ \textbf{then} \textbf{if} $bedingung$ \textbf{then} $ausdruck$ \textbf{else} $ausdruck$'',
+    Wir betrachten beispielhaft unsere mehrdeutige \glqq Dangline-Else\grqq{}-Grammatik in der Chomsky-Normalform.
+    Für das Wort \glqq \textbf{if} $bedingung$ \textbf{then} \textbf{if} $bedingung$ \textbf{then} $ausdruck$ \textbf{else} $ausdruck$\grqq{},
     stellt der CYK-Parser folgende Tabelle auf:
 
     \begin{figure}
@@ -601,7 +602,7 @@ int main() {
 
     Abschließend lässt sich festhalten, dass Mehrdeutigkeiten in Grammatiken von Programmiersprachen
     eine Herausforderung beim Parsen darstellen.
-    Durch die Vermeidung von Mehrdeutigkeiten in der Sprache können einfachere und effizientere Parser verwendet werden.
+    Durch die Vermeidung von Mehrdeutigkeiten in der Sprache können einfachere und effizientere Parser verwendet werden\footnotemark[3].
     Neuere Programmiersprachen wie Swift\cite{apple2024swift} oder C\# vermeiden Mehrdeutigkeiten
     und können daher effizienter, beispielsweise mit einfachen Lookahead-Parsern, geparst werden.
     Wenn zudem vermieden werden kann, dass Mehrdeutigkeiten an den Entwickler weitergegeben werden,
@@ -613,10 +614,12 @@ int main() {
     welches eine Syntax ähnlich der natürlichen Sprache besitzt
     und damit besonders einsteigerfreundlich ist.
     Die Tatsache aber, dass mehrdeutiger Code das Programmieren erschweren kann
-    und dass Parser für mehrdeutige Sprachen weniger effizient sind,
+    und dass Parser für mehrdeutige Sprachen weniger effizient sind\footnotemark[3],
     zeigt, dass bei der Konzeption einer neuen Programmiersprache
     darauf geachtet werden sollte, Mehrdeutigkeiten grundsätzlich zu vermeiden
     und nicht an den Entwickler weiterzugeben.
+
+    \footnotetext[3]{Aho, Alfred V. and Lam, Monica S. and Sethi, Ravi and Ullman, Jeffrey D. (2006). Compilers: Principles, Techniques, and Tools, Seite 192}
 
 %
 % ---- Bibliography ----
